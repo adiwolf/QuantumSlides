@@ -150,25 +150,16 @@
             <h2 class="animated anim-1">תכונה 1: סוּפֶּרפּוֹזִיצְיָה (Superposition)</h2>
             <div class="flex flex-col md:flex-row items-center gap-8 mt-6">
                 <div class="animated anim-2 md:w-1/2 text-right">
-                    <p>קיוביט יכול להיות במצב 0, במצב 1, או <span class="text-violet-400 font-bold">צירוף של שניהם</span>.</p>
+                    <p>קיוביט יכול להיות במצב 0, במצב 1, או <span class="text-violet-400 font-bold">צירוף של שניהם</span>. לדוגמה,</p>
                     <p class="mt-4"><div dir="ltr">
-  $$ \frac{\text{לדוגמה (מצב 0 + מצב 1)}}{\sqrt{2}} $$</div></p>
+  $$ \frac{\text{ (מצב 0 + מצב 1)}}{\sqrt{2}} $$</div></p>
                 </div>
                 <div class="animated anim-3 md:w-1/2">
-                    <svg viewBox="0 0 200 200" class="mx-auto w-64 h-64">
-                         <defs>
-                            <radialGradient id="blochGradient2" cx="50%" cy="50%" r="50%">
-                                <stop offset="0%" style="stop-color:rgba(129, 140, 248, 0.1)" />
-                                <stop offset="100%" style="stop-color:rgba(129, 140, 248, 0.5)" />
-                            </radialGradient>
-                        </defs>
-                        <circle cx="100" cy="100" r="90" fill="url(#blochGradient2)" stroke="#818cf8" stroke-width="2"/>
-                        <line x1="100" y1="10" x2="100" y2="190" stroke="#a78bfa" stroke-width="2" stroke-dasharray="5"/>
-                        <path d="M100 100 Q 150 50 160 140" stroke="#e0e0e0" stroke-width="3" fill="none"/>
-                        <circle cx="160" cy="140" r="8" fill="#facc15"/>
-                        <text x="92" y="25" fill="#e0e0e0" font-size="20">\(|0\rangle\)</text>
-                        <text x="92" y="185" fill="#e0e0e0" font-size="20">\(|1\rangle\)</text>
-                    </svg>
+                    <div style="text-align: center; padding: 2rem 0;">
+    <img src="img1.png" 
+         alt="איור של מטבע מסתחרר באוויר" 
+         style="max-width: 100%; width: 250px; height: auto;">
+</div>
                 </div>
             </div>
         </div>
@@ -312,7 +303,7 @@
                     <div class="flex-shrink-0">
                         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Peter_Shor.jpg/220px-Peter_Shor.jpg" onerror="this.onerror=null;this.src='https://placehold.co/64x64/333/ccc?text=Shor';" alt="פיטר שור" class="w-16 h-16 rounded-full object-cover border-2 border-indigo-400">
                     </div>
-                    <p class="text-xl"><strong class="text-indigo-300">1994:</strong> <span class="font-bold">פיטר שור</span> מפתח אלגוריתם המאיים על כל מערכות ההצפנה המודרניות - ה"אפליקציה הרצחנית" שמזניקה את התחום.</p>
+                    <p class="text-xl"><strong class="text-indigo-300">1994:</strong> <span class="font-bold">פיטר שור</span> מפתח אלגוריתם המאיים על כל מערכות ההצפנה המודרניות - ה "killer app" שמזניקה את התחום.</p>
                 </li>
                 <li class="animated anim-4 flex items-center gap-6">
                     <div class="flex-shrink-0">
@@ -335,7 +326,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
                 <div class="animated anim-3">
                     <h3 class="text-2xl font-bold text-violet-300">ענקיות הטכנולוגיה</h3>
-                    <p class="mt-2">IBM ו-Google מובילות בפיתוח חומרה. ב-2019 גוגל טענה ל"עליונות קוונטית" עם מעבד ה-Sycamore. IBM מציעה גישה למחשביה דרך הענן.</p>
+                    <p class="mt-2">IBM ו-Google מובילות בפיתוח חומרה.\\n ב-2019 גוגל טענה ל"עליונות קוונטית" עם מעבד ה-Sycamore.\\n IBM מציעה גישה למחשביה דרך הענן.</p>
                     <div class="flex justify-center gap-4 mt-4 opacity-70">
                         <span class="font-bold">IBM</span>
                         <span class="font-bold">Google</span>
@@ -400,9 +391,8 @@
                 </div>
                 <div class="animated anim-4 mt-8">
                     <h3 class="text-2xl font-bold text-indigo-300">סיכום</h3>
-                    <p class="mt-2">חישוב קוונטי הוא תחום המשלב פיזיקה, הנדסה ומדעי המחשב, ומבטיח לחולל מהפכה. אף שהדרך למחשב קוונטי יציב ונטול שגיאות עוד ארוכה, ההתקדמות מסחררת.</p>
-                    <p class="mt-4 font-bold text-yellow-300">ישראל, עם ההון האנושי והאקוסיסטם החדשני שלה, ממוקמת בעמדה מצוינת לתרום ולהוביל בחזית המהפכה הקוונטית.</p>
-                </div>
+                    <p class="mt-2">חישוב קוונטי הוא תחום המשלב פיזיקה, הנדסה ומדעי המחשב, ומבטיח לחולל מהפכה, אך הדרך למחשב קוונטי יציב ונטול שגיאות עוד ארוכה. בשיעורים הבאים נניח יסודות למושגים המתמטיים הנדרשים ואז נצלול לעקרונות החישוב הקוונטי ונלמד אלוריתמים קוונטיים.</p>
+                    
             </div>
         </div>
     </div>
