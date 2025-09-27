@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>מבוא לחישוב קוונטי: חוויה אינטראקטיבית</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Calm Neutrals (Slate and Sky Blue) -->
+    <!-- Application Structure Plan: The SPA is structured thematically rather than linearly like the source presentation. It uses a top navigation bar for direct access to key sections: Introduction, Core Principles, Applications, History, Global Race, and Challenges. This non-linear design encourages user-driven exploration of a complex topic. Interactions like a clickable timeline and tabbed content sections are used to break down information into digestible chunks, making it more engaging and easier to understand than a simple scroll. This structure was chosen to transform a passive presentation into an active learning tool. -->
+    <!-- Visualization & Content Choices: Report Info: Historical figures and milestones -> Goal: Show chronological progression -> Viz: Interactive horizontal timeline (HTML/CSS/JS) -> Interaction: Click on a milestone to reveal a popup with details -> Justification: More engaging than a list, clarifies the historical flow. | Report Info: Key players (companies, countries) -> Goal: Organize and compare -> Viz: Tabbed card layout (HTML/CSS/JS) -> Interaction: Switch between tabs to see different categories -> Justification: Prevents information overload by grouping related entities. | Report Info: Quantum principles -> Goal: Explain abstract concepts -> Viz: Side-by-side cards with simple CSS animations -> Interaction: Hover effects and clickable reveals for details -> Justification: Visually contrasts classical vs. quantum and simplifies complex ideas. All visualizations are built with HTML/CSS and JS, adhering to the NO SVG/Mermaid constraint. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Assistant', sans-serif;
+            scroll-behavior: smooth;
+        }
+        .timeline-item-content {
+            transition: max-height 0.5s ease-in-out, opacity 0.5s ease-in-out;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            top: 1.25rem;
+            right: -0.3125rem;
+            width: 0.625rem;
+            height: 0.625rem;
+            border-radius: 50%;
+            background-color: #38bdf8;
+            border: 2px solid #f0f9ff;
+        }
+        .timeline::after {
+            content: '';
+            position: absolute;
+            top: 1.25rem;
+            right: -1px;
+            bottom: 0;
+            width: 2px;
+            background-color: #e0f2fe;
+        }
+        .active-nav {
+            color: #0ea5e9;
+            border-bottom-color: #0ea5e9;
+        }
+        .nav-link {
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+    <header class="bg-white/80 backdrop-blur-md sticky top-0 z-50 shadow-sm">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex-shrink-0">
+                    <h1 class="text-xl font-bold text-sky-600">המהפכה הקוונטית</h1>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4 space-x-reverse">
+                        <a href="#intro" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-slate-700 hover:text-sky-600">מבוא</a>
+                        <a href="#principles" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-slate-700 hover:text-sky-600">עקרונות</a>
+                        <a href="#motivation" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-slate-700 hover:text-sky-600">יישומים</a>
+                        <a href="#history" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-slate-700 hover:text-sky-600">היסטוריה</a>
+                        <a href="#race" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-slate-700 hover:text-sky-600">המירוץ העולמי</a>
+                        <a href="#challenges" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-slate-700 hover:text-sky-600">אתגרים</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="max-w-5xl mx-auto p-4 sm:p-6 lg:p-8">
+
+        <section id="intro" class="min-h-screen flex flex-col justify-center items-center text-center pt-16">
+            <h2 class="text-4xl md:text-6xl font-extrabold text-slate-900 mb-4">מבוא לחישוב קוונטי</h2>
+            <p class="text-lg md:text-xl text-slate-600 mb-12 max-w-3xl">מהפכה במחשוב: סקירה היסטורית, מניעים והמצב כיום בישראל ובעולם. בואו נצא למסע אל עולם החישוב הבא.</p>
+            
+            <div class="grid md:grid-cols-2 gap-8 w-full max-w-4xl">
+                <div class="bg-white p-8 rounded-2xl shadow-lg border border-slate-200">
+                    <h3 class="text-2xl font-bold mb-4 text-sky-600">חישוב קלאסי</h3>
+                    <p class="text-5xl mb-4">0 | 1</p>
+                    <ul class="space-y-2 text-slate-600 text-right">
+                        <li>מבוסס על "ביטים" (סיביות).</li>
+                        <li>כל ביט יכול להיות רק באחד משני מצבים: 0 או 1.</li>
+                        <li>היסוד של כל הטכנולוגיה הדיגיטלית כיום.</li>
+                    </ul>
+                </div>
+                <div class="bg-slate-800 text-white p-8 rounded-2xl shadow-2xl border border-slate-600">
+                    <h3 class="text-2xl font-bold mb-4 text-sky-400">חישוב קוונטי</h3>
+                    <div class="text-5xl mb-4 relative">
+                        <span>|ψ⟩</span>
+                        <span class="absolute text-lg top-0 right-0 text-sky-400 animate-pulse">α|0⟩ + β|1⟩</span>
+                    </div>
+                    <ul class="space-y-2 text-slate-300 text-right">
+                        <li>מבוסס על "קיוביטים" (סיביות קוונטיות).</li>
+                        <li>יכול להיות 0, 1, או שניהם בו-זמנית (סופרפוזיציה).</li>
+                        <li>מאפשר כוח חישוב אקספוננציאלי.</li>
+                    </ul>
+                </div>
+            </div>
+            <p class="mt-8 text-slate-500">גללו מטה כדי לגלות עוד</p>
+        </section>
+
+        <section id="principles" class="py-20">
+            <h2 class="text-3xl font-bold text-center mb-12">כוחות העל של הקוונטים</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-bold mb-3 text-sky-700">סופרפוזיציה</h3>
+                    <p class="text-slate-600 mb-4">בניגוד לביט, קיוביט יכול להיות 0, 1, או שניהם בו-זמנית. תכונה זו מאפשרת חישובים רבים במקביל, מה שמעניק למחשב כוח חישוב שגדל באופן אקספוננציאלי עם כל קיוביט נוסף.</p>
+                    <p class="text-sm text-slate-500 italic">"דמיינו מטבע שמסתובב באוויר והוא גם 'עץ' וגם 'פלי' עד לרגע שהוא נוחת. היכולת הזו להחזיק ריבוי ערכים מאפשרת כוח חישוב עצום."</p>
+                    <div class="mt-4">
+                        <button id="superposition-analogy-btn" class="gemini-btn inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-sky-600 hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500">
+                            ✨ הסבר באנלוגיה
+                        </button>
+                        <div id="superposition-analogy-result" class="mt-4 p-4 bg-sky-50 rounded-md text-slate-700 border border-sky-200 hidden min-h-[80px]"></div>
+                    </div>
+                </div>
+                 <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-bold mb-3 text-sky-700">שזירה (Entanglement)</h3>
+                    <p class="text-slate-600 mb-4">ניתן ליצור קשר "מבעית" בין שני קיוביטים או יותר. מצבו של קיוביט אחד משפיע מיידית על השני, לא משנה המרחק ביניהם. איינשטיין, שהיה סקפטי, כינה זאת 'פעולה מבעיתה ממרחק'.</p>
+                    <p class="text-sm text-slate-500 italic">"כאשר שני קיוביטים שזורים, הם הופכים לישות אחת. מדידה של אחד קובעת מיד את מצבו של השני... זהו המפתח לאלגוריתמים קוונטיים רבי עוצמה."</p>
+                    <div class="mt-4">
+                        <button id="entanglement-analogy-btn" class="gemini-btn inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-sky-600 hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500">
+                            ✨ הסבר באנלוגיה
+                        </button>
+                        <div id="entanglement-analogy-result" class="mt-4 p-4 bg-sky-50 rounded-md text-slate-700 border border-sky-200 hidden min-h-[80px]"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="motivation" class="py-20 bg-slate-100 rounded-xl">
+            <h2 class="text-3xl font-bold text-center mb-12">למה זה חשוב? היישומים המרכזיים</h2>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow">
+                    <h3 class="text-lg font-bold mb-2 text-sky-700">פיתוח תרופות וחומרים</h3>
+                    <p class="text-slate-600">סימולציה מדויקת של מולקולות תאיץ דרמטית גילוי תרופות חדשות וחומרים בעלי תכונות רצויות.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow">
+                    <h3 class="text-lg font-bold mb-2 text-sky-700">פיננסים ואופטימיזציה</h3>
+                    <p class="text-slate-600">פתרון בעיות לוגיסטיות, ניתוח סיכונים ומודלים פיננסיים מורכבים במהירות חסרת תקדים.</p>
+                </div>
+                 <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow">
+                    <h3 class="text-lg font-bold mb-2 text-sky-700">פיצוח הצפנות</h3>
+                    <p class="text-slate-600">איום על אבטחת המידע הנוכחית, אך גם פוטנציאל ליצירת הצפנה קוונטית בלתי פריצה.</p>
+                </div>
+                 <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow">
+                    <h3 class="text-lg font-bold mb-2 text-sky-700">בינה מלאכותית (AI)</h3>
+                    <p class="text-slate-600">האצת אלגוריתמים של למידת מכונה וזיהוי תבניות במערכי נתונים עצומים.</p>
+                </div>
+            </div>
+            <div class="mt-16 text-center">
+                <h3 class="text-2xl font-bold text-slate-800 mb-4">דמיינו את העתיד הקוונטי</h3>
+                <p class="text-slate-600 mb-6 max-w-2xl mx-auto">בחר תחום וגלה כיצד חישוב קוונטי עשוי לשנות אותו בעתיד, בעזרת Gemini.</p>
+                <div class="max-w-md mx-auto flex items-center gap-4">
+                    <select id="future-scenario-topic" class="block w-full px-3 py-2 bg-white border border-slate-300 rounded-md shadow-sm focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-sm">
+                        <option value="medicine">רפואה</option>
+                        <option value="finance">פיננסים</option>
+                        <option value="materials">מדע החומרים</option>
+                        <option value="ai">בינה מלאכותית</option>
+                    </select>
+                    <button id="generate-future-scenario" class="gemini-btn whitespace-nowrap inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-sky-600 hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500">
+                        ✨ צור תרחיש
+                    </button>
+                </div>
+                <div id="future-scenario-result" class="mt-6 text-right p-6 bg-white rounded-lg shadow-md border border-slate-200 hidden min-h-[150px]">
+                </div>
+            </div>
+        </section>
+
+        <section id="history" class="py-20">
+            <h2 class="text-3xl font-bold text-center mb-12">הסיפור ההיסטורי: ציר זמן אינטראקטיבי</h2>
+            <div class="relative timeline pr-4">
+                <div class="timeline-item mb-8 cursor-pointer" onclick="toggleTimeline(this)">
+                    <h3 class="text-lg font-bold text-sky-700 mb-1">שנות ה-80: החולמים הראשונים</h3>
+                    <div class="timeline-item-content overflow-hidden max-h-0 opacity-0">
+                        <div class="bg-white p-4 rounded-md mt-2 shadow-sm">
+                            <p class="font-semibold">ריצ'רד פיינמן</p>
+                            <p class="text-sm text-slate-600">העלה את הרעיון לדמות את הטבע באמצעות מחשב שפועל לפי חוקי הקוונטים.</p>
+                            <hr class="my-2">
+                            <p class="font-semibold">דיוויד דויטש (1985)</p>
+                            <p class="text-sm text-slate-600">הניח את היסודות התיאורטיים למחשב קוונטי אוניברסלי.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item mb-8 cursor-pointer" onclick="toggleTimeline(this)">
+                    <h3 class="text-lg font-bold text-sky-700 mb-1">1994: נקודת המפנה</h3>
+                    <div class="timeline-item-content overflow-hidden max-h-0 opacity-0">
+                        <div class="bg-white p-4 rounded-md mt-2 shadow-sm">
+                             <p class="font-semibold">פיטר שור</p>
+                            <p class="text-sm text-slate-600">פיתח אלגוריתם המאפשר למחשב קוונטי לפצח הצפנות מודרניות. "האפליקציה שהרעידה את העולם".</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item mb-8 cursor-pointer" onclick="toggleTimeline(this)">
+                    <h3 class="text-lg font-bold text-sky-700 mb-1">1996: חיפוש קוונטי</h3>
+                    <div class="timeline-item-content overflow-hidden max-h-0 opacity-0">
+                         <div class="bg-white p-4 rounded-md mt-2 shadow-sm">
+                            <p class="font-semibold">לוב גרובר</p>
+                            <p class="text-sm text-slate-600">פיתח אלגוריתם חיפוש מהיר משמעותית מכל אלגוריתם קלאסי עבור בסיסי נתונים לא ממוינים.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item mb-8 cursor-pointer" onclick="toggleTimeline(this)">
+                    <h3 class="text-lg font-bold text-sky-700 mb-1">2019: עליונות קוונטית</h3>
+                    <div class="timeline-item-content overflow-hidden max-h-0 opacity-0">
+                        <div class="bg-white p-4 rounded-md mt-2 shadow-sm">
+                            <p class="font-semibold">Google</p>
+                            <p class="text-sm text-slate-600">הכריזה כי מעבד ה-Sycamore שלה ביצע חישוב שלמחשב-על קלאסי היה לוקח אלפי שנים.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="race" class="py-20">
+            <h2 class="text-3xl font-bold text-center mb-4">המירוץ העולמי</h2>
+            <p class="text-center text-slate-600 mb-8">ענקיות טכנולוגיה, ממשלות וסטארטאפים בתחרות על עתיד המחשוב.</p>
+            <div>
+                <div class="mb-4 border-b border-slate-200">
+                    <nav class="-mb-px flex space-x-4 space-x-reverse justify-center" aria-label="Tabs">
+                        <button class="tab-btn whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm text-sky-600 border-sky-500" data-tab="giants">ענקיות הטכנולוגיה</button>
+                        <button class="tab-btn whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm text-slate-500 border-transparent hover:text-slate-700 hover:border-slate-300" data-tab="israel">ישראל על המפה</button>
+                        <button class="tab-btn whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm text-slate-500 border-transparent hover:text-slate-700 hover:border-slate-300" data-tab="countries">השקעות ממשלתיות</button>
+                    </nav>
+                </div>
+                <div id="tab-content" class="mt-8">
+                    <div class="tab-pane" id="giants">
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div class="bg-white p-4 rounded-lg shadow-sm"><strong>Google:</strong> מובילה עם טענת "העליונות הקוונטית" ומעבד Sycamore.</div>
+                            <div class="bg-white p-4 rounded-lg shadow-sm"><strong>IBM:</strong> מציעה גישה למחשבים קוונטיים דרך הענן ומפתחת מעבדים עם מאות קיוביטים.</div>
+                        </div>
+                    </div>
+                    <div class="tab-pane hidden" id="israel">
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div class="bg-white p-4 rounded-lg shadow-sm"><strong>Quantum Machines:</strong> מפתחת "מערכת הפעלה" למחשבים קוונטיים.</div>
+                            <div class="bg-white p-4 rounded-lg shadow-sm"><strong>Classiq:</strong> פלטפורמה לפיתוח אוטומטי של תוכנה קוונטית.</div>
+                             <div class="bg-white p-4 rounded-lg shadow-sm col-span-full"><strong>תוכנית לאומית:</strong> השקעה של 1.25 מיליארד ש"ח לקידום המחקר והתעשייה.</div>
+                        </div>
+                    </div>
+                    <div class="tab-pane hidden" id="countries">
+                        <p class="text-center text-slate-600">ארה"ב, סין והאיחוד האירופי מפעילות תוכניות לאומיות בהיקף של מיליארדי דולרים לקידום המחקר והפיתוח בתחום.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="challenges" class="py-20 bg-slate-100 rounded-xl">
+             <h2 class="text-3xl font-bold text-center mb-12">הדרך עוד ארוכה: אתגרים מרכזיים</h2>
+             <div class="grid md:grid-cols-3 gap-6">
+                <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                    <h3 class="text-lg font-bold mb-2 text-sky-700">"רעש" (דקוהרנטיות)</h3>
+                    <p class="text-slate-600">קיוביטים רגישים מאוד לסביבתם ומאבדים את מצבם הקוונטי בקלות, מה שגורם לשגיאות בחישוב.</p>
+                </div>
+                 <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                    <h3 class="text-lg font-bold mb-2 text-sky-700">תיקון שגיאות</h3>
+                    <p class="text-slate-600">פיתוח מנגנונים מורכבים שיוכלו לזהות ולתקן שגיאות בזמן אמת מבלי להרוס את החישוב הקוונטי.</p>
+                </div>
+                 <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                    <h3 class="text-lg font-bold mb-2 text-sky-700">סקיילביליות</h3>
+                    <p class="text-slate-600">האתגר ההנדסי של המעבר ממחשבים עם מאות קיוביטים למחשבים יציבים עם מיליוני קיוביטים.</p>
+                </div>
+             </div>
+        </section>
+
+    </main>
+    
+    <footer class="bg-slate-800 text-white text-center p-4">
+        <p>סקירה אינטראקטיבית של עולם החישוב הקוונטי</p>
+    </footer>
+
+    <script>
+        function toggleTimeline(element) {
+            const content = element.querySelector('.timeline-item-content');
+            if (content.style.maxHeight && content.style.maxHeight !== '0px') {
+                content.style.maxHeight = '0px';
+                content.style.opacity = '0';
+            } else {
+                content.style.maxHeight = content.scrollHeight + "px";
+                content.style.opacity = '1';
+            }
+        }
+
+        const tabButtons = document.querySelectorAll('.tab-btn');
+        const tabPanes = document.querySelectorAll('.tab-pane');
+
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const tabId = button.dataset.tab;
+
+                tabButtons.forEach(btn => {
+                    btn.classList.remove('text-sky-600', 'border-sky-500');
+                    btn.classList.add('text-slate-500', 'border-transparent', 'hover:text-slate-700', 'hover:border-slate-300');
+                });
+
+                button.classList.add('text-sky-600', 'border-sky-500');
+                button.classList.remove('text-slate-500', 'border-transparent', 'hover:text-slate-700', 'hover:border-slate-300');
+
+                tabPanes.forEach(pane => {
+                    if (pane.id === tabId) {
+                        pane.classList.remove('hidden');
+                    } else {
+                        pane.classList.add('hidden');
+                    }
+                });
+            });
+        });
+
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (pageYOffset >= sectionTop - 60) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active-nav');
+                if (link.getAttribute('href').includes(current)) {
+                    link.classList.add('active-nav');
+                }
+            });
+        });
+
+        async function callGemini(prompt, retries = 3, delay = 1000) {
+            const apiKey = ""; 
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+
+            const payload = {
+                contents: [{ parts: [{ text: prompt }] }],
+            };
+
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!response.ok) {
+                    if (response.status === 429 && retries > 0) {
+                        await new Promise(res => setTimeout(res, delay));
+                        return callGemini(prompt, retries - 1, delay * 2); 
+                    }
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const result = await response.json();
+                const candidate = result.candidates?.[0];
+
+                if (candidate && candidate.content?.parts?.[0]?.text) {
+                    return candidate.content.parts[0].text;
+                } else {
+                    return "לא התקבלה תשובה ברורה מהמודל. נסה שוב.";
+                }
+            } catch (error) {
+                console.error("Error calling Gemini API:", error);
+                if (retries > 0) {
+                    await new Promise(res => setTimeout(res, delay));
+                    return callGemini(prompt, retries - 1, delay * 2);
+                }
+                return "אירעה שגיאה בתקשורת עם המודל. בדוק את החיבור או נסה מאוחר יותר.";
+            }
+        }
+
+        function showLoading(element) {
+            element.classList.remove('hidden');
+            element.innerHTML = `<div class="flex justify-center items-center h-full"><div class="animate-spin rounded-full h-8 w-8 border-b-2 border-sky-600"></div></div>`;
+        }
+        
+        function displayResult(element, text) {
+            element.innerHTML = text.replace(/\n/g, '<br>');
+        }
+        
+        function displayError(element, text) {
+            element.innerHTML = `<p class="text-red-500">${text}</p>`;
+        }
+
+        const superpositionBtn = document.getElementById('superposition-analogy-btn');
+        const superpositionResultDiv = document.getElementById('superposition-analogy-result');
+
+        if(superpositionBtn) {
+            superpositionBtn.addEventListener('click', async () => {
+                showLoading(superpositionResultDiv);
+                const prompt = "Please explain the quantum principle of Superposition using a simple, everyday analogy that a high school student can understand. Explain it in Hebrew.";
+                try {
+                    const result = await callGemini(prompt);
+                    displayResult(superpositionResultDiv, result);
+                } catch (error) {
+                    displayError(superpositionResultDiv, "שגיאה ביצירת האנלוגיה.");
+                }
+            });
+        }
+
+        const entanglementBtn = document.getElementById('entanglement-analogy-btn');
+        const entanglementResultDiv = document.getElementById('entanglement-analogy-result');
+        
+        if(entanglementBtn) {
+            entanglementBtn.addEventListener('click', async () => {
+                showLoading(entanglementResultDiv);
+                const prompt = "Please explain the quantum principle of Entanglement using a simple, everyday analogy that a high school student can understand. Explain it in Hebrew.";
+                try {
+                    const result = await callGemini(prompt);
+                    displayResult(entanglementResultDiv, result);
+                } catch (error) {
+                    displayError(entanglementResultDiv, "שגיאה ביצירת האנלוגיה.");
+                }
+            });
+        }
+
+        const generateScenarioBtn = document.getElementById('generate-future-scenario');
+        const scenarioResultDiv = document.getElementById('future-scenario-result');
+        const topicSelect = document.getElementById('future-scenario-topic');
+
+        if (generateScenarioBtn) {
+            generateScenarioBtn.addEventListener('click', async () => {
+                showLoading(scenarioResultDiv);
+                const topic = topicSelect.options[topicSelect.selectedIndex].text;
+                const prompt = `Write a short, optimistic, and imaginative scenario (2-3 paragraphs) about how quantum computing might revolutionize the field of ${topic} in the future. Write it in Hebrew.`;
+                try {
+                    const result = await callGemini(prompt);
+                    displayResult(scenarioResultDiv, result);
+                } catch (error) {
+                    displayError(scenarioResultDiv, "שגיאה ביצירת התרחיש.");
+                }
+            });
+        }
+
+    </script>
+</body>
+</html>
