@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>שאלון ישור קו מתמטי לחישוב קוונטי</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=David+Libre:wght@400;700&family=Assistant:wght@400;600&display=swap">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" xintegrity="sha384-n8MVd4RsNIU0KOVEMVIgtRsBOpGkmJPARnBuf7CwiLUPCACAU8PEY5zPM/2bA/wk" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" xintegrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" xintegrity="sha384-+VBxd3r6XgURPl3keyCpgkrPCiJqgwjxwAnxMVB44oUvJ3NdGWbtn+ORu276vLfx" crossorigin="anonymous"></script>
+    <style>
+        body {
+            font-family: 'Assistant', sans-serif;
+            line-height: 1.7;
+            background-color: #f8f9fa;
+            color: #212529;
+            direction: rtl;
+        }
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background-color: white;
+            border: 1px solid #dee2e6;
+            box-shadow: 0 0 10px rgba(0,0,0,0.05);
+        }
+        header {
+            text-align: center;
+            border-bottom: 2px solid #a78bfa;
+            padding-bottom: 1rem;
+            margin-bottom: 2rem;
+        }
+        header h1 {
+            font-family: 'David Libre', serif;
+            font-size: 2.5rem;
+            color: #4f46e5;
+            margin: 0;
+        }
+        header p {
+            font-size: 1.1rem;
+            color: #6c757d;
+            margin: 0.5rem 0 0 0;
+        }
+        .question-block {
+            margin-bottom: 2.5rem;
+            page-break-inside: avoid;
+        }
+        .question-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        .question-title .number {
+            color: #4f46e5;
+            font-size: 1.5rem;
+        }
+        .answer-options {
+            list-style-type: hebrew;
+            padding-right: 2rem;
+            margin: 0;
+        }
+        .answer-options li {
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+        .katex { 
+            direction: ltr !important; 
+            display: inline-block;
+            text-align: left !important;
+        }
+        .katex-display { 
+            direction: ltr !important; 
+            text-align: center !important;
+            padding: 1rem 0;
+        }
+
+        /* Print styles */
+        @media print {
+            body {
+                background-color: white;
+                font-size: 12pt;
+            }
+            .container {
+                box-shadow: none;
+                border: none;
+                margin: 0;
+                max-width: 100%;
+                padding: 0;
+            }
+            header {
+                border-bottom: 2px solid black;
+            }
+            header h1, .question-title .number {
+                color: black;
+            }
+            .question-block {
+                page-break-before: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>שאלון ידע מתמטי לחישוב קוונטי</h1>
+            <p>שם או כינוי: _________________________</p>
+        </header>
+
+        <main>
+            <!-- Question 1 -->
+            <div class="question-block">
+                <div class="question-title"><span class="number">1.</span> מהי תוצאת המכפלה של המטריצה $A$ בוקטור $v$? $$ A = \begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix}, \quad v = \begin{pmatrix} 2 \\ 3 \end{pmatrix} $$</div>
+                <ol class="answer-options">
+                    <li>$$ \begin{pmatrix} 3 \\ 2 \end{pmatrix} $$</li>
+                    <li>$$ \begin{pmatrix} 2 \\ 3 \end{pmatrix} $$</li>
+                    <li>המושגים לא מוכרים לי</li>
+                    <li>לא ברור לי איך לגשת לשאלה</li>
+                </ol>
+            </div>
+
+            <!-- Question 2 -->
+            <div class="question-block">
+                <div class="question-title"><span class="number">2.</span> נתונות המטריצות $X$ ו-$Z$. מהי תוצאת המכפלה $XZ$? $$ X = \begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix}, \quad Z = \begin{pmatrix} 1 & 0 \\ 0 & -1 \end{pmatrix} $$</div>
+                <ol class="answer-options">
+                    <li>$$ \begin{pmatrix} 0 & 1 \\ -1 & 0 \end{pmatrix} $$</li>
+                    <li>$$ \begin{pmatrix} 0 & -1 \\ 1 & 0 \end{pmatrix} $$</li>
+                    <li>המושגים לא מוכרים לי</li>
+                    <li>לא ברור לי איך לגשת לשאלה</li>
+                </ol>
+            </div>
+
+            <!-- Question 3 -->
+            <div class="question-block">
+                <div class="question-title"><span class="number">3.</span> וקטור $v$ (שאינו וקטור האפס) נקרא "וקטור עצמי" של מטריצה ריבועית $A$ אם...</div>
+                <ol class="answer-options">
+                    <li>קיים סקלר $\lambda$ כך שמתקיים $Av = \lambda v$.</li>
+                    <li>המכפלה $Av$ מחזירה את וקטור האפס.</li>
+                    <li>המושגים לא מוכרים לי</li>
+                    <li>לא ברור לי איך לגשת לשאלה</li>
+                </ol>
+            </div>
+
+            <!-- Question 4 -->
+            <div class="question-block">
+                <div class="question-title"><span class="number">4.</span> מהם הערכים העצמיים של המטריצה $Z$? $$ Z = \begin{pmatrix} 1 & 0 \\ 0 & -1 \end{pmatrix} $$</div>
+                <ol class="answer-options">
+                    <li>$1, -1$</li>
+                    <li>$1, 0$</li>
+                    <li>המושגים לא מוכרים לי</li>
+                    <li>לא ברור לי איך לגשת לשאלה</li>
+                </ol>
+            </div>
+
+            <!-- Question 5 -->
+            <div class="question-block">
+                <div class="question-title"><span class="number">5.</span> איזה מהוקטורים הבאים הוא וקטור עצמי של המטריצה $X$? $$ X = \begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix} $$</div>
+                <ol class="answer-options">
+                    <li>$$ \begin{pmatrix} 1 \\ 0 \end{pmatrix} $$</li>
+                    <li>$$ \begin{pmatrix} 1 \\ 1 \end{pmatrix} $$</li>
+                    <li>המושגים לא מוכרים לי</li>
+                    <li>לא ברור לי איך לגשת לשאלה</li>
+                </ol>
+            </div>
+
+            <!-- Question 6 -->
+            <div class="question-block">
+                <div class="question-title"><span class="number">6.</span> נתונה מטריצה מרוכבת $A$. מהי המטריצה הצמודה ההרמיטית $A^*$? $$ A = \begin{pmatrix} 1 & 2+i \\ 3i & 4 \end{pmatrix} $$</div>
+                <ol class="answer-options">
+                    <li>$$ \begin{pmatrix} 1 & -3i \\ 2-i & 4 \end{pmatrix} $$</li>
+                    <li>$$ \begin{pmatrix} 1 & 3i \\ 2+i & 4 \end{pmatrix} $$</li>
+                    <li>המושגים לא מוכרים לי</li>
+                    <li>לא ברור לי איך לגשת לשאלה</li>
+                </ol>
+            </div>
+            
+            <!-- Question 7 -->
+            <div class="question-block">
+                <div class="question-title"><span class="number">7.</span> איזה מהזוגות הבאים של וקטורים מהווה בסיס אורתונורמלי למרחב $\mathbb{C}^2$?</div>
+                <ol class="answer-options">
+                    <li>$$ \{ \begin{pmatrix} 1 \\ 0 \end{pmatrix}, \begin{pmatrix} 0 \\ i \end{pmatrix} \} $$</li>
+                    <li>$$ \{ \begin{pmatrix} 1 \\ 0 \end{pmatrix}, \begin{pmatrix} 1 \\ 1 \end{pmatrix} \} $$</li>
+                    <li>המושגים לא מוכרים לי</li>
+                    <li>לא ברור לי איך לגשת לשאלה</li>
+                </ol>
+            </div>
+
+            <!-- Question 8 -->
+            <div class="question-block">
+                <div class="question-title"><span class="number">8.</span> מצב קוונטי (קיוביט) חייב להיות מיוצג על ידי וקטור בנורמה 1. איזה מהוקטורים הבאים הוא וקטור כזה?</div>
+                <ol class="answer-options">
+                    <li>$$ \frac{1}{\sqrt{5}} \begin{pmatrix} 1 \\ 2i \end{pmatrix} $$</li>
+                    <li>$$ \frac{1}{2} \begin{pmatrix} 1 \\ 1 \end{pmatrix} $$</li>
+                    <li>המושגים לא מוכרים לי</li>
+                    <li>לא ברור לי איך לגשת לשאלה</li>
+                </ol>
+            </div>
+
+            <!-- Question 9 -->
+            <div class="question-block">
+                <div class="question-title"><span class="number">9.</span> מהי תוצאת המכפלה הטנזורית $|0\rangle \otimes |1\rangle$? $$ |0\rangle = \begin{pmatrix} 1 \\ 0 \end{pmatrix}, \quad |1\rangle = \begin{pmatrix} 0 \\ 1 \end{pmatrix} $$</div>
+                <ol class="answer-options">
+                    <li>$$ \begin{pmatrix} 0 \\ 1 \\ 0 \\ 0 \end{pmatrix} $$</li>
+                    <li>$$ \begin{pmatrix} 0 \\ 0 \\ 1 \\ 0 \end{pmatrix} $$</li>
+                    <li>המושגים לא מוכרים לי</li>
+                    <li>לא ברור לי איך לגשת לשאלה</li>
+                </ol>
+            </div>
+
+            <!-- Question 10 -->
+            <div class="question-block">
+                <div class="question-title"><span class="number">10.</span> מטריצה ריבועית $U$ נקראת אוניטרית אם היא מקיימת את התנאי:</div>
+                <ol class="answer-options">
+                    <li>$U^*U = I$</li>
+                    <li>$U = U^*$</li>
+                    <li>המושגים לא מוכרים לי</li>
+                    <li>לא ברור לי איך לגשת לשאלה</li>
+                </ol>
+            </div>
+
+            <!-- Question 11 -->
+            <div class="question-block">
+                <div class="question-title"><span class="number">11.</span> בסימון דיראק, מהי תוצאת המכפלה הפנימית $\langle u | v \rangle$? $$ |v\rangle = \frac{1}{\sqrt{2}}\begin{pmatrix} 1 \\ i \end{pmatrix}, \quad |u\rangle = \frac{1}{\sqrt{2}}\begin{pmatrix} 1 \\ -i \end{pmatrix} $$</div>
+                <ol class="answer-options">
+                    <li>$0$</li>
+                    <li>$1$</li>
+                    <li>המושגים לא מוכרים לי</li>
+                    <li>לא ברור לי איך לגשת לשאלה</li>
+                </ol>
+            </div>
+
+            <!-- Question 12 -->
+            <div class="question-block">
+                <div class="question-title"><span class="number">12.</span> איזו מהמטריצות הבאות היא אופרטור הטלה (projection operator)?</div>
+                <ol class="answer-options">
+                    <li>$$ \begin{pmatrix} 1 & 0 \\ 0 & 0 \end{pmatrix} $$</li>
+                    <li>$$ \begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix} $$</li>
+                    <li>המושגים לא מוכרים לי</li>
+                    <li>לא ברור לי איך לגשת לשאלה</li>
+                </ol>
+            </div>
+            
+            <!-- Question 13 -->
+            <div class="question-block">
+                <div class="question-title"><span class="number">13.</span> מהי העקבה (Trace) של המטריצה $A$? $$ A = \begin{pmatrix} 5 & 2+i \\ 3 & -2i \end{pmatrix} $$</div>
+                <ol class="answer-options">
+                    <li>$5 - 2i$</li>
+                    <li>$3+i$</li>
+                    <li>המושגים לא מוכרים לי</li>
+                    <li>לא ברור לי איך לגשת לשאלה</li>
+                </ol>
+            </div>
+
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            renderMathInElement(document.body, {
+                delimiters: [
+                    {left: '$$', right: '$$', display: true},
+                    {left: '$', right: '$', display: false},
+                ]
+            });
+        });
+    </script>
+</body>
+</html>
+
