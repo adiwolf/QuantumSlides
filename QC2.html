@@ -1,0 +1,398 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>מצגת: יסודות החישוב הקוונטי</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap">
+
+  <!-- KaTeX -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+
+  <style>
+    body {
+      font-family: 'Rubik', sans-serif;
+      background-color: #0c0a1f;
+      color: #e0e0e0;
+      overflow: hidden;
+    }
+
+    /* RTL base */
+    html[dir="rtl"] body { direction: rtl; unicode-bidi: isolate; }
+
+    /* Math is LTR and isolated */
+    .katex, .katex-display, .inline-math, .math-block {
+      direction: ltr !important;
+      unicode-bidi: isolate !important;
+    }
+    .katex-display { margin: 1em 0; font-size: 1.5em !important; text-align: center; }
+    .katex { font-size: 1.2em !important; display: inline-block; vertical-align: middle; }
+    .math-block { margin: 1rem auto; }
+
+    .slide {
+      position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+      display: flex; flex-direction: column; justify-content: center; align-items: center;
+      text-align: center; padding: 2rem 4rem; transition: opacity .7s, transform .7s;
+      opacity: 0; transform: scale(0.95); pointer-events: none; overflow-y: auto;
+    }
+    .slide.active { opacity: 1; transform: scale(1); pointer-events: auto; }
+
+    .slide-content { max-width: 1100px; width: 100%; text-align: right; }
+
+    h1 { font-size: 3.5rem; font-weight: 700; color: #a78bfa; text-shadow: 0 0 15px #a78bfa; margin-bottom: 1rem; text-align: center; }
+    h2 { font-size: 2.5rem; font-weight: 500; color: #818cf8; margin-bottom: 1.5rem; border-bottom: 2px solid #818cf8; padding-bottom: .5rem; }
+    h3 { font-size: 1.5rem; font-weight: 600; color: #c4b5fd; margin: 1.5rem 0 .5rem; }
+    p, li { font-size: 1.25rem; line-height: 1.8; margin-bottom: 1rem; }
+
+    ul { list-style-type: disc; padding-inline-start: 1.5rem; margin: 0 0 1.5rem 0; }
+
+    .active .animated { opacity: 0; }
+    .active .anim-1 { animation: fadeIn .5s .3s forwards; }
+    .active .anim-2 { animation: fadeIn .5s .6s forwards; }
+    .active .anim-3 { animation: fadeIn .5s .9s forwards; }
+    .active .anim-4 { animation: fadeIn .5s 1.2s forwards; }
+    .active .anim-5 { animation: fadeIn .5s 1.5s forwards; }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+    .nav-btn {
+      position: fixed; top: 50%; transform: translateY(-50%);
+      background: rgba(167,139,250,.3); color: #fff; border: 2px solid #a78bfa;
+      border-radius: 50%; width: 50px; height: 50px; font-size: 2rem;
+      cursor: pointer; z-index: 100; transition: transform .2s, background-color .2s;
+      box-shadow: 0 0 10px #a78bfa;
+    }
+    .nav-btn:hover { background-color: rgba(167,139,250,.6); transform: translateY(-50%) scale(1.1); }
+    #prev-btn { right: 2rem; }
+    #next-btn { left: 2rem; }
+
+    .slide-counter {
+      position: fixed; bottom: 20px; right: 20px; color: #a78bfa; font-size: 1.2rem;
+      background: rgba(0,0,0,.3); padding: 5px 15px; border-radius: 15px; z-index: 100;
+    }
+
+    .exercise-box {
+      background-color: rgba(30, 27, 75, 0.7);
+      border: 1px solid #4f46e5;
+      border-radius: 0.5rem;
+      padding: 1.5rem;
+      margin-top: 1rem;
+    }
+
+    .solution {
+      display: none;
+      margin-top: 1rem;
+      padding: 1rem;
+      background-color: rgba(17, 24, 39, 0.8);
+      border-radius: 0.5rem;
+      border: 1px dashed #4b5563;
+    }
+
+    .solution-toggle {
+      cursor: pointer;
+      background-color: #4f46e5;
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      display: inline-block;
+      margin-top: 0.5rem;
+      font-weight: 600;
+      transition: background-color 0.2s;
+    }
+    .solution-toggle:hover { background-color: #6366f1; }
+
+    .gate-box {
+      background-color: rgba(30, 27, 75, 0.7);
+      border: 1px solid #4f46e5;
+      border-radius: 0.5rem;
+      padding: 1rem;
+    }
+
+    .quote-box {
+      background-color: rgba(17, 24, 39, 0.8);
+      border-left: 4px solid #a78bfa;
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+      border-radius: 0.25rem 0.5rem 0.5rem 0.25rem;
+    }
+    .quote-box p {
+      font-style: italic;
+      font-size: 1.5rem;
+      color: #c7d2fe;
+      margin: 0;
+    }
+    .quote-box footer { text-align: left; }
+
+    .scientist-img {
+      float: right;
+      margin-left: 1.5rem;
+      margin-right: 0;
+      margin-bottom: 0.5rem;
+      border-radius: 0.5rem;
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+      border: 2px solid #4f46e5;
+    }
+  </style>
+</head>
+<body class="overflow-hidden">
+
+  <!-- שקף 1: פתיחה -->
+  <div class="slide active">
+    <div class="slide-content">
+      <h1 class="animated anim-1">מבוא לחישוב קוונטי</h1>
+      <p class="animated anim-2 text-2xl text-violet-300 text-center">סקירה: קיוביטים, שערים ומערכות מרובות</p>
+    </div>
+  </div>
+
+  <!-- שקף 2: הקיוביט -->
+  <div class="slide">
+    <div class="slide-content">
+      <h2 class="animated anim-1">היחידה הבסיסית: הקיוביט (Qubit)</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+        <div class="animated anim-2 p-6 gate-box">
+          <h3 class="text-2xl font-bold text-violet-300 mb-4">הגדרה</h3>
+          <ul class="list-disc mr-4 space-y-2">
+            <li>ביט קלאסי הוא 0 או 1. קיוביט הוא מערכת קוונטית דו-ממדית, <span class="inline-math">$\mathcal{H} \cong \mathbb{C}^{2}$</span>.</li>
+            <li><b>מצבי הבסיס:</b> <span class="inline-math">$|0\rangle$</span> ו-<span class="inline-math">$|1\rangle$</span>.</li>
+            <li><b>סופרפוזיציה:</b> מצב כללי הוא צירוף לינארי:
+              <div class="math-block">$$|\psi\rangle = \alpha|0\rangle + \beta|1\rangle$$</div>
+            </li>
+            <li><span class="inline-math">$\alpha, \beta$</span> הם <b>אמפליטודות</b> (מספרים מרוכבים).</li>
+            <li><b>תנאי נרמול:</b> סכום הריבועים חייב להיות 1:
+              <div class="math-block">$$|\alpha|^{2} + |\beta|^{2} = 1$$</div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="animated anim-3 p-6 exercise-box">
+          <h3 class="text-2xl font-bold text-violet-300 mb-4">תרגיל: מצב חוקי</h3>
+          <p>איזה מהבאים <u>אינו</u> מצב קיוביט חוקי?</p>
+          <p class="mt-4">א) <span class="inline-math">$\frac{1}{\sqrt{2}}|0\rangle + \frac{i}{\sqrt{2}}|1\rangle$</span></p>
+          <p>ב) <span class="inline-math">$|0\rangle - |1\rangle$</span></p>
+          <p>ג) <span class="inline-math">$\frac{3}{5}|0\rangle + \frac{4}{5}|1\rangle$</span></p>
+          <div class="mt-4">
+            <div class="solution-toggle" onclick="toggleSolution('sol1')">הצג פתרון</div>
+            <div id="sol1" class="solution">
+              <p><b>פתרון:</b> ב) <span class="inline-math">$|0\rangle - |1\rangle$</span></p>
+              <p><b>הסבר:</b> <span class="inline-math">$\alpha = 1, \beta = -1$</span>. תנאי הנרמול הוא <span class="inline-math">$|\alpha|^2 + |\beta|^2 = |1|^2 + |-1|^2 = 1 + 1 = 2$</span>. ניתן לנרמל ע"י חלוקה ב-<span class="inline-math">$\sqrt{2}$</span>.</p>
+              <p>א) חוקי: <span class="inline-math">$|\frac{1}{\sqrt{2}}|^2 + |\frac{i}{\sqrt{2}}|^2 = 1$</span>.</p>
+              <p>ג) חוקי: <span class="inline-math">$|\frac{3}{5}|^2 + |\frac{4}{5}|^2 = 1$</span>.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- שקף 3: סימון דיראק -->
+  <div class="slide">
+    <div class="slide-content">
+      <h2 class="animated anim-1">שפת התיאור: סימון דיראק (Bra-Ket)</h2>
+      <p class="animated anim-2">אנו משתמשים בסימון "Bra-Ket" של פול דיראק:</p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+        <div class="animated anim-3 p-6 gate-box">
+          <h3 class="text-2xl font-bold text-violet-300 mb-4">הגדרות</h3>
+          <ul class="list-disc mr-8 space-y-2">
+            <li><b>Ket (קט):</b> וקטור עמודה, מסומן <span class="inline-math">$|\psi\rangle$</span>.
+              <div class="math-block">$$|0\rangle = \begin{pmatrix} 1 \\ 0 \end{pmatrix} , |1\rangle = \begin{pmatrix} 0 \\ 1 \end{pmatrix}$$</div>
+            </li>
+            <li><b>Bra (ברא):</b> וקטור שורה (הצמוד ההרמיטי, <span class="inline-math">$\dagger$</span>), מסומן <span class="inline-math">$\langle \psi |$</span>.
+              <div class="math-block">$$\langle \psi | = \begin{pmatrix} \overline{\alpha} & \overline{\beta} \end{pmatrix}$$</div>
+            </li>
+            <li><b>Bra-Ket:</b> מכפלה פנימית, <span class="inline-math">$\langle \phi | \psi \rangle$</span>.
+              <ul class="list-disc mr-8">
+                <li>נרמול: <span class="inline-math">$\langle \psi | \psi \rangle = 1$</span>.</li>
+                <li>אורתונורמליות: <span class="inline-math">$\langle 0 | 1 \rangle = 0$</span>.</li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+
+        <div class="animated anim-4 p-6 exercise-box">
+          <h3 class="text-2xl font-bold text-violet-300 mb-4">תרגיל: מכפלה פנימית</h3>
+          <p>חשב את <span class="inline-math">$\langle \phi | \psi \rangle$</span> עבור:</p>
+          <p><span class="inline-math">$|\psi\rangle = \frac{1}{\sqrt{3}}|0\rangle + \frac{1+i}{\sqrt{3}}|1\rangle$</span></p>
+          <p><span class="inline-math">$|\phi\rangle = \frac{i}{\sqrt{2}}|0\rangle + \frac{1}{\sqrt{2}}|1\rangle$</span></p>
+          <div class="mt-4">
+            <div class="solution-toggle" onclick="toggleSolution('sol2')">הצג פתרון</div>
+            <div id="sol2" class="solution">
+              <p><b>פתרון:</b></p>
+              <p>1. <span class="inline-math">$\langle \phi | = \begin{pmatrix} -i/\sqrt{2} & 1/\sqrt{2} \end{pmatrix}$</span></p>
+              <p>2. <span class="inline-math">$\langle \phi | \psi \rangle = \begin{pmatrix} -i/\sqrt{2} & 1/\sqrt{2} \end{pmatrix} \begin{pmatrix} 1/\sqrt{3} \\ (1+i)/\sqrt{3} \end{pmatrix}$</span></p>
+              <p><span class="inline-math">$= \frac{-i}{\sqrt{6}} + \frac{1+i}{\sqrt{6}} = \frac{1}{\sqrt{6}}$</span></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- שקף 4: מדידה -->
+  <div class="slide">
+    <div class="slide-content">
+      <h2 class="animated anim-1">פעולה 1: מדידה (Measurement)</h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+        <div class="animated anim-2 p-6 gate-box">
+          <h3 class="text-2xl font-bold text-violet-300 mb-4">הגדרה</h3>
+          <ul class="list-disc mr-8 space-y-2">
+            <li>לא ניתן לקרוא ישירות את האמפליטודות <span class="inline-math">$\alpha, \beta$</span>.</li>
+            <li>למצב <span class="inline-math">$|\psi\rangle = \alpha|0\rangle + \beta|1\rangle$</span> בבסיס <span class="inline-math">Z</span>:
+              <ol class="list-decimal mr-8">
+                <li>0 בהסתברות <span class="inline-math">$p(0) = |\alpha|^{2}$</span>.</li>
+                <li>1 בהסתברות <span class="inline-math">$p(1) = |\beta|^{2}$</span>.</li>
+              </ol>
+            </li>
+            <li><b>קריסה:</b> לאחר המדידה המצב נהרס:
+              <ul class="list-disc mr-8">
+                <li>מדדנו 0 → <span class="inline-math">$|0\rangle$</span>.</li>
+                <li>מדדנו 1 → <span class="inline-math">$|1\rangle$</span>.</li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+
+        <div class="animated anim-3 p-6 exercise-box">
+          <h3 class="text-2xl font-bold text-violet-300 mb-4">תרגיל: הסתברות מדידה</h3>
+          <p>בהינתן <span class="inline-math">$|\psi\rangle = \frac{1}{2}|0\rangle + \frac{\sqrt{3}}{2}i|1\rangle$</span>:</p>
+          <p class="mt-4">1. מה ההסתברות למדוד 0?</p>
+          <p>2. מה ההסתברות למדוד 1?</p>
+          <p>3. מה יהיה המצב לאחר מדידת 1?</p>
+          <div class="mt-4">
+            <div class="solution-toggle" onclick="toggleSolution('sol3')">הצג פתרון</div>
+            <div id="sol3" class="solution">
+              <p><b>פתרון:</b></p>
+              <p>1. <span class="inline-math">$p(0) = 1/4$</span>. 2. <span class="inline-math">$p(1) = 3/4$</span>. 3. המצב קורס ל־<span class="inline-math">$|1\rangle$</span>.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- שקף 5: שערים קוונטיים -->
+  <div class="slide">
+    <div class="slide-content">
+      <h2 class="animated anim-1">פעולה 2: שערים קוונטיים (קיוביט בודד)</h2>
+      <ul class="list-disc mr-8 animated anim-2">
+        <li>התפתחות מצב ללא מדידה היא ע"י <b>אופרטור אוניטרי</b> <span class="inline-math">$U$</span>.</li>
+        <li><span class="inline-math">$U^{\dagger} = U^{-1}$</span>.</li>
+        <li>ב־<span class="inline-math">$\mathbb{C}^2$</span> השערים הם מטריצות <span class="inline-math">$2 \times 2$</span>.</li>
+        <li><span class="inline-math">$|\psi_{out}\rangle = U |\psi_{in}\rangle$</span>.</li>
+      </ul>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
+        <div class="animated anim-3 p-6 gate-box">
+          <h3 class="text-2xl font-bold text-violet-300">שער X (NOT)</h3>
+          <p>הופך מצבי בסיס.</p>
+          <div class="math-block">$$X = \begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix}$$</div>
+          <span class="inline-math">$X|0\rangle = |1\rangle \quad , \quad X|1\rangle = |0\rangle$</span>
+        </div>
+        <div class="animated anim-4 p-6 gate-box">
+          <h3 class="text-2xl font-bold text-violet-300">שער Z (Phase Flip)</h3>
+          <p>מכפיל את <span class="inline-math">$|1\rangle$</span> ב־−1.</p>
+          <div class="math-block">$$Z = \begin{pmatrix} 1 & 0 \\ 0 & -1 \end{pmatrix}$$</div>
+          <span class="inline-math">$Z|0\rangle = |0\rangle \quad , \quad Z|1\rangle = -|1\rangle$</span>
+        </div>
+        <div class="animated anim-5 p-6 gate-box">
+          <h3 class="text-2xl font-bold text-violet-300">שער H (Hadamard)</h3>
+          <p>יוצר סופרפוזיציה אחידה.</p>
+          <div class="math-block">$$H = \frac{1}{\sqrt{2}}\begin{pmatrix} 1 & 1 \\ 1 & -1 \end{pmatrix}$$</div>
+          <span class="inline-math">$H|0\rangle = |+\rangle \quad , \quad H|1\rangle = |-\rangle$</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- שקף 6: תרגיל שערים -->
+  <div class="slide">
+    <div class="slide-content">
+      <h2 class="animated anim-1">תרגול: הרכבת שערים</h2>
+      <p class="animated anim-2">סדר הפעולה מימין לשמאל.</p>
+      <p class="animated anim-2"><span class="inline-math">$|\psi_{final}\rangle = U_2 U_1 |\psi_{initial}\rangle$</span>.</p>
+
+      <div class="space-y-6 mt-6">
+        <div class="animated anim-3 exercise-box">
+          <h3>תרגיל 1: מה התוצאה של <span class="inline-math">$XZ|1\rangle$</span>?</h3>
+          <div class="solution-toggle" onclick="toggleSolution('sol4a')">הצג פתרון</div>
+          <div id="sol4a" class="solution">
+            <p><b>פתרון:</b> <span class="inline-math">$Z|1\rangle=-|1\rangle \Rightarrow X(-|1\rangle)=-|0\rangle$</span>.</p>
+            <p><span class="inline-math">$XZ=\begin{pmatrix}0&-1\\1&0\end{pmatrix}$</span>, ולכן על <span class="inline-math">$|1\rangle$</span> מתקבל <span class="inline-math">$-|0\rangle$</span>.</p>
+          </div>
+        </div>
+
+        <div class="animated anim-4 exercise-box">
+          <h3>תרגיל 2: מה התוצאה של <span class="inline-math">$HH|0\rangle$</span>?</h3>
+          <div class="solution-toggle" onclick="toggleSolution('sol4b')">הצג פתרון</div>
+          <div id="sol4b" class="solution">
+            <p><b>פתרון:</b> <span class="inline-math">$H^2=I$</span>, לכן <span class="inline-math">$|0\rangle$</span> נשאר <span class="inline-math">$|0\rangle$</span>.</p>
+          </div>
+        </div>
+
+        <div class="animated anim-5 exercise-box">
+          <h3>תרגיל 3: (אתגר) מה התוצאה של <span class="inline-math">$HZH|+\rangle$</span>?</h3>
+          <div class="solution-toggle" onclick="toggleSolution('sol4c')">הצג פתרון</div>
+          <div id="sol4c" class="solution">
+            <p><b>פתרון:</b> <span class="inline-math">$HZH=X$</span>, ולכן <span class="inline-math">$HZH|+\rangle=|+\rangle$</span>.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- שקף 7: מכפלה טנזורית -->
+  <div class="slide">
+    <div class="slide-content">
+      <h2 class="animated anim-1">מערכות מרובות: מכפלה טנזורית (<span class="inline-math">$\otimes$</span>)</h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+        <div class="animated anim-2 p-6 gate-box">
+          <h3 class="text-2xl font-bold text-violet-300 mb-4">הגדרה</h3>
+          <ul class="list-disc mr-8 space-y-2">
+            <li>לשני קיוביטים: <span class="inline-math">$\mathcal{H}=U\otimes W$</span>, ממד <span class="inline-math">$4$</span>.</li>
+            <li><b>בסיס:</b>
+              <div class="math-block">$$\{ |0\rangle\otimes|0\rangle,\ |0\rangle\otimes|1\rangle,\\ |1\rangle\otimes|0\rangle,\ |1\rangle\otimes|1\rangle \}$$</div>
+            </li>
+            <li><b>סימון מקוצר:</b>
+              <div class="math-block">$$\{|00\rangle, |01\rangle, |10\rangle, |11\rangle\}$$</div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="animated anim-3 p-6 exercise-box">
+          <h3 class="text-2xl font-bold text-violet-300 mb-4">תרגיל: פיתוח מכפלה טנזורית</h3>
+          <p>כתוב את <span class="inline-math">$|+\rangle\otimes|-\rangle$</span> בבסיס החישובי.</p>
+          <div class="mt-4">
+            <div class="solution-toggle" onclick="toggleSolution('sol5')">הצג פתרון</div>
+            <div id="sol5" class="solution">
+              <p><b>פתרון:</b> <span class="inline-math">$\frac{1}{2}(|00\rangle-|01\rangle+|10\rangle-|11\rangle)$</span>.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- שקף 8: CNOT -->
+  <div class="slide">
+    <div class="slide-content">
+      <h2 class="animated anim-1">שער שני קיוביטים: CNOT</h2>
+      <p class="animated anim-2">אופרטורים על <span class="inline-math">$\mathbb{C}^4$</span> הם מטריצות <span class="inline-math">$4 \times 4$</span>.</p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+        <div class="animated anim-3 p-6 gate-box">
+          <h3 class="text-2xl font-bold text-violet-300 mb-4">שער CNOT (Controlled-NOT או $CX$)</h3>
+          <ul class="list-disc mr-8 space-y-2">
+            <li>קיוביט בקרה: ראשון. מטרה: שני.</li>
+            <li>הופך את המטרה אם הבקרה הוא 1.</li>
+          </ul>
+
+          <!-- Diagram kept LTR -->
+          <div class="my-6 text-center" dir="ltr">
+            <svg width="250" height="100" xmlns="http://www.w3.org/2000/svg" class="mx-auto bg-gray-900 rounded-lg p-4
