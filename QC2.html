@@ -259,10 +259,10 @@
                 <div class="animated anim-3 p-6 gate-box">
                     <h3 class="text-2xl font-bold text-violet-300 mb-4">הגדרות</h3>
                     <ul class="list-disc mr-8 space-y-2">
-                        <li><b>Ket (קט):</b> וקטור עמודה, מסומן <span class="inline-math">$|\psi\rangle$</span>.
+                        <li><b>Ket :</b> וקטור עמודה, מסומן <span class="inline-math">$|\psi\rangle$</span>.
                             <div class="math-block">$$|0\rangle = \begin{pmatrix} 1 \\ 0 \end{pmatrix} , |1\rangle = \begin{pmatrix} 0 \\ 1 \end{pmatrix}$$</div>
                         </li>
-                        <li><b>Bra (ברא):</b> וקטור שורה (הצמוד ההרמיטי, <span class="inline-math">$\dagger$</span>), מסומן <span class="inline-math">$\langle \psi |$</span>.
+                        <li><b>Bra :</b> וקטור שורה (הצמוד ההרמיטי, <span class="inline-math">$\dagger$</span>), מסומן <span class="inline-math">$\langle \psi |$</span>.
                             <div class="math-block">$$\langle \psi | = \begin{pmatrix} \overline{\alpha} & \overline{\beta} \end{pmatrix}$$</div>
                         </li>
                         <li><b>Bra-Ket:</b> מכפלה פנימית, <span class="inline-math">$\langle \phi | \psi \rangle$</span>.
@@ -302,11 +302,11 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
                 <!-- Box 1: Definitions -->
                 <div class="animated anim-2 p-6 gate-box">
-                    <h3 class="text-2xl font-bold text-violet-300 mb-4">הגדרה</h3>
+                    <h3 class="text-2xl font-bold text-violet-300 mb-4"> הגדרה: מדידה (בבסיס <span class="inline-math">Z</span>)</h3>
                     <ul class="list-disc mr-8 space-y-2">
                         <li>בחישוב קוונטי, לא ניתן "לקרוא" ישירות את האמפליטודות <span class="inline-math">$\alpha, \beta$</span>.</li>
-                        <li>כאשר מודדים את המצב <span class="inline-math">$|\psi\rangle = \alpha|0\rangle + \beta|1\rangle$</span> (בבסיס <span class="inline-math">Z</span>):
-                            <ol class="list-decimal mr-8">
+                        <li>כאשר מודדים את המצב <span class="inline-math">$|\psi\rangle = \alpha|0\rangle + \beta|1\rangle$</span> :
+                            <ol class="list-disc mr-8">
                                 <li>נקבל <b>0</b> בהסתברות <span class="inline-math">$p(0) = |\alpha|^{2}$</span>.</li>
                                 <li>נקבל <b>1</b> בהסתברות <span class="inline-math">$p(1) = |\beta|^{2}$</span>.</li>
                             </ol>
@@ -348,8 +348,8 @@
             <h2 class="animated anim-1">פעולה 2: שערים קוונטיים (קיוביט בודד)</h2>
             <ul class="list-disc mr-8 animated anim-2">
                 <li>התפתחות של מצב קוונטי (ללא מדידה) מתוארת על ידי הפעלת <b>אופרטור אוניטרי</b> (<span class="inline-math">$U$</span>).</li>
-                <li>אופרטור אוניטרי הוא אופרטור שמשמר נורמה, ומקיים <span class="inline-math">$U^{\dagger} = U^{-1}$</span> (הצמוד ההרמיטי שלו הוא ההופכי שלו).</li>
-                <li>במרחב <span class="inline-math">$\mathbb{C}^2$</span>, שערים אלו הם מטריצות <span class="inline-math">$2 \times 2$</span>.</li>
+                <li>אופרטור אוניטרי הוא אופרטור שמשמר נורמה, כלומר מקיים <span class="inline-math">$U^{\dagger} = U^{-1}$</span> (הצמוד ההרמיטי שלו הוא ההופכי שלו).</li>
+                <li>עבור קיוביט אחד נחשוב על שערים אלו כמטריצות <span class="inline-math">$2 \times 2$</span>.</li>
                 <li>הפעולה היא פשוט כפל מטריצה בוקטור: <span class="inline-math">$|\psi_{out}\rangle = U |\psi_{in}\rangle$</span>.</li>
             </ul>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
@@ -367,7 +367,7 @@
                 </div>
                 <div class="animated anim-5 p-6 gate-box">
                     <h3 class="text-2xl font-bold text-violet-300">שער H (Hadamard)</h3>
-                    <p>השער החשוב ביותר. יוצר סופרפוזיציה אחידה ממצבי הבסיס.</p>
+                    <p>שער חשוב ביותר. יוצר סופרפוזיציה אחידה ממצבי הבסיס.</p>
                     <div class="math-block">$$H = \frac{1}{\sqrt{2}}\begin{pmatrix} 1 & 1 \\ 1 & -1 \end{pmatrix}$$</div>
                     <span class="inline-math">$H|0\rangle = |+\rangle \quad , \quad H|1\rangle = |-\rangle$</span>
                 </div>
