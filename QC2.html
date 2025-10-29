@@ -277,7 +277,7 @@
                 <!-- Box 2: Exercise -->
                 <div class="animated anim-4 p-6 exercise-box">
                     <h3 class="text-2xl font-bold text-violet-300 mb-4">תרגיל: מכפלה פנימית</h3>
-                    <p>חשב את <span class="inline-math">$\langle \phi | \psi \rangle$</span> עבור:</p>
+                    <p>חשבו את <span class="inline-math">$\langle \phi | \psi \rangle$</span> עבור:</p>
                     <p><span class="inline-math">$|\psi\rangle = \frac{1}{\sqrt{3}}|0\rangle + \frac{1+i}{\sqrt{3}}|1\rangle$</span></p>
                     <p><span class="inline-math">$|\phi\rangle = \frac{i}{\sqrt{2}}|0\rangle + \frac{1}{\sqrt{2}}|1\rangle$</span></p>
                     <div class="mt-4">
@@ -450,7 +450,7 @@
                 <!-- Box 2: Exercise -->
                 <div class="animated anim-3 p-6 exercise-box">
                     <h3 class="text-2xl font-bold text-violet-300 mb-4">תרגיל: פיתוח מכפלה טנזורית</h3>
-                    <p>כתוב את המצב <span class="inline-math">$|\psi\rangle = |+\rangle \otimes |-\rangle$</span> כסופרפוזיציה של מצבי הבסיס <span class="inline-math">$\{|00\rangle, |01\rangle, |10\rangle, |11\rangle\}$</span>.</p>
+                    <p>כתבו את המצב <span class="inline-math">$|\psi\rangle = |+\rangle \otimes |-\rangle$</span> כסופרפוזיציה של מצבי הבסיס <span class="inline-math">$\{|00\rangle, |01\rangle, |10\rangle, |11\rangle\}$</span>.</p>
                     <div class="mt-4">
                         <div class="solution-toggle" onclick="toggleSolution('sol5')">הצג פתרון</div>
                         <div id="sol5" class="solution">
@@ -474,14 +474,14 @@
     <div class="slide">
         <div class="slide-content">
             <h2 class="animated anim-1">שער שני קיוביטים: CNOT</h2>
-            <p class="animated anim-2">אופרטורים על <span class="inline-math">$\mathbb{C}^4$</span> הם מטריצות <span class="inline-math">$4 \times 4$</span>. השערים המעניינים הם אלו שיוצרים אינטראקציה.</p>
+            <p class="animated anim-2">עבור מערכת של 2 קיוביטים השערים הם מטריצות אוניטריות <span class="inline-math">$4 \times 4$</span>. </p>
             
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
                 <!-- Box 1: Definition & Diagram -->
                 <div class="animated anim-3 p-6 gate-box">
                     <h3 class="text-2xl font-bold text-violet-300 mb-4">שער CNOT (Controlled-NOT או $CX$)</h3>
                     <ul class="list-disc mr-8 space-y-2">
-                        <li>זהו שער <span class="inline-math">$4 \times 4$</span> קריטי שאינו ניתן להפרדה.</li>
+                        <li>זהו שער <span class="inline-math">$4 \times 4$</span> שאינו ניתן להפרדה.</li>
                         <li><b>קיוביט בקרה (Control):</b> הקיוביט הראשון.</li>
                         <li><b>קיוביט מטרה (Target):</b> הקיוביט השני.</li>
                         <li><b>פעולה:</b> הופך (X) את קיוביט המטרה <u>אם ורק אם</u> קיוביט הבקרה הוא 1.</li>
@@ -581,7 +581,6 @@
             <ol class="list-decimal mr-8 animated anim-4">
                 <li>נניח בשלילה שזה <u>כן</u> אפשרי. כלומר, קיימים 4 מספרים מרוכבים <span class="inline-math">$\alpha, \beta, \gamma, \delta$</span> כך ש:
                     <div class="math-block">$$|\psi_A\rangle = \alpha|0\rangle + \beta|1\rangle \quad, \quad |\psi_B\rangle = \gamma|0\rangle + \delta|1\rangle$$</div>
-                    ...וכן מתקיים:
                     <div class="math-block">$$|\Phi^+\rangle = |\psi_A\rangle \otimes |\psi_B\rangle$$</div>
                 </li>
                 <li>נפתח את אגף ימין:
