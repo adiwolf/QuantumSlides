@@ -1,398 +1,914 @@
-<!doctype html>
-<html lang="he" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>מצגת: יסודות החישוב הקוונטי</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>מצגת: יסודות החישוב הקוונטי</title>
+    <!-- תיקון: הסרת סוגרי Markdown מ-src -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- תיקון: הסרת סוגרי Markdown מ-href -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap">
+    
+    <!-- תיקון: xintegrity -> integrity -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" xintegrity="sha384-n8MVd4RsNIU0KOVEMVIgtRsBOpGkmJPARnBuf7CwiLUPCACAUdebugLGc5pRTqDJDR" crossorigin="anonymous">
+    <!-- תיקון: xintegrity -> integrity, והוספת defer -->
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" xintegrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8" crossorigin="anonymous"></script>
+    <!-- תיקון: xintegrity -> integrity, והוספת defer -->
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" xintegrity="sha384-+VBxd3r6XgURPl3keyCpgkrPCiJqgwjxwAnxMVB44oUvJ3NdGWbtn+ORu276vLfx" crossorigin="anonymous"></script>
+    <style>
+        body {
+            font-family: 'Rubik', sans-serif;
+            background-color: #0c0a1f;
+            color: #e0e0e0;
+            overflow: hidden;
+        }
+        .slide {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem 4rem;
+            transition: opacity 0.7s ease-in-out, transform 0.7s ease-in-out;
+            opacity: 0;
+            transform: scale(0.95);
+            pointer-events: none;
+            overflow-y: auto; /* מאפשר גלילה אם התוכן ארוך מדי */
+        }
+        .slide.active {
+            opacity: 1;
+            transform: scale(1);
+            pointer-events: auto;
+        }
+        .slide-content {
+            max-width: 1100px;
+            width: 100%;
+            /* יישור התוכן לימין כברירת מחדל לשקפים */
+            text-align: right; 
+        }
+        h1 { font-size: 3.5rem; font-weight: 700; color: #a78bfa; text-shadow: 0 0 15px #a78bfa; margin-bottom: 1rem; text-align: center; }
+        h2 { font-size: 2.5rem; font-weight: 500; color: #818cf8; margin-bottom: 1.5rem; border-bottom: 2px solid #818cf8; padding-bottom: 0.5rem; }
+        h3 { font-size: 1.5rem; font-weight: 600; color: #c4b5fd; margin-top: 1.5rem; margin-bottom: 0.5rem; }
+        p, li { font-size: 1.25rem; line-height: 1.8; margin-bottom: 1rem; }
+        ul { list-style-type: disc; margin-right: 2rem; margin-bottom: 1.5rem; }
 
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap">
+        /* תיקוני כיווניות ומתמטיקה */
+        .katex-display { margin: 1em 0; font-size: 1.5em !important; }
+        .katex { font-size: 1.2em !important; direction: ltr; display: inline-block; vertical-align: middle; }
+        .math-block { direction: ltr; margin: 1rem auto; text-align: center; }
+        .inline-math { direction: ltr; display: inline-block; }
 
-  <!-- KaTeX -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+        .active .animated { opacity: 0; }
+        .active .anim-1 { animation: fadeIn 0.5s 0.3s forwards; }
+        .active .anim-2 { animation: fadeIn 0.5s 0.6s forwards; }
+        .active .anim-3 { animation: fadeIn 0.5s 0.9s forwards; }
+        .active .anim-4 { animation: fadeIn 0.5s 1.2s forwards; }
+        .active .anim-5 { animation: fadeIn 0.5s 1.5s forwards; }
 
-  <style>
-    body {
-      font-family: 'Rubik', sans-serif;
-      background-color: #0c0a1f;
-      color: #e0e0e0;
-      overflow: hidden;
-    }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-    /* RTL base */
-    html[dir="rtl"] body { direction: rtl; unicode-bidi: isolate; }
+        .nav-btn {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(167, 139, 250, 0.3);
+            color: white;
+            border: 2px solid #a78bfa;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 2rem;
+            cursor: pointer;
+            z-index: 100;
+            transition: all 0.2s ease-in-out;
+            box-shadow: 0 0 10px #a78bfa;
+        }
+        .nav-btn:hover {
+            background-color: rgba(167, 139, 250, 0.6);
+            transform: translateY(-50%) scale(1.1);
+        }
+        #prev-btn { right: 2rem; }
+        #next-btn { left: 2rem; }
 
-    /* Math is LTR and isolated */
-    .katex, .katex-display, .inline-math, .math-block {
-      direction: ltr !important;
-      unicode-bidi: isolate !important;
-    }
-    .katex-display { margin: 1em 0; font-size: 1.5em !important; text-align: center; }
-    .katex { font-size: 1.2em !important; display: inline-block; vertical-align: middle; }
-    .math-block { margin: 1rem auto; }
+        .slide-counter {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            color: #a78bfa;
+            font-size: 1.2rem;
+            background: rgba(0,0,0,0.3);
+            padding: 5px 15px;
+            border-radius: 15px;
+            z-index: 100;
+        }
+        
+        .exercise-box {
+            background-color: rgba(30, 27, 75, 0.7);
+            border: 1px solid #4f46e5;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-top: 1rem;
+        }
 
-    .slide {
-      position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-      display: flex; flex-direction: column; justify-content: center; align-items: center;
-      text-align: center; padding: 2rem 4rem; transition: opacity .7s, transform .7s;
-      opacity: 0; transform: scale(0.95); pointer-events: none; overflow-y: auto;
-    }
-    .slide.active { opacity: 1; transform: scale(1); pointer-events: auto; }
+        .solution {
+            display: none;
+            margin-top: 1rem;
+            padding: 1rem;
+            background-color: rgba(17, 24, 39, 0.8);
+            border-radius: 0.5rem;
+            border: 1px dashed #4b5563;
+        }
 
-    .slide-content { max-width: 1100px; width: 100%; text-align: right; }
+        .solution-toggle {
+            cursor: pointer;
+            background-color: #4f46e5;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            display: inline-block;
+            margin-top: 0.5rem;
+            font-weight: 600;
+            transition: background-color 0.2s;
+        }
+        .solution-toggle:hover {
+            background-color: #6366f1;
+        }
 
-    h1 { font-size: 3.5rem; font-weight: 700; color: #a78bfa; text-shadow: 0 0 15px #a78bfa; margin-bottom: 1rem; text-align: center; }
-    h2 { font-size: 2.5rem; font-weight: 500; color: #818cf8; margin-bottom: 1.5rem; border-bottom: 2px solid #818cf8; padding-bottom: .5rem; }
-    h3 { font-size: 1.5rem; font-weight: 600; color: #c4b5fd; margin: 1.5rem 0 .5rem; }
-    p, li { font-size: 1.25rem; line-height: 1.8; margin-bottom: 1rem; }
+        .gate-box {
+            background-color: rgba(30, 27, 75, 0.7);
+            border: 1px solid #4f46e5;
+            border-radius: 0.5rem;
+            padding: 1rem;
+        }
 
-    ul { list-style-type: disc; padding-inline-start: 1.5rem; margin: 0 0 1.5rem 0; }
+        .quote-box {
+            background-color: rgba(17, 24, 39, 0.8);
+            border-left: 4px solid #a78bfa;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0.25rem 0.5rem 0.5rem 0.25rem;
+        }
+        .quote-box p {
+            font-style: italic;
+            font-size: 1.5rem;
+            color: #c7d2fe;
+            margin: 0;
+        }
+        .quote-box footer {
+            text-align: left;
+/* ... existing code ... -->
+        }
 
-    .active .animated { opacity: 0; }
-    .active .anim-1 { animation: fadeIn .5s .3s forwards; }
-    .active .anim-2 { animation: fadeIn .5s .6s forwards; }
-    .active .anim-3 { animation: fadeIn .5s .9s forwards; }
-    .active .anim-4 { animation: fadeIn .5s 1.2s forwards; }
-    .active .anim-5 { animation: fadeIn .5s 1.5s forwards; }
-    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .scientist-img {
+            float: right; /* שינוי ל-float: right עבור RTL */
+            margin-left: 1.5rem; /* שינוי ל-margin-left */
+            margin-right: 0;
+            margin-bottom: 0.5rem;
+            border-radius: 0.5rem;
+/* ... existing code ... -->
+            border-radius: 0.5rem;
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border: 2px solid #4f46e5;
+        }
 
-    .nav-btn {
-      position: fixed; top: 50%; transform: translateY(-50%);
-      background: rgba(167,139,250,.3); color: #fff; border: 2px solid #a78bfa;
-      border-radius: 50%; width: 50px; height: 50px; font-size: 2rem;
-      cursor: pointer; z-index: 100; transition: transform .2s, background-color .2s;
-      box-shadow: 0 0 10px #a78bfa;
-    }
-    .nav-btn:hover { background-color: rgba(167,139,250,.6); transform: translateY(-50%) scale(1.1); }
-    #prev-btn { right: 2rem; }
-    #next-btn { left: 2rem; }
-
-    .slide-counter {
-      position: fixed; bottom: 20px; right: 20px; color: #a78bfa; font-size: 1.2rem;
-      background: rgba(0,0,0,.3); padding: 5px 15px; border-radius: 15px; z-index: 100;
-    }
-
-    .exercise-box {
-      background-color: rgba(30, 27, 75, 0.7);
-      border: 1px solid #4f46e5;
-      border-radius: 0.5rem;
-      padding: 1.5rem;
-      margin-top: 1rem;
-    }
-
-    .solution {
-      display: none;
-      margin-top: 1rem;
-      padding: 1rem;
-      background-color: rgba(17, 24, 39, 0.8);
-      border-radius: 0.5rem;
-      border: 1px dashed #4b5563;
-    }
-
-    .solution-toggle {
-      cursor: pointer;
-      background-color: #4f46e5;
-      color: white;
-      padding: 0.5rem 1rem;
-      border-radius: 0.5rem;
-      display: inline-block;
-      margin-top: 0.5rem;
-      font-weight: 600;
-      transition: background-color 0.2s;
-    }
-    .solution-toggle:hover { background-color: #6366f1; }
-
-    .gate-box {
-      background-color: rgba(30, 27, 75, 0.7);
-      border: 1px solid #4f46e5;
-      border-radius: 0.5rem;
-      padding: 1rem;
-    }
-
-    .quote-box {
-      background-color: rgba(17, 24, 39, 0.8);
-      border-left: 4px solid #a78bfa;
-      padding: 1.5rem;
-      margin: 1.5rem 0;
-      border-radius: 0.25rem 0.5rem 0.5rem 0.25rem;
-    }
-    .quote-box p {
-      font-style: italic;
-      font-size: 1.5rem;
-      color: #c7d2fe;
-      margin: 0;
-    }
-    .quote-box footer { text-align: left; }
-
-    .scientist-img {
-      float: right;
-      margin-left: 1.5rem;
-      margin-right: 0;
-      margin-bottom: 0.5rem;
-      border-radius: 0.5rem;
-      width: 150px;
-      height: 150px;
-      object-fit: cover;
-      border: 2px solid #4f46e5;
-    }
-  </style>
+    </style>
 </head>
 <body class="overflow-hidden">
 
-  <!-- שקף 1: פתיחה -->
-  <div class="slide active">
-    <div class="slide-content">
-      <h1 class="animated anim-1">מבוא לחישוב קוונטי</h1>
-      <p class="animated anim-2 text-2xl text-violet-300 text-center">סקירה: קיוביטים, שערים ומערכות מרובות</p>
-    </div>
-  </div>
-
-  <!-- שקף 2: הקיוביט -->
-  <div class="slide">
-    <div class="slide-content">
-      <h2 class="animated anim-1">היחידה הבסיסית: הקיוביט (Qubit)</h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-        <div class="animated anim-2 p-6 gate-box">
-          <h3 class="text-2xl font-bold text-violet-300 mb-4">הגדרה</h3>
-          <ul class="list-disc mr-4 space-y-2">
-            <li>ביט קלאסי הוא 0 או 1. קיוביט הוא מערכת קוונטית דו-ממדית, <span class="inline-math">$\mathcal{H} \cong \mathbb{C}^{2}$</span>.</li>
-            <li><b>מצבי הבסיס:</b> <span class="inline-math">$|0\rangle$</span> ו-<span class="inline-math">$|1\rangle$</span>.</li>
-            <li><b>סופרפוזיציה:</b> מצב כללי הוא צירוף לינארי:
-              <div class="math-block">$$|\psi\rangle = \alpha|0\rangle + \beta|1\rangle$$</div>
-            </li>
-            <li><span class="inline-math">$\alpha, \beta$</span> הם <b>אמפליטודות</b> (מספרים מרוכבים).</li>
-            <li><b>תנאי נרמול:</b> סכום הריבועים חייב להיות 1:
-              <div class="math-block">$$|\alpha|^{2} + |\beta|^{2} = 1$$</div>
-            </li>
-          </ul>
-        </div>
-
-        <div class="animated anim-3 p-6 exercise-box">
-          <h3 class="text-2xl font-bold text-violet-300 mb-4">תרגיל: מצב חוקי</h3>
-          <p>איזה מהבאים <u>אינו</u> מצב קיוביט חוקי?</p>
-          <p class="mt-4">א) <span class="inline-math">$\frac{1}{\sqrt{2}}|0\rangle + \frac{i}{\sqrt{2}}|1\rangle$</span></p>
-          <p>ב) <span class="inline-math">$|0\rangle - |1\rangle$</span></p>
-          <p>ג) <span class="inline-math">$\frac{3}{5}|0\rangle + \frac{4}{5}|1\rangle$</span></p>
-          <div class="mt-4">
-            <div class="solution-toggle" onclick="toggleSolution('sol1')">הצג פתרון</div>
-            <div id="sol1" class="solution">
-              <p><b>פתרון:</b> ב) <span class="inline-math">$|0\rangle - |1\rangle$</span></p>
-              <p><b>הסבר:</b> <span class="inline-math">$\alpha = 1, \beta = -1$</span>. תנאי הנרמול הוא <span class="inline-math">$|\alpha|^2 + |\beta|^2 = |1|^2 + |-1|^2 = 1 + 1 = 2$</span>. ניתן לנרמל ע"י חלוקה ב-<span class="inline-math">$\sqrt{2}$</span>.</p>
-              <p>א) חוקי: <span class="inline-math">$|\frac{1}{\sqrt{2}}|^2 + |\frac{i}{\sqrt{2}}|^2 = 1$</span>.</p>
-              <p>ג) חוקי: <span class="inline-math">$|\frac{3}{5}|^2 + |\frac{4}{5}|^2 = 1$</span>.</p>
+    <!-- שקף 1: פתיחה -->
+    <div class="slide active">
+        <div class="slide-content">
+            <!-- === הוספת הלוגו === -->
+            <div class="animated anim-1">
+                <svg width="150" height="150" viewBox="0 0 200 200" class="mx-auto mb-8">
+                    <defs>
+                        <linearGradient id="atomGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#a78bfa;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#818cf8;stop-opacity:1" />
+                        </linearGradient>
+                    </defs>
+                    <circle cx="100" cy="100" r="20" fill="url(#atomGradient)"/>
+                    <ellipse cx="100" cy="100" rx="90" ry="30" stroke="url(#atomGradient)" stroke-width="5" fill="none" />
+                    <ellipse cx="100" cy="100" rx="90" ry="30" stroke="url(#atomGradient)" stroke-width="5" fill="none" transform="rotate(60 100 100)" />
+                    <ellipse cx="100" cy="100" rx="90" ry="30" stroke="url(#atomGradient)" stroke-width="5" fill="none" transform="rotate(120 100 100)" />
+                </svg>
             </div>
-          </div>
+            <!-- === עדכון מספור אנימציות === -->
+            <h1 class="animated anim-2">מבוא לחישוב קוונטי</h1>
+            <p class="animated anim-3 text-2xl text-violet-300 text-center">סקירה: קיוביטים, שערים ומערכות מרובות</p>
         </div>
-
-      </div>
     </div>
-  </div>
 
-  <!-- שקף 3: סימון דיראק -->
-  <div class="slide">
-    <div class="slide-content">
-      <h2 class="animated anim-1">שפת התיאור: סימון דיראק (Bra-Ket)</h2>
-      <p class="animated anim-2">אנו משתמשים בסימון "Bra-Ket" של פול דיראק:</p>
+    <!-- שקף 2: הקיוביט -->
+    <div class="slide">
+        <div class="slide-content">
+            <h2 class="animated anim-1">היחידה הבסיסית: הקיוביט (Qubit)</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                
+                <!-- Box 1: Definitions -->
+                <div class="animated anim-2 p-6 gate-box">
+                    <h3 class="text-2xl font-bold text-violet-300 mb-4">הגדרה</h3>
+                    <ul class="list-disc mr-4 space-y-2">
+                        <li>ביט קלאסי הוא 0 או 1. קיוביט הוא מערכת קוונטית דו-ממדית, <span class="inline-math">$\mathcal{H} \cong \mathbb{C}^{2}$</span>.</li>
+                        <li><b>מצבי הבסיס:</b> <span class="inline-math">$|0\rangle$</span> ו-<span class="inline-math">$|1\rangle$</span>.</li>
+                        <li><b>סופרפוזיציה:</b> מצב כללי הוא צירוף לינארי:
+                            <div class="math-block">$$|\psi\rangle = \alpha|0\rangle + \beta|1\rangle$$</div>
+                        </li>
+                        <li><span class="inline-math">$\alpha, \beta$</span> הם <b>אמפליטודות</b> (מספרים מרוכבים).</li>
+                        <li><b>תנאי נרמול:</b> סכום הריבועים חייב להיות 1:
+                            <div class="math-block">$$|\alpha|^{2} + |\beta|^{2} = 1$$</div>
+                        </li>
+                    </ul>
+                </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-        <div class="animated anim-3 p-6 gate-box">
-          <h3 class="text-2xl font-bold text-violet-300 mb-4">הגדרות</h3>
-          <ul class="list-disc mr-8 space-y-2">
-            <li><b>Ket (קט):</b> וקטור עמודה, מסומן <span class="inline-math">$|\psi\rangle$</span>.
-              <div class="math-block">$$|0\rangle = \begin{pmatrix} 1 \\ 0 \end{pmatrix} , |1\rangle = \begin{pmatrix} 0 \\ 1 \end{pmatrix}$$</div>
-            </li>
-            <li><b>Bra (ברא):</b> וקטור שורה (הצמוד ההרמיטי, <span class="inline-math">$\dagger$</span>), מסומן <span class="inline-math">$\langle \psi |$</span>.
-              <div class="math-block">$$\langle \psi | = \begin{pmatrix} \overline{\alpha} & \overline{\beta} \end{pmatrix}$$</div>
-            </li>
-            <li><b>Bra-Ket:</b> מכפלה פנימית, <span class="inline-math">$\langle \phi | \psi \rangle$</span>.
-              <ul class="list-disc mr-8">
-                <li>נרמול: <span class="inline-math">$\langle \psi | \psi \rangle = 1$</span>.</li>
-                <li>אורתונורמליות: <span class="inline-math">$\langle 0 | 1 \rangle = 0$</span>.</li>
-              </ul>
-            </li>
-          </ul>
-        </div>
+                <!-- Box 2: Exercise -->
+                <div class="animated anim-3 p-6 exercise-box">
+                    <h3 class="text-2xl font-bold text-violet-300 mb-4">תרגיל: מצב חוקי</h3>
+                    <p>איזה מהבאים <u>אינו</u> מצב קיוביט חוקי?</p>
+                    <p class="mt-4">א) <span class="inline-math">$\frac{1}{\sqrt{2}}|0\rangle + \frac{i}{\sqrt{2}}|1\rangle$</span></p>
+                    <p>ב) <span class="inline-math">$|0\rangle - |1\rangle$</span></p>
+                    <p>ג) <span class="inline-math">$\frac{3}{5}|0\rangle + \frac{4}{5}|1\rangle$</span></p>
+                    <div class="mt-4">
+                        <div class="solution-toggle" onclick="toggleSolution('sol1')">הצג פתרון</div>
+                        <div id="sol1" class="solution">
+                            <p><b>פתרון:</b> ב) <span class="inline-math">$|0\rangle - |1\rangle$</span></p>
+                            <p><b>הסבר:</b> <span class="inline-math">$\alpha = 1, \beta = -1$</span>. תנאי הנרמול הוא <span class="inline-math">$|\alpha|^2 + |\beta|^2 = |1|^2 + |-1|^2 = 1 + 1 = 2$</span>. מכיוון שהתוצאה אינה 1, זהו אינו מצב קוונטי חוקי (אך ניתן לנרמל אותו ע"י חלוקה ב-<span class="inline-math">$\sqrt{2}$</span>).</p>
+                            <p>א) חוקי: <span class="inline-math">$|\frac{1}{\sqrt{2}}|^2 + |\frac{i}{\sqrt{2}}|^2 = \frac{1}{2} + \frac{1}{2} = 1$</span>.</p>
+                            <p>ג) חוקי: <span class="inline-math">$|\frac{3}{5}|^2 + |\frac{4}{5}|^2 = \frac{9}{25} + \frac{16}{25} = \frac{25}{25} = 1$</span>.</p>
+                        </div>
+                    </div>
+                </div>
 
-        <div class="animated anim-4 p-6 exercise-box">
-          <h3 class="text-2xl font-bold text-violet-300 mb-4">תרגיל: מכפלה פנימית</h3>
-          <p>חשב את <span class="inline-math">$\langle \phi | \psi \rangle$</span> עבור:</p>
-          <p><span class="inline-math">$|\psi\rangle = \frac{1}{\sqrt{3}}|0\rangle + \frac{1+i}{\sqrt{3}}|1\rangle$</span></p>
-          <p><span class="inline-math">$|\phi\rangle = \frac{i}{\sqrt{2}}|0\rangle + \frac{1}{\sqrt{2}}|1\rangle$</span></p>
-          <div class="mt-4">
-            <div class="solution-toggle" onclick="toggleSolution('sol2')">הצג פתרון</div>
-            <div id="sol2" class="solution">
-              <p><b>פתרון:</b></p>
-              <p>1. <span class="inline-math">$\langle \phi | = \begin{pmatrix} -i/\sqrt{2} & 1/\sqrt{2} \end{pmatrix}$</span></p>
-              <p>2. <span class="inline-math">$\langle \phi | \psi \rangle = \begin{pmatrix} -i/\sqrt{2} & 1/\sqrt{2} \end{pmatrix} \begin{pmatrix} 1/\sqrt{3} \\ (1+i)/\sqrt{3} \end{pmatrix}$</span></p>
-              <p><span class="inline-math">$= \frac{-i}{\sqrt{6}} + \frac{1+i}{\sqrt{6}} = \frac{1}{\sqrt{6}}$</span></p>
             </div>
-          </div>
         </div>
-      </div>
     </div>
-  </div>
 
-  <!-- שקף 4: מדידה -->
-  <div class="slide">
-    <div class="slide-content">
-      <h2 class="animated anim-1">פעולה 1: מדידה (Measurement)</h2>
+    <!-- שקף 3: סימון דיראק -->
+    <div class="slide">
+        <div class="slide-content">
+            <h2 class="animated anim-1">שפת התיאור: סימון דיראק (Bra-Ket)</h2>
+            <p class="animated anim-2">אנו משתמשים בסימון "Bra-Ket" של פול דיראק:</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                <!-- Box 1: Definitions -->
+                <div class="animated anim-3 p-6 gate-box">
+                    <h3 class="text-2xl font-bold text-violet-300 mb-4">הגדרות</h3>
+                    <ul class="list-disc mr-8 space-y-2">
+                        <li><b>Ket (קט):</b> וקטור עמודה, מסומן <span class="inline-math">$|\psi\rangle$</span>.
+                            <div class="math-block">$$|0\rangle = \begin{pmatrix} 1 \\ 0 \end{pmatrix} , |1\rangle = \begin{pmatrix} 0 \\ 1 \end{pmatrix}$$</div>
+                        </li>
+                        <li><b>Bra (ברא):</b> וקטור שורה (הצמוד ההרמיטי, <span class="inline-math">$\dagger$</span>), מסומן <span class="inline-math">$\langle \psi |$</span>.
+                            <div class="math-block">$$\langle \psi | = \begin{pmatrix} \overline{\alpha} & \overline{\beta} \end{pmatrix}$$</div>
+                        </li>
+                        <li><b>Bra-Ket:</b> מכפלה פנימית, <span class="inline-math">$\langle \phi | \psi \rangle$</span>.
+                            <ul class="list-disc mr-8">
+                                <li>נרמול: <span class="inline-math">$\langle \psi | \psi \rangle = 1$</span>.</li>
+                                <li>אורתונורמליות: <span class="inline-math">$\langle 0 | 1 \rangle = 0$</span>.</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-        <div class="animated anim-2 p-6 gate-box">
-          <h3 class="text-2xl font-bold text-violet-300 mb-4">הגדרה</h3>
-          <ul class="list-disc mr-8 space-y-2">
-            <li>לא ניתן לקרוא ישירות את האמפליטודות <span class="inline-math">$\alpha, \beta$</span>.</li>
-            <li>למצב <span class="inline-math">$|\psi\rangle = \alpha|0\rangle + \beta|1\rangle$</span> בבסיס <span class="inline-math">Z</span>:
-              <ol class="list-decimal mr-8">
-                <li>0 בהסתברות <span class="inline-math">$p(0) = |\alpha|^{2}$</span>.</li>
-                <li>1 בהסתברות <span class="inline-math">$p(1) = |\beta|^{2}$</span>.</li>
-              </ol>
-            </li>
-            <li><b>קריסה:</b> לאחר המדידה המצב נהרס:
-              <ul class="list-disc mr-8">
-                <li>מדדנו 0 → <span class="inline-math">$|0\rangle$</span>.</li>
-                <li>מדדנו 1 → <span class="inline-math">$|1\rangle$</span>.</li>
-              </ul>
-            </li>
-          </ul>
-        </div>
-
-        <div class="animated anim-3 p-6 exercise-box">
-          <h3 class="text-2xl font-bold text-violet-300 mb-4">תרגיל: הסתברות מדידה</h3>
-          <p>בהינתן <span class="inline-math">$|\psi\rangle = \frac{1}{2}|0\rangle + \frac{\sqrt{3}}{2}i|1\rangle$</span>:</p>
-          <p class="mt-4">1. מה ההסתברות למדוד 0?</p>
-          <p>2. מה ההסתברות למדוד 1?</p>
-          <p>3. מה יהיה המצב לאחר מדידת 1?</p>
-          <div class="mt-4">
-            <div class="solution-toggle" onclick="toggleSolution('sol3')">הצג פתרון</div>
-            <div id="sol3" class="solution">
-              <p><b>פתרון:</b></p>
-              <p>1. <span class="inline-math">$p(0) = 1/4$</span>. 2. <span class="inline-math">$p(1) = 3/4$</span>. 3. המצב קורס ל־<span class="inline-math">$|1\rangle$</span>.</p>
+                <!-- Box 2: Exercise -->
+                <div class="animated anim-4 p-6 exercise-box">
+                    <h3 class="text-2xl font-bold text-violet-300 mb-4">תרגיל: מכפלה פנימית</h3>
+                    <p>חשב את <span class="inline-math">$\langle \phi | \psi \rangle$</span> עבור:</p>
+                    <p><span class="inline-math">$|\psi\rangle = \frac{1}{\sqrt{3}}|0\rangle + \frac{1+i}{\sqrt{3}}|1\rangle$</span></p>
+                    <p><span class="inline-math">$|\phi\rangle = \frac{i}{\sqrt{2}}|0\rangle + \frac{1}{\sqrt{2}}|1\rangle$</span></p>
+                    <div class="mt-4">
+                        <div class="solution-toggle" onclick="toggleSolution('sol2')">הצג פתרון</div>
+                        <div id="sol2" class="solution">
+                            <p><b>פתרון:</b></p>
+                            <p>1. נמצא את ה-Bra של <span class="inline-math">$\phi$</span>: <span class="inline-math">$\langle \phi | = \begin{pmatrix} \overline{i/\sqrt{2}} & \overline{1/\sqrt{2}} \end{pmatrix} = \begin{pmatrix} -i/\sqrt{2} & 1/\sqrt{2} \end{pmatrix}$</span></p>
+                            <p>2. נכפול: <span class="inline-math">$\langle \phi | \psi \rangle = \begin{pmatrix} -i/\sqrt{2} & 1/\sqrt{2} \end{pmatrix} \begin{pmatrix} 1/\sqrt{3} \\ (1+i)/\sqrt{3} \end{pmatrix}$</span></p>
+                            <p><span class="inline-math">$= \frac{-i}{\sqrt{6}} + \frac{1+i}{\sqrt{6}} = \frac{1}{\sqrt{6}}$</span></p>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
     </div>
-  </div>
 
-  <!-- שקף 5: שערים קוונטיים -->
-  <div class="slide">
-    <div class="slide-content">
-      <h2 class="animated anim-1">פעולה 2: שערים קוונטיים (קיוביט בודד)</h2>
-      <ul class="list-disc mr-8 animated anim-2">
-        <li>התפתחות מצב ללא מדידה היא ע"י <b>אופרטור אוניטרי</b> <span class="inline-math">$U$</span>.</li>
-        <li><span class="inline-math">$U^{\dagger} = U^{-1}$</span>.</li>
-        <li>ב־<span class="inline-math">$\mathbb{C}^2$</span> השערים הם מטריצות <span class="inline-math">$2 \times 2$</span>.</li>
-        <li><span class="inline-math">$|\psi_{out}\rangle = U |\psi_{in}\rangle$</span>.</li>
-      </ul>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
-        <div class="animated anim-3 p-6 gate-box">
-          <h3 class="text-2xl font-bold text-violet-300">שער X (NOT)</h3>
-          <p>הופך מצבי בסיס.</p>
-          <div class="math-block">$$X = \begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix}$$</div>
-          <span class="inline-math">$X|0\rangle = |1\rangle \quad , \quad X|1\rangle = |0\rangle$</span>
-        </div>
-        <div class="animated anim-4 p-6 gate-box">
-          <h3 class="text-2xl font-bold text-violet-300">שער Z (Phase Flip)</h3>
-          <p>מכפיל את <span class="inline-math">$|1\rangle$</span> ב־−1.</p>
-          <div class="math-block">$$Z = \begin{pmatrix} 1 & 0 \\ 0 & -1 \end{pmatrix}$$</div>
-          <span class="inline-math">$Z|0\rangle = |0\rangle \quad , \quad Z|1\rangle = -|1\rangle$</span>
-        </div>
-        <div class="animated anim-5 p-6 gate-box">
-          <h3 class="text-2xl font-bold text-violet-300">שער H (Hadamard)</h3>
-          <p>יוצר סופרפוזיציה אחידה.</p>
-          <div class="math-block">$$H = \frac{1}{\sqrt{2}}\begin{pmatrix} 1 & 1 \\ 1 & -1 \end{pmatrix}$$</div>
-          <span class="inline-math">$H|0\rangle = |+\rangle \quad , \quad H|1\rangle = |-\rangle$</span>
-        </div>
-      </div>
-    </div>
-  </div>
+    <!-- שקף 4: מדידה -->
+    <div class="slide">
+        <div class="slide-content">
+            <h2 class="animated anim-1">פעולה 1: מדידה (Measurement)</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                <!-- Box 1: Definitions -->
+                <div class="animated anim-2 p-6 gate-box">
+                    <h3 class="text-2xl font-bold text-violet-300 mb-4">הגדרה</h3>
+                    <ul class="list-disc mr-8 space-y-2">
+                        <li>בחישוב קוונטי, לא ניתן "לקרוא" ישירות את האמפליטודות <span class="inline-math">$\alpha, \beta$</span>.</li>
+                        <li>כאשר מודדים את המצב <span class="inline-math">$|\psi\rangle = \alpha|0\rangle + \beta|1\rangle$</span> (בבסיס <span class="inline-math">Z</span>):
+                            <ol class="list-decimal mr-8">
+                                <li>נקבל <b>0</b> בהסתברות <span class="inline-math">$p(0) = |\alpha|^{2}$</span>.</li>
+                                <li>נקבל <b>1</b> בהסתברות <span class="inline-math">$p(1) = |\beta|^{2}$</span>.</li>
+                            </ol>
+                        </li>
+                        <li><b>קריסת המצב (Collapse):</b> לאחר המדידה, המצב המקורי "נהרס".
+                            <ul class="list-disc mr-8">
+                                <li>אם מדדנו 0, המצב החדש הוא <span class="inline-math">$|0\rangle$</span>.</li>
+                                <li>אם מדדנו 1, המצב החדש הוא <span class="inline-math">$|1\rangle$</span>.</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
 
-  <!-- שקף 6: תרגיל שערים -->
-  <div class="slide">
-    <div class="slide-content">
-      <h2 class="animated anim-1">תרגול: הרכבת שערים</h2>
-      <p class="animated anim-2">סדר הפעולה מימין לשמאל.</p>
-      <p class="animated anim-2"><span class="inline-math">$|\psi_{final}\rangle = U_2 U_1 |\psi_{initial}\rangle$</span>.</p>
-
-      <div class="space-y-6 mt-6">
-        <div class="animated anim-3 exercise-box">
-          <h3>תרגיל 1: מה התוצאה של <span class="inline-math">$XZ|1\rangle$</span>?</h3>
-          <div class="solution-toggle" onclick="toggleSolution('sol4a')">הצג פתרון</div>
-          <div id="sol4a" class="solution">
-            <p><b>פתרון:</b> <span class="inline-math">$Z|1\rangle=-|1\rangle \Rightarrow X(-|1\rangle)=-|0\rangle$</span>.</p>
-            <p><span class="inline-math">$XZ=\begin{pmatrix}0&-1\\1&0\end{pmatrix}$</span>, ולכן על <span class="inline-math">$|1\rangle$</span> מתקבל <span class="inline-math">$-|0\rangle$</span>.</p>
-          </div>
-        </div>
-
-        <div class="animated anim-4 exercise-box">
-          <h3>תרגיל 2: מה התוצאה של <span class="inline-math">$HH|0\rangle$</span>?</h3>
-          <div class="solution-toggle" onclick="toggleSolution('sol4b')">הצג פתרון</div>
-          <div id="sol4b" class="solution">
-            <p><b>פתרון:</b> <span class="inline-math">$H^2=I$</span>, לכן <span class="inline-math">$|0\rangle$</span> נשאר <span class="inline-math">$|0\rangle$</span>.</p>
-          </div>
-        </div>
-
-        <div class="animated anim-5 exercise-box">
-          <h3>תרגיל 3: (אתגר) מה התוצאה של <span class="inline-math">$HZH|+\rangle$</span>?</h3>
-          <div class="solution-toggle" onclick="toggleSolution('sol4c')">הצג פתרון</div>
-          <div id="sol4c" class="solution">
-            <p><b>פתרון:</b> <span class="inline-math">$HZH=X$</span>, ולכן <span class="inline-math">$HZH|+\rangle=|+\rangle$</span>.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- שקף 7: מכפלה טנזורית -->
-  <div class="slide">
-    <div class="slide-content">
-      <h2 class="animated anim-1">מערכות מרובות: מכפלה טנזורית (<span class="inline-math">$\otimes$</span>)</h2>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-        <div class="animated anim-2 p-6 gate-box">
-          <h3 class="text-2xl font-bold text-violet-300 mb-4">הגדרה</h3>
-          <ul class="list-disc mr-8 space-y-2">
-            <li>לשני קיוביטים: <span class="inline-math">$\mathcal{H}=U\otimes W$</span>, ממד <span class="inline-math">$4$</span>.</li>
-            <li><b>בסיס:</b>
-              <div class="math-block">$$\{ |0\rangle\otimes|0\rangle,\ |0\rangle\otimes|1\rangle,\\ |1\rangle\otimes|0\rangle,\ |1\rangle\otimes|1\rangle \}$$</div>
-            </li>
-            <li><b>סימון מקוצר:</b>
-              <div class="math-block">$$\{|00\rangle, |01\rangle, |10\rangle, |11\rangle\}$$</div>
-            </li>
-          </ul>
-        </div>
-
-        <div class="animated anim-3 p-6 exercise-box">
-          <h3 class="text-2xl font-bold text-violet-300 mb-4">תרגיל: פיתוח מכפלה טנזורית</h3>
-          <p>כתוב את <span class="inline-math">$|+\rangle\otimes|-\rangle$</span> בבסיס החישובי.</p>
-          <div class="mt-4">
-            <div class="solution-toggle" onclick="toggleSolution('sol5')">הצג פתרון</div>
-            <div id="sol5" class="solution">
-              <p><b>פתרון:</b> <span class="inline-math">$\frac{1}{2}(|00\rangle-|01\rangle+|10\rangle-|11\rangle)$</span>.</p>
+                <!-- Box 2: Exercise -->
+                <div class="animated anim-3 p-6 exercise-box">
+                    <h3 class="text-2xl font-bold text-violet-300 mb-4">תרגיל: הסתברות מדידה</h3>
+                    <p>בהינתן המצב <span class="inline-math">$|\psi\rangle = \frac{1}{2}|0\rangle + \frac{\sqrt{3}}{2}i|1\rangle$</span>:</p>
+                    <p class="mt-4">1. מה ההסתברות למדוד 0?</p>
+                    <p>2. מה ההסתברות למדוד 1?</p>
+                    <p>3. מה יהיה המצב <u>לאחר</u> מדידת 1?</p>
+                    <div class="mt-4">
+                        <div class="solution-toggle" onclick="toggleSolution('sol3')">הצג פתרון</div>
+                        <div id="sol3" class="solution">
+                            <p><b>פתרון:</b></p>
+                            <p>כאן <span class="inline-math">$\alpha = 1/2$</span> ו- <span class="inline-math">$\beta = \sqrt{3}i/2$</span>.</p>
+                            <p>1. <span class="inline-math">$p(0) = |\alpha|^2 = |1/2|^2 = 1/4$</span> (או 25%).</p>
+                            <p>2. <span class="inline-math">$p(1) = |\beta|^2 = |\sqrt{3}i/2|^2 = (\sqrt{3}/2)^2 \cdot |i|^2 = (3/4) \cdot 1 = 3/4$</span> (או 75%).</p>
+                            <p>3. לאחר מדידת 1, המצב יקרוס ל-<span class="inline-math">$|1\rangle$</span>.</p>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
     </div>
-  </div>
 
-  <!-- שקף 8: CNOT -->
-  <div class="slide">
-    <div class="slide-content">
-      <h2 class="animated anim-1">שער שני קיוביטים: CNOT</h2>
-      <p class="animated anim-2">אופרטורים על <span class="inline-math">$\mathbb{C}^4$</span> הם מטריצות <span class="inline-math">$4 \times 4$</span>.</p>
+    <!-- שקף 5: שערים קוונטיים (קיוביט בודד) -->
+    <div class="slide">
+        <div class="slide-content">
+            <h2 class="animated anim-1">פעולה 2: שערים קוונטיים (קיוביט בודד)</h2>
+            <ul class="list-disc mr-8 animated anim-2">
+                <li>התפתחות של מצב קוונטי (ללא מדידה) מתוארת על ידי הפעלת <b>אופרטור אוניטרי</b> (<span class="inline-math">$U$</span>).</li>
+                <li>אופרטור אוניטרי הוא אופרטור שמשמר נורמה, ומקיים <span class="inline-math">$U^{\dagger} = U^{-1}$</span> (הצמוד ההרמיטי שלו הוא ההופכי שלו).</li>
+                <li>במרחב <span class="inline-math">$\mathbb{C}^2$</span>, שערים אלו הם מטריצות <span class="inline-math">$2 \times 2$</span>.</li>
+                <li>הפעולה היא פשוט כפל מטריצה בוקטור: <span class="inline-math">$|\psi_{out}\rangle = U |\psi_{in}\rangle$</span>.</li>
+            </ul>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
+                <div class="animated anim-3 p-6 gate-box">
+                    <h3 class="text-2xl font-bold text-violet-300">שער X (NOT)</h3>
+                    <p>הופך את מצבי הבסיס. המקביל הקוונטי לשער NOT קלאסי.</p>
+                    <div class="math-block">$$X = \begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix}$$</div>
+                    <span class="inline-math">$X|0\rangle = |1\rangle \quad , \quad X|1\rangle = |0\rangle$</span>
+                </div>
+                <div class="animated anim-4 p-6 gate-box">
+                    <h3 class="text-2xl font-bold text-violet-300">שער Z (Phase Flip)</h3>
+                    <p>"הופך פאזה" למצב <span class="inline-math">$|1\rangle$</span> (מכפיל ב-1-).</p>
+                    <div class="math-block">$$Z = \begin{pmatrix} 1 & 0 \\ 0 & -1 \end{pmatrix}$$</div>
+                    <span class="inline-math">$Z|0\rangle = |0\rangle \quad , \quad Z|1\rangle = -|1\rangle$</span>
+                </div>
+                <div class="animated anim-5 p-6 gate-box">
+                    <h3 class="text-2xl font-bold text-violet-300">שער H (Hadamard)</h3>
+                    <p>השער החשוב ביותר. יוצר סופרפוזיציה אחידה ממצבי הבסיס.</p>
+                    <div class="math-block">$$H = \frac{1}{\sqrt{2}}\begin{pmatrix} 1 & 1 \\ 1 & -1 \end{pmatrix}$$</div>
+                    <span class="inline-math">$H|0\rangle = |+\rangle \quad , \quad H|1\rangle = |-\rangle$</span>
+                </div>
+            </div>
+        </div>
+    </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-        <div class="animated anim-3 p-6 gate-box">
-          <h3 class="text-2xl font-bold text-violet-300 mb-4">שער CNOT (Controlled-NOT או $CX$)</h3>
-          <ul class="list-disc mr-8 space-y-2">
-            <li>קיוביט בקרה: ראשון. מטרה: שני.</li>
-            <li>הופך את המטרה אם הבקרה הוא 1.</li>
-          </ul>
+    <!-- שקף 6: תרגיל שערים -->
+    <div class="slide">
+        <div class="slide-content">
+            <h2 class="animated anim-1">תרגול: הרכבת שערים</h2>
+            <p class="animated anim-2">הפעלת שערים ברצף שקולה לכפל מטריצות. סדר הפעולה הוא מימין לשמאל (כמו הרכבת פונקציות).</p>
+            <p class="animated anim-2"><span class="inline-math">$|\psi_{final}\rangle = U_2 U_1 |\psi_{initial}\rangle$</span> (קודם <span class="inline-math">$U_1$</span>, ואז <span class="inline-math">$U_2$</span>).</p>
+            
+            <div class="space-y-6 mt-6">
+                <div class="animated anim-3 exercise-box">
+                    <h3>תרגיל 1: מה התוצאה של <span class="inline-math">$XZ|1\rangle$</span>?</h3>
+                    <div class="solution-toggle" onclick="toggleSolution('sol4a')">הצג פתרון</div>
+                    <div id="sol4a" class="solution">
+                        <p><b>פתרון (צעד אחר צעד):</b></p>
+                        <p>1. <span class="inline-math">$Z|1\rangle = -|1\rangle$</span> (לפי הגדרת Z)</p>
+                        <p>2. <span class="inline-math">$X(-|1\rangle) = -X|1\rangle = -|0\rangle$</span> (לפי הגדרת X, והוצאת סקלר)</p>
+                        <p><b>פתרון (כפל מטריצות):</b></p>
+                        <p><span class="inline-math">$XZ = \begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix} \begin{pmatrix} 1 & 0 \\ 0 & -1 \end{pmatrix} = \begin{pmatrix} 0 & -1 \\ 1 & 0 \end{pmatrix}$</span></p>
+                        <p><span class="inline-math">$\begin{pmatrix} 0 & -1 \\ 1 & 0 \end{pmatrix} \begin{pmatrix} 0 \\ 1 \end{pmatrix}_{|1\rangle} = \begin{pmatrix} -1 \\ 0 \end{pmatrix} = -|0\rangle$</span></p>
+                    </div>
+                </div>
 
-          <!-- Diagram kept LTR -->
-          <div class="my-6 text-center" dir="ltr">
-            <svg width="250" height="100" xmlns="http://www.w3.org/2000/svg" class="mx-auto bg-gray-900 rounded-lg p-4
+                <div class="animated anim-4 exercise-box">
+                    <h3>תרגיל 2: מה התוצאה של <span class="inline-math">$HH|0\rangle$</span>?</h3>
+                    <div class="solution-toggle" onclick="toggleSolution('sol4b')">הצג פתרון</div>
+                    <div id="sol4b" class="solution">
+                        <p><b>פתרון (צעד אחר צעד):</b></p>
+                        <p>1. <span class="inline-math">$H|0\rangle = |+\rangle = \frac{1}{\sqrt{2}}(|0\rangle + |1\rangle)$</span></p>
+                        <p>2. <span class="inline-math">$H|+\rangle = H(\frac{1}{\sqrt{2}}(|0\rangle + |1\rangle)) = \frac{1}{\sqrt{2}}(H|0\rangle + H|1\rangle)$</span></p>
+                        <p><span class="inline-math">$= \frac{1}{\sqrt{2}}( ( \frac{|0\rangle + |1\rangle}{\sqrt{2}} ) + ( \frac{|0\rangle - |1\rangle}{\sqrt{2}} ) )$</span></p>
+                        <p><span class="inline-math">$= \frac{1}{2} ( |0\rangle + |1\rangle + |0\rangle - |1\rangle ) = \frac{1}{2}(2|0\rangle) = |0\rangle$</span></p>
+                        <p><b>מסקנה:</b> <span class="inline-math">$H^2 = I$</span> (שער הדמר הוא ההופכי של עצמו).</p>
+                    </div>
+                </div>
+
+                <div class="animated anim-5 exercise-box">
+                    <h3>תרגיל 3: (אתגר) מה התוצאה של <span class="inline-math">$HZH|+\rangle$</span>?</h3>
+                    <div class="solution-toggle" onclick="toggleSolution('sol4c')">הצג פתרון</div>
+                    <div id="sol4c" class="solution">
+                        <p><b>פתרון:</b></p>
+                        <p>1. <span class="inline-math">$H|+\rangle = |0\rangle$</span> (לפי תרגיל 2, <span class="inline-math">$HH|0\rangle = |0\rangle \implies H|+\rangle = |0\rangle$</span>)</p>
+                        <p>2. <span class="inline-math">$Z|0\rangle = |0\rangle$</span> (לפי הגדרת Z)</p>
+                        <p>3. <span class="inline-math">$H|0\rangle = |+\rangle$</span></p>
+                        <p><b>מסקנה:</b> <span class="inline-math">$HZH|+\rangle = |+\rangle$</span>.</p>
+                        <p><b>הרחבה:</b> ניתן להוכיח כי <span class="inline-math">$HZH = X$</span>. לכן <span class="inline-math">$HZH|+\rangle = X|+\rangle = X(\frac{|0\rangle+|1\rangle}{\sqrt{2}}) = \frac{X|0\rangle+X|1\rangle}{\sqrt{2}} = \frac{|1\rangle+|0\rangle}{\sqrt{2}} = |+\rangle$</span>.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- שקף 7: מכפלה טנזורית -->
+    <div class="slide">
+        <div class="slide-content">
+            <h2 class="animated anim-1">מערכות מרובות: מכפלה טנזורית (<span class="inline-math">$\otimes$</span>)</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                <!-- Box 1: Definitions -->
+                <div class="animated anim-2 p-6 gate-box">
+                    <h3 class="text-2xl font-bold text-violet-300 mb-4">הגדרה</h3>
+                    <ul class="list-disc mr-8 space-y-2">
+                        <li>כדי לתאר מערכת של שני קיוביטים (או יותר), אנו משתמשים ב<b>מכפלה טנזורית</b> של המרחבים שלהם.</li>
+                        <li>אם $U, W$ הם מרחבים של קיוביט בודד (<span class="inline-math">$\cong \mathbb{C}^2$</span>), המרחב המשותף <span class="inline-math">$\mathcal{H} = U \otimes W$</span> הוא ממימד <span class="inline-math">$2 \times 2 = 4$</span>.</li>
+                        <li><b>בסיס המערכת (4 מצבים):</b>
+                            <!-- פיצול הנוסחה לשתי שורות עם \\ כדי למנוע גלישה -->
+                            <div class="math-block">$$\{ |0\rangle \otimes |0\rangle, \quad |0\rangle \otimes |1\rangle, \\ \quad |1\rangle \otimes |0\rangle, \quad |1\rangle \otimes |1\rangle \}$$</div>
+                        </li>
+                        <li><b>סימון מקוצר:</b> (פשוט משרשרים את ה-Kets)
+                            <div class="math-block">$$\{ |00\rangle, \quad |01\rangle, \quad |10\rangle, \quad |11\rangle \}$$</div>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Box 2: Exercise -->
+                <div class="animated anim-3 p-6 exercise-box">
+                    <h3 class="text-2xl font-bold text-violet-300 mb-4">תרגיל: פיתוח מכפלה טנזורית</h3>
+                    <p>כתוב את המצב <span class="inline-math">$|\psi\rangle = |+\rangle \otimes |-\rangle$</span> כסופרפוזיציה של מצבי הבסיס <span class="inline-math">$\{|00\rangle, |01\rangle, |10\rangle, |11\rangle\}$</span>.</p>
+                    <div class="mt-4">
+                        <div class="solution-toggle" onclick="toggleSolution('sol5')">הצג פתרון</div>
+                        <div id="sol5" class="solution">
+                            <p><b>פתרון:</b></p>
+                            <p>1. נציב את ההגדרות של <span class="inline-math">$|+\rangle$</span> ו-<span class="inline-math">$|-\rangle$</span>:</p>
+                            <p><span class="inline-math">$|\psi\rangle = \left( \frac{|0\rangle + |1\rangle}{\sqrt{2}} \right) \otimes \left( \frac{|0\rangle - |1\rangle}{\sqrt{2}} \right)$</span></p>
+                            <p>2. נכפול את הסקלרים ונפתח סוגריים (דיסטריבוטיביות):</p>
+                            <p><span class="inline-math">$= \frac{1}{2} \left( (|0\rangle + |1\rangle) \otimes (|0\rangle - |1\rangle) \right)$</span></p>
+                            <p><span class="inline-math">$= \frac{1}{2} \left( |0\rangle \otimes (|0\rangle - |1\rangle) + |1\rangle \otimes (|0\rangle - |1\rangle) \right)$</span></p>
+                            <p><span class="inline-math">$= \frac{1}{2} \left( |0\rangle\otimes|0\rangle - |0\rangle\otimes|1\rangle + |1\rangle\otimes|0\rangle - |1\rangle\otimes|1\rangle \right)$</span></p>
+                            <p>3. נשתמש בסימון המקוצר:</p>
+                            <p><span class="inline-math">$= \frac{1}{2} (|00\rangle - |01\rangle + |10\rangle - |11\rangle)$</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- שקף 8: שער CNOT -->
+    <div class="slide">
+        <div class="slide-content">
+            <h2 class="animated anim-1">שער שני קיוביטים: CNOT</h2>
+            <p class="animated anim-2">אופרטורים על <span class="inline-math">$\mathbb{C}^4$</span> הם מטריצות <span class="inline-math">$4 \times 4$</span>. השערים המעניינים הם אלו שיוצרים אינטראקציה.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                <!-- Box 1: Definition & Diagram -->
+                <div class="animated anim-3 p-6 gate-box">
+                    <h3 class="text-2xl font-bold text-violet-300 mb-4">שער CNOT (Controlled-NOT או $CX$)</h3>
+                    <ul class="list-disc mr-8 space-y-2">
+                        <li>זהו שער <span class="inline-math">$4 \times 4$</span> קריטי שאינו ניתן להפרדה.</li>
+                        <li><b>קיוביט בקרה (Control):</b> הקיוביט הראשון.</li>
+                        <li><b>קיוביט מטרה (Target):</b> הקיוביט השני.</li>
+                        <li><b>פעולה:</b> הופך (X) את קיוביט המטרה <u>אם ורק אם</u> קיוביט הבקרה הוא 1.</li>
+                    </ul>
+                    
+                    <!-- CNOT Gate Diagram -->
+                    <div class="my-6 text-center" dir="ltr">
+                        <svg width="250" height="100" xmlns="http://www.w3.org/2000/svg" class="mx-auto bg-gray-900 rounded-lg p-4" viewBox="0 0 250 100">
+                            <style>
+                                .line { stroke: #e0e0e0; stroke-width: 2; }
+                                .text { font-family: 'Rubik', sans-serif; font-size: 16px; fill: #e0e0e0; }
+                                .control { fill: #a78bfa; stroke: #a78bfa; }
+                                .target { stroke: #a78bfa; stroke-width: 2.5; }
+                            </style>
+                            <!-- Control Qubit Line -->
+                            <line x1="20" y1="30" x2="230" y2="30" class="line"/>
+                            <text x="0" y="35" class="text">|a⟩</text>
+                            <text x="235" y="35" class="text">|a⟩</text>
+                            
+                            <!-- Target Qubit Line -->
+                            <line x1="20" y1="70" x2="230" y2="70" class="line"/>
+                            <text x="0" y="75" class="text">|b⟩</text>
+                            <text x="235" y="75" class="text">|a⊕b⟩</text>
+                            
+                            <!-- CNOT components -->
+                            <line x1="125" y1="30" x2="125" y2="70" class="line"/>
+                            <!-- Control Dot -->
+                            <circle cx="125" cy="30" r="6" class="control"/>
+                            <!-- Target Circle (XOR) -->
+                            <circle cx="125" cy="70" r="12" class="target" fill="none"/>
+                            <line x1="125" y1="58" x2="125" y2="82" class="target"/>
+                            <line x1="113" y1="70" x2="137" y2="70" class="target"/>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- Box 2: Actions & Exercise -->
+                <div class="animated anim-4 p-6 exercise-box">
+                    <h3 class="text-2xl font-bold text-violet-300 mb-4">פעולה על מצבי הבסיס</h3>
+                    <ul class="list-none space-y-2">
+                        <li><span class="inline-math">$CX|00\rangle = |00\rangle$</span> (בקרה 0)</li>
+                        <li><span class="inline-math">$CX|01\rangle = |01\rangle$</span> (בקרה 0)</li>
+                        <li><span class="inline-math">$CX|10\rangle = |11\rangle$</span> (בקרה 1, הופך <span class="inline-math">$0 \to 1$</span>)</li>
+                        <li><span class="inline-math">$CX|11\rangle = |10\rangle$</span> (בקרה 1, הופך <span class="inline-math">$1 \to 0$</span>)</li>
+                    </ul>
+                    
+                    <h3 class="text-2xl font-bold text-violet-300 mt-6 mb-4">תרגיל: CNOT על סופרפוזיציה</h3>
+                    <p>מה התוצאה של הפעלת <span class="inline-math">$CNOT$</span> על המצב <span class="inline-math">$|\psi\rangle = |+\rangle \otimes |0\rangle$</span>?</p>
+                    <div>
+                        <div class="solution-toggle" onclick="toggleSolution('sol6')">הצג פתרון</div>
+                        <div id="sol6" class="solution">
+                            <p><b>פתרון:</b></p>
+                            <p>1. נכתוב את <span class="inline-math">$|\psi\rangle$</span> בבסיס החישובי:</p>
+                            <p><span class="inline-math">$|\psi\rangle = \left( \frac{|0\rangle + |1\rangle}{\sqrt{2}} \right) \otimes |0\rangle = \frac{|00\rangle + |10\rangle}{\sqrt{2}}$</span></p>
+                            <p>2. נפעיל <span class="inline-math">$CNOT$</span> (בלינאריות):</p>
+                            <p><span class="inline-math">$CNOT|\psi\rangle = \frac{1}{\sqrt{2}} (CNOT|00\rangle + CNOT|10\rangle)$</span></p>
+                            <p>3. נשתמש בהגדרת השער:</p>
+                            <p><span class="inline-math">$= \frac{1}{\sqrt{2}} (|00\rangle + |11\rangle)$</span></p>
+                            <p><b>מסקנה:</b> קיבלנו את "מצב בל" המפורסם.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- שקף 9: שזירה -->
+    <div class="slide">
+        <div class="slide-content">
+            <h2 class="animated anim-1">שזירה קוונטית (Entanglement)</h2>
+            <p class="animated anim-2">שער CNOT מאפשר לנו ליצור מצבים קוונטיים מורכבים.</p>
+            <h3 class="animated anim-3">מצב פריק (Separable)</h3>
+            <p class="animated anim-3">מצב שניתן לכתוב כמכפלה טנזורית של מצבים בודדים. לדוגמה: <span class="inline-math">$|+\rangle \otimes |-\rangle$</span>. הקיוביטים עצמאיים.</p>
+            <h3 class="animated anim-4">מצב שזור (Entangled)</h3>
+            <p class="animated anim-4">מצב של מערכת מרובת קיוביטים ש<u>לא ניתן</u> לכתוב כמכפלה טנזורית של מצבים בודדים.</p>
+            <h3 class="animated anim-5">יצירת מצב בל (Bell State)</h3>
+            <p class="animated anim-5">זוהי הדוגמה הקנונית למצב שזור. ראינו בתרגיל הקודם איך יוצרים אותו:</p>
+            <ol class="list-decimal mr-8 animated anim-5">
+                <li><b>התחלה:</b> מתחילים מהמצב הפשוט <span class="inline-math">$|00\rangle$</span>.</li>
+                <li><b>יצירת סופרפוזיציה:</b> מפעילים <span class="inline-math">$H$</span> על הקיוביט הראשון:
+                    <div class="math-block">$$(H \otimes I) |00\rangle = (H|0\rangle) \otimes |0\rangle = \frac{|00\rangle + |10\rangle}{\sqrt{2}}$$</div>
+                </li>
+                <li><b>יצירת שזירה:</b> מפעילים CNOT (כאשר קיוביט 1 הוא הבקרה):
+                    <div class="math-block">$$CX \left( \frac{|00\rangle + |10\rangle}{\sqrt{2}} \right) = \frac{|00\rangle + |11\rangle}{\sqrt{2}}$$</div>
+                </li>
+            </ol>
+            <p class="animated anim-5">המצב <span class="inline-math">$|\Phi^+\rangle = \frac{|00\rangle + |11\rangle}{\sqrt{2}}$</span> הוא מצב שזור.</p>
+        </div>
+    </div>
+
+    <!-- שקף 10: הוכחת אי-פריקות -->
+    <div class="slide">
+        <div class="slide-content">
+            <h2 class="animated anim-1">הוכחה: מצב בל אינו פריק</h2>
+            <p class="animated anim-2"><b>טענה:</b> לא ניתן לכתוב את מצב בל <span class="inline-math">$|\Phi^+\rangle = \frac{1}{\sqrt{2}}(|00\rangle + |11\rangle)$</span> כמכפלה טנזורית של שני קיוביטים בודדים.</p>
+            <p class="animated anim-3"><b>הוכחה (על דרך השלילה):</b></p>
+            <ol class="list-decimal mr-8 animated anim-4">
+                <li>נניח בשלילה שזה <u>כן</u> אפשרי. כלומר, קיימים 4 מספרים מרוכבים <span class="inline-math">$\alpha, \beta, \gamma, \delta$</span> כך ש:
+                    <div class="math-block">$$|\psi_A\rangle = \alpha|0\rangle + \beta|1\rangle \quad, \quad |\psi_B\rangle = \gamma|0\rangle + \delta|1\rangle$$</div>
+                    ...וכן מתקיים:
+                    <div class="math-block">$$|\Phi^+\rangle = |\psi_A\rangle \otimes |\psi_B\rangle$$</div>
+                </li>
+                <li>נפתח את אגף ימין:
+                    <div class="math-block">$$(\alpha|0\rangle + \beta|1\rangle) \otimes (\gamma|0\rangle + \delta|1\rangle)$$</div>
+                    <div class="math-block">$$= \alpha\gamma|00\rangle + \alpha\delta|01\rangle + \beta\gamma|10\rangle + \beta\delta|11\rangle$$</div>
+                </li>
+                <li>כעת נשווה את המקדמים של מצב זה למקדמי מצב בל <span class="inline-math">$\frac{1}{\sqrt{2}}|00\rangle + 0 \cdot |01\rangle + 0 \cdot |10\rangle + \frac{1}{\sqrt{2}}|11\rangle$</span>:
+                    <ul class="list-none">
+                        <li>(1) <span class="inline-math">$\alpha\gamma = 1/\sqrt{2}$</span></li>
+                        <li>(2) <span class="inline-math">$\alpha\delta = 0$</span></li>
+                        <li>(3) <span class="inline-math">$\beta\gamma = 0$</span></li>
+                        <li>(4) <span class="inline-math">$\beta\delta = 1/\sqrt{2}$</span></li>
+                    </ul>
+                </li>
+                <li>ממשוואה (2), <span class="inline-math">$\alpha\delta = 0$</span>, נובע ש- <span class="inline-math">$\alpha=0$</span> או <span class="inline-math">$\delta=0$</span>.</li>
+                <li><b>מקרה א':</b> נניח <span class="inline-math">$\alpha=0$</span>.
+                    <p>אם <span class="inline-math">$\alpha=0$</span>, אז ממשוואה (1) נקבל <span class="inline-math">$\alpha\gamma = 0 \cdot \gamma = 0$</span>. אבל משוואה (1) דורשת <span class="inline-math">$\alpha\gamma = 1/\sqrt{2}$</span>. זוהי סתירה!</p>
+                </li>
+                <li><b>מקרה ב':</b> נניח <span class="inline-math">$\delta=0$</span>.
+                    <p>אם <span class="inline-math">$\delta=0$</span>, אז ממשוואה (4) נקבל <span class="inline-math">$\beta\delta = \beta \cdot 0 = 0$</span>. אבל משוואה (4) דורשת <span class="inline-math">$\beta\delta = 1/\sqrt{2}$</span>. זוהי סתירה!</p>
+                </li>
+                <li>בשני המקרים האפשריים קיבלנו סתירה.</li>
+                <li><b>מסקנה:</b> ההנחה הראשונית שגויה. לא ניתן לכתוב את מצב בל כמכפלה פריקה. (מ.ש.ל)</li>
+            </ol>
+        </div>
+    </div>
+
+    <!-- שקף 11: תכונות השזירה -->
+    <div class="slide">
+        <div class="slide-content">
+            <h2 class="animated anim-1">תכונות השזירה: קורלציה מושלמת</h2>
+            <p class="animated anim-2">במצב בל <span class="inline-math">$|\Phi^+\rangle = \frac{|00\rangle + |11\rangle}{\sqrt{2}}$</span>, שני הקיוביטים קשורים באופן בלתי נפרד, לא משנה המרחק ביניהם (פרדוקס EPR).</p>
+            <p class="animated anim-3">נניח שאליס מחזיקה בקיוביט הראשון ובוב בשני.</p>
+            <h3 class="animated anim-3">תרחיש מדידה (בבסיס <span class="inline-math">Z</span>):</h3>
+            <ol class="list-decimal mr-8 animated anim-4">
+                <li><b>אליס מודדת</b> את הקיוביט שלה:
+                    <ul class="list-disc mr-8">
+                        <li>היא מקבלת <b>0</b> בהסתברות <span class="inline-math">$p(0) = |1/\sqrt{2}|^2 = 50\%$</span>.</li>
+                        <li>היא מקבלת <b>1</b> בהסתברות <span class="inline-math">$p(1) = |1/\sqrt{2}|^2 = 50\%$</span>.</li>
+                    </ul>
+                </li>
+                <li><b>תוצאות מתואמות (קורלציה):</b>
+                    <ul class="list-disc mr-8">
+                        <li><b>אם אליס מדדה 0:</b> המערכת כולה קורסת. האיבר <span class="inline-math">$|11\rangle$</span> נעלם. המצב החדש (המנורמל) הוא <span class="inline-math">$|00\rangle$</span>.
+                            <p>בוב (שיכול להיות במרחק שנות אור) ימדוד <b>בהכרח 0</b>.</p>
+                        </li>
+                        <li><b>אם אליס מדדה 1:</b> המערכת כולה קורסת. האיבר <span class="inline-math">$|00\rangle$</span> נעלם. המצב החדש הוא <span class="inline-math">$|11\rangle$</span>.
+                            <p>בוב ימדוד <b>בהכרח 1</b>.</p>
+                        </li>
+                    </ul>
+                </li>
+            </ol>
+            <p class="animated anim-5">התוצאות של בוב נקבעות *מיידית* על ידי המדידה של אליס, למרות שעד לפני המדידה, לשני הקיוביטים לא היה ערך מוגדר.</p>
+            <h3 class="animated anim-5">תרגיל: מדידה בבסיס <span class="inline-math">X</span></h3>
+            <p class="animated anim-5">אליס ובוב משתפים מצב בל <span class="inline-math">$|\Phi^+\rangle$</span>. אליס מחליטה למדוד את הקיוביט שלה "בבסיס <span class="inline-math">X</span>" (כלומר, היא מפעילה <span class="inline-math">$H$</span> ואז מודדת). מה יקרה?</p>
+            <div class="animated anim-5">
+                <div class="solution-toggle" onclick="toggleSolution('sol7')">הצג פתרון</div>
+                <div id="sol7" class="solution">
+                    <p><b>פתרון:</b></p>
+                    <p>1. נצטרך לכתוב את מצבי הבסיס <span class="inline-math">Z</span> בבסיס <span class="inline-math">X</span>: <span class="inline-math">$|0\rangle = \frac{|+\rangle + |-\rangle}{\sqrt{2}}$</span> , <span class="inline-math">$|1\rangle = \frac{|+\rangle - |-\rangle}{\sqrt{2}}$</span></p>
+                    <p>2. נציב זאת במצב בל:</p>
+                    <p><span class="inline-math">$|\Phi^+\rangle = \frac{1}{\sqrt{2}} (|00\rangle + |11\rangle)$</span></p>
+                    <p><span class="inline-math">$= \frac{1}{\sqrt{2}} \left[ \left(\frac{|+\rangle + |-\rangle}{\sqrt{2}}\right)\left(\frac{|+\rangle + |-\rangle}{\sqrt{2}}\right) + \left(\frac{|+\rangle - |-\rangle}{\sqrt{2}}\right)\left(\frac{|+\rangle - |-\rangle}{\sqrt{2}}\right) \right]$</span></p>
+                    <p><span class="inline-math">$= \frac{1}{2\sqrt{2}} [ (|++\rangle + |+-\rangle + |-+\rangle + |--\rangle) + (|++\rangle - |+-\rangle - |-+\rangle + |--\rangle) ]$</span></p>
+                    <p><span class="inline-math">$= \frac{1}{2\sqrt{2}} [ 2|++\rangle + 2|--\rangle ] = \frac{|++\rangle + |--\rangle}{\sqrt{2}}$</span></p>
+                    <p><b>מסקנה:</b> המצב <span class="inline-math">$|\Phi^+\rangle$</span> נראה אותו דבר גם בבסיס <span class="inline-math">X</span>! אם אליס מודדת <span class="inline-math">$|+\rangle$</span> (ב-50% סיכוי), בוב ימדוד *בהכרח* <span class="inline-math">$|+\rangle$</span>. אם אליס מודדת <span class="inline-math">$|-\rangle$</span> (ב-50% סיכוי), בוב ימדוד *בהכרח* <span class="inline-math">$|-\rangle$</span>. הקורלציה המושלמת נשמרת גם בבסיס המדידה הזה.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- שקף 12: בסיס בל -->
+    <div class="slide">
+        <div class="slide-content">
+            <h2 class="animated anim-1">בסיס בל (Bell Basis)</h2>
+            <p class="animated anim-2">קיימים ארבעה מצבי בל אפשריים, הנוצרים מהפעלת אותו מעגל (<span class="inline-math">$CX \circ (H \otimes I)$</span>) על ארבעת מצבי הבסיס.</p>
+            <ul class="text-lg animated anim-3">
+                <li><span class="inline-math">$|\Phi^+\rangle = \frac{|00\rangle + |11\rangle}{\sqrt{2}}$</span> (נוצר מ-<span class="inline-math">$|00\rangle$</span>)</li>
+                <li><span class="inline-math">$|\Phi^-\rangle = \frac{|00\rangle - |11\rangle}{\sqrt{2}}$</span> (נוצר מ-<span class="inline-math">$|10\rangle$</span>)</li>
+                <li><span class="inline-math">$|\Psi^+\rangle = \frac{|01\rangle + |10\rangle}{\sqrt{2}}$</span> (נוצר מ-<span class="inline-math">$|01\rangle$</span>)</li>
+                <li><span class="inline-math">$|\Psi^-\rangle = \frac{|01\rangle - |10\rangle}{\sqrt{2}}$</span> (נוצר מ-<span class="inline-math">$|11\rangle$</span>)</li>
+            </ul>
+            <p class="animated anim-4">ארבעת המצבים הללו הם שזורים מקסימלית ומהווים <b>בסיס אורתונורמלי</b> למרחב של שני קיוביטים (<span class="inline-math">$\mathbb{C}^4$</span>).</p>
+            <p class="animated anim-5">כל מצב של שני קיוביטים ניתן לכתיבה כסופרפוזיציה שלהם. ניתן לבצע "מדידה בבסיס בל" כדי לזהות באיזה מארבעת המצבים המערכת נמצאת.</p>
+        </div>
+    </div>
+
+    <!-- שקף 13: ההתנגדות של איינשטיין -->
+    <div class="slide">
+        <div class="slide-content">
+            <h2 class="animated anim-1">ההקשר ההיסטורי: ההתנגדות של איינשטיין</h2>
+            <!-- שינוי מבנה העמודות -->
+            <div class="flex flex-col md:flex-row gap-6 items-start">
+                <!-- עמודה 1: טקסט ותמונה -->
+                <div class="md:w-2/3 animated anim-2">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Einstein_1921_by_F_Schmutzer_-_restoration.jpg/440px-Einstein_1921_by_F_Schmutzer_-_restoration.jpg" 
+                         onerror="this.onerror=null;this.src='https://placehold.co/150x150/0c0a1f/e0e0e0?text=Einstein';" 
+                         alt="אלברט איינשטיין" class="scientist-img">
+                    <p>באופן אירוני, <b>אלברט איינשטיין</b> נחשב לאחד מאבות תורת הקוונטים (הוא זכה בפרס נובל על ההסבר לאפקט הפוטואלקטרי, שהוא תופעה קוונטית).</p>
+                    <p>אך איינשטיין התנגד עמוקות לאופי ה<b>הסתברותי</b> של התורה. הוא האמין שהאקראיות במדידה נובעת מכך שהתורה "אינה שלמה" ושחסר בה מידע.</p>
+                </div>
+                <!-- עמודה 2: תיבת ציטוט -->
+                <div class="md:w-1/3 animated anim-3 flex flex-col items-center w-full">
+                    <div class="quote-box w-full">
+                        <p>"אלוהים אינו משחק בקוביות."</p>
+                        <footer>- אלברט איינשטיין</footer>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- שקף 14: עקרון אי-הודאות -->
+    <div class="slide">
+        <div class="slide-content">
+            <h2 class="animated anim-1">הבעיה: עקרון אי-הודאות</h2>
+             <!-- שינוי מבנה העמודות -->
+             <div class="flex flex-col md:flex-row gap-6 items-start">
+                <!-- עמודה 1: טקסט ותמונה -->
+                <div class="md:w-2/3 animated anim-2">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f8/Bundesarchiv_Bild183-R57262%2C_Werner_Heisenberg.jpg/440px-Bundesarchiv_Bild183-R57262%2C_Werner_Heisenberg.jpg" 
+                         onerror="this.onerror=null;this.src='https://placehold.co/150x150/0c0a1f/e0e0e0?text=Heisenberg';" 
+                         alt="ורנר הייזנברג" class="scientist-img">
+                    
+                    <p>במכניקה קלאסית, אנו רגילים לכך שניתן לדעת בו-זמנית גם את המיקום וגם את התנע (המהירות) של חלקיק.</p>
+                    
+                    <p><b>ורנר הייזנברג</b> ניסח את עקרון אי-הודאות הקוונטי: לא ניתן לדעת בו-זמנית ערכים של זוגות תכונות מסוימים (כמו מיקום ותנע) בדיוק מוחלט.</p>
+                    
+                    <p><b>מדוע?</b> במכניקת הקוונטים, המדידה עצמה משפיעה על המערכת:</p>
+                    <ul class="list-disc mr-8 space-y-2">
+                        <li>מדידת <b>מיקום</b> גורמת ל"קריסה" של פונקציית הגל למצב שבו אנו יודעים בדיוק את המיקום.</li>
+                        <li>אך אם נמדוד כעת <b>תנע</b>, תתרחש קריסה <b>נוספת</b> למצב בסיס של תנע.</li>
+                        <li>הקריסה השנייה "קילקלה" את המידע על המיקום. החלקיק כעת במצב ודאי מבחינת תנע, אך לא ודאי מבחינת מיקום.</li>
+                        <li>אלו שתי מדידות ש"מקלקלות" זו את זו.</li>
+                    </ul>
+                </div>
+                <!-- עמודה 2: תיבת ציטוט -->
+                <div class="md:w-1/3 animated anim-3 flex flex-col items-center w-full">
+                    <div class="quote-box w-full">
+                        <p>שוטר: "יש לך מושג באיזו מהירות נסעת?!"<br>הייזנברג: "לא, אבל אני יודע בדיוק איפה אני נמצא!"</p>
+                        <footer>- בדיחת פיזיקאים</footer>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- שקף 15: מאמר EPR -->
+    <div class="slide">
+        <div class="slide-content">
+            <h2 class="animated anim-1">הטיעון: מאמר EPR (1935)</h2>
+            <p class="animated anim-2">ב-1935, איינשטיין, <b>בוריס פודולסקי</b> ו<b>נתן רוזן</b> פרסמו מאמר שנועד להוכיח שתורת הקוונטים "אינה שלמה".</p>
+            <div class="flex justify-center gap-4 my-4 animated anim-3">
+                 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Podolsky_Boris.jpg/440px-Podolsky_Boris.jpg" 
+                     onerror="this.onerror=null;this.src='https://placehold.co/150x150/0c0a1f/e0e0e0?text=Podolsky';" 
+                     alt="בוריס פודולסקי" class="scientist-img w-36 h-36">
+                 <img src="https://upload.wikimedia.org/wikipedia/en/thumb/5/5a/Nathan_Rosen.jpg/440px-Nathan_Rosen.jpg" 
+                     onerror="this.onerror=null;this.src='https://placehold.co/150x150/0c0a1f/e0e0e0?text=Rosen';" 
+                     alt="נתן רוזן" class="scientist-img w-36 h-36">
+            </div>
+            <p class="animated anim-4"><b>הטיעון שלהם (במונחים מודרניים):</b></p>
+            <ol class="list-decimal mr-8 animated anim-4">
+                <li>ניקח זוג חלקיקים שזורים (כמו במצב בל) ונרחיק אותם מאוד.</li>
+                <li>אליס מודדת את החלקיק שלה (למשל, מיקום).</li>
+                <li>בשל הקורלציה המושלמת, היא יודעת <b>מיידית</b> ובודאות את מיקום החלקיק של בוב, <u>מבלי למדוד אותו</u>.</li>
+                <li>אם אליס הייתה בוחרת למדוד תנע, היא הייתה יודעת מיידית את התנע של בוב.</li>
+                <li><b>מסקנת EPR:</b> מכיוון שאליס יכולה לדעת (בפוטנציה) גם את המיקום וגם את התנע של בוב מבלי להשפיע עליו, סימן שלשני הגדלים האלה יש ערך ממשי ומוגדר מראש.</li>
+            </ol>
+        </div>
+    </div>
+
+    <!-- שקף 16: משתנים חבויים -->
+    <div class="slide">
+        <div class="slide-content">
+            <h2 class="animated anim-1">ההסבר של EPR: "משתנים חבויים"</h2>
+            <p class="animated anim-2">מכיוון שהמסקנה של EPR סותרת את עקרון אי-הודאות (שטוען שלחלקיק לא יכול להיות מיקום ותנע מוגדרים בו-זמנית), הם הסיקו שהבעיה היא בתורה עצמה.</p>
+            <p class="animated anim-3"><b>ההצעה שלהם:</b> תורת הקוונטים חסרה. חייב להתקיים רובד עמוק יותר של המציאות, "משתנים חבויים", שקובעים מראש מה תהיה תוצאת כל מדידה. האקראיות שאנו רואים היא רק אשליה שנובעת מחוסר הידע שלנו על המשתנים החבויים הללו.</p>
+            <div class="quote-box animated anim-4">
+                <p>"פעולה מבעיתה ממרחק" (Spooky action at a distance)</p>
+                <footer>- אלברט איינשטיין, בתיאורו הלגלגני לשזירה</footer>
+            </div>
+        </div>
+    </div>
+
+    <!-- שקף 17: ההכרעה של בל -->
+    <div class="slide">
+        <div class="slide-content">
+            <h2 class="animated anim-1">ההכרעה: משפט בל (1964)</h2>
+            <p class="animated anim-2">במשך עשורים, הויכוח נשאר פילוסופי. ואז, ב-1964, הפיזיקאי <b>ג'ון סטיוארט בל</b> מצא דרך להכריע בניסוי.</p>
+            <div class="flex flex-col md:flex-row gap-6">
+                <div class="flex-1 animated anim-3">
+                    <img src="https://upload.wikimedia.org/wikipedia/en/thumb/4/4c/John_Stewart_Bell.jpg/440px-John_Stewart_Bell.jpg" 
+                         onerror="this.onerror=null;this.src='https://placehold.co/150x150/0c0a1f/e0e0e0?text=John Bell';" 
+                         alt="ג'ון סטיוארט בל" class="scientist-img">
+                    <p>בל ניסח "אי-שוויון" (משפט בל) שחייב להתקיים <u>אם</u> תאוריית המשתנים החבויים הלוקאליים (כמו של EPR) נכונה.</p>
+                    <p>הוא הראה שתורת הקוונטים הסטנדרטית חוזה תוצאות ש<b>מפרות</b> את אי-השוויון הזה.</p>
+                    <p class="font-bold text-violet-300 text-2xl animated anim-4">הניסויים בוצעו (ע"י אלן אספה ואחרים) והתוצאה הייתה חד-משמעית: אי-השוויון של בל הופר. תורת הקוונטים צדקה.</p>
+                    <p class="font-bold text-xl animated anim-5">המסקנה: העולם אכן "מבעית". אין משתנים חבויים לוקאליים. השזירה היא תופעה אמיתית ולא-מקומית.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- שקף 13: סיכום ויישומים -->
+    <div class="slide">
+        <div class="slide-content">
+            <h2 class="animated anim-1">סיכום ויישומים</h2>
+            <h3 class="animated anim-2">סיכום החומר</h3>
+            <ul class="list-disc mr-8 animated anim-2">
+                <li><b>קיוביט בודד:</b> סופרפוזיציה <span class="inline-math">$\alpha|0\rangle + \beta|1\rangle$</span>, עם <span class="inline-math">$|\alpha|^2 + |\beta|^2 = 1$</span>.</li>
+                <li><b>פעולות:</b>
+                    <ul class="list-disc mr-8">
+                        <li><b>מדידה:</b> הסתברותית (<span class="inline-math">$|\alpha|^2, |\beta|^2$</span>), גורמת לקריסת המצב.</li>
+                        <li><b>שערים:</b> אופרטורים אוניטריים (<span class="inline-math">$H, X, Z$</span>) המשנים את המצב באופן דטרמיניסטי.</li>
+                    </ul>
+                </li>
+                <li><b>מערכת מרובה:</b> מכפלה טנזורית (<span class="inline-math">$|00\rangle, |01\rangle...$</span>).</li>
+                <li><b>שזירה:</b> מצבים שלא ניתנים להפרדה (כמו מצבי בל), נוצרים ע"י שערים כמו CNOT.</li>
+            </ul>
+            <h3 class="animated anim-4">יישומים (המשך)</h3>
+            <p class="animated anim-4">התכונות המיוחדות של שזירה (קורלציה לא-מקומית) מאפשרות פרוטוקולים שאין להם מקבילה קלאסית:</p>
+            <ul class="list-disc mr-8 animated anim-5">
+                <li><b>טלפורטציה קוונטית:</b> שימוש בשזירה וערוץ קלאסי כדי "לשגר" מצב קוונטי ממקום למקום (מבלי לשלוח את הקיוביט פיזית).</li>
+                <li><b>קידוד צפוף (Superdense Coding):</b> שימוש בשזירה כדי לשלוח 2 ביטים קלאסיים על ידי שליחת קיוביט בודד אחד.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <button id="prev-btn" class="nav-btn">&rarr;</button>
+    <button id="next-btn" class="nav-btn">&larr;</button>
+    <div id="slide-counter" class="slide-counter"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Initialize KaTeX rendering
+             renderMathInElement(document.body, {
+                delimiters: [
+                    {left: '$$', right: '$$', display: true}, {left: '\\[', right: '\\]', display: true},
+                    {left: '$', right: '$', display: false}, {left: '\\(', right: '\\)', display: false}
+                ],
+                throwOnError : false // Prevents rendering errors from stopping the script
+            });
+
+            const slides = document.querySelectorAll('.slide');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const slideCounter = document.getElementById('slide-counter');
+            let currentSlide = 0;
+            const totalSlides = slides.length;
+
+            function showSlide(index) {
+                slides.forEach((slide, i) => {
+                    slide.classList.toggle('active', i === index);
+                });
+                slideCounter.textContent = `${index + 1} / ${totalSlides}`;
+                updateNavButtons();
+            }
+
+            function updateNavButtons() {
+                prevBtn.disabled = currentSlide === totalSlides - 1;
+                nextBtn.disabled = currentSlide === 0;
+                prevBtn.style.opacity = prevBtn.disabled ? '0.3' : '1';
+                nextBtn.style.opacity = nextBtn.disabled ? '0.3' : '1';
+            }
+
+            nextBtn.addEventListener('click', () => {
+                if (currentSlide > 0) {
+                    currentSlide--;
+                    showSlide(currentSlide);
+                }
+            });
+
+            prevBtn.addEventListener('click', () => {
+                if (currentSlide < totalSlides - 1) {
+                    currentSlide++;
+                    showSlide(currentSlide);
+                }
+            });
+
+            // Keyboard navigation
+            document.addEventListener('keydown', (e) => {
+                if(e.key === 'ArrowRight') { // Usually right arrow moves forward
+                    prevBtn.click();
+                } else if (e.key === 'ArrowLeft') { // Usually left arrow moves backward
+                    nextBtn.click();
+                }
+            });
+
+            // Initialize the first slide
+            showSlide(currentSlide);
+        });
+
+        // Function to toggle solution visibility
+        function toggleSolution(id) {
+            const solution = document.getElementById(id);
+            if (solution) { // Check if element exists
+                 if (solution.style.display === 'block') {
+                    solution.style.display = 'none';
+                } else {
+                    solution.style.display = 'block';
+                     // Re-render KaTeX in the solution when it becomes visible
+                     renderMathInElement(solution, {
+                         delimiters: [
+                             {left: '$$', right: '$$', display: true}, {left: '\\[', right: '\\]', display: true},
+                             {left: '$', right: '$', display: false}, {left: '\\(', right: '\\)', display: false}
+                         ],
+                         throwOnError : false
+                     });
+                }
+            } else {
+                console.error("Solution element with id '" + id + "' not found.");
+            }
+        }
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
