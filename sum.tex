@@ -1,0 +1,102 @@
+\documentclass[11pt, a4paper]{article}
+
+% --- UNIVERSAL PREAMBLE BLOCK FOR HEBREW ---
+\usepackage[a4paper, top=2.5cm, bottom=2.5cm, left=2cm, right=2cm]{geometry}
+\usepackage{fontspec}
+
+% הגדרת עברית כשפה ראשית
+\usepackage[hebrew, bidi=basic, provide=*]{babel}
+\babelprovide[import, onchar=ids fonts]{hebrew}
+\babelprovide[import, onchar=ids fonts]{english}
+
+% הגדרת גופני Noto (זמינים בסביבת ההידור)
+\babelfont{rm}{Noto Sans}
+\babelfont[hebrew]{rm}{Noto Sans Hebrew}
+
+% תיקון לרשימות (בולטים) בעברית
+\usepackage{enumitem}
+\setlist[itemize]{label=-}
+% --- END OF UNIVERSAL BLOCK ---
+
+% חבילות נוספות
+\usepackage{amsmath} % עבור נוסחאות מתמטיות מתקדמות (כמו מטריצות)
+\usepackage{booktabs} % עבור טבלאות יפות
+
+% הגדרות מסמך
+\title{סיכום מושגי יסוד בחישוב קוונטי}
+\author{} % ללא שם מחבר
+\date{} % ללא תאריך
+
+\begin{document}
+
+\maketitle
+
+\section*{1. הקיוביט (Qubit)}
+
+יחידת המידע הקוונטית הבסיסית. בניגוד לביט קלאסי, שיכול להיות 0 או 1, קיוביט יכול להימצא ב\textbf{סופרפוזיציה} לינארית של שני מצבי הבסיס הללו.
+
+אנו מתארים מצב קיוביט כללי, $|\psi\rangle$ (בסימון "קט" של דיראק), כך:
+$$ |\psi\rangle = \alpha|0\rangle + \beta|1\rangle $$
+כאשר $\alpha$ ו-$\beta$ הן "אמפליטודות" (מספרים מרוכבים) המייצגות את ה"משקל" של כל מצב בסיס.
+
+האמפליטודות חייבות לקיים את \textbf{תנאי הנרמול}:
+$$ |\alpha|^2 + |\beta|^2 = 1 $$
+בייצוג וקטורי, מצבי הבסיס הם:
+$$ |0\rangle = \begin{pmatrix} 1 \\ 0 \end{pmatrix}, \quad |1\rangle = \begin{pmatrix} 0 \\ 1 \end{pmatrix} $$
+ולכן המצב הכללי הוא:
+$$ |\psi\rangle = \begin{pmatrix} \alpha \\ \beta \end{pmatrix} $$
+
+\section*{2. מדידה (Measurement)}
+
+לא ניתן "לראות" או "לקרוא" את האמפליטודות $\alpha$ ו-$\beta$ ישירות. כאשר אנו מודדים את הקיוביט (בבסיס החישובי הסטנדרטי), אנו מקבלים תוצאה קלאסית (0 או 1) באופן הסתברותי:
+\begin{itemize}
+    \item ההסתברות למדוד '0' היא $P(0) = |\alpha|^2$.
+    \item ההסתברות למדוד '1' היא $P(1) = |\beta|^2$.
+\end{itemize}
+פעולת המדידה גורמת ל\textbf{"קריסת פונקציית הגל"}. לאחר המדידה, הסופרפוזיציה נהרסת, והמצב החדש של הקיוביט הוא בדיוק התוצאה הקלאסית שנמדדה (כלומר, $|0\rangle$ או $|1\rangle$).
+
+\section*{3. מכפלה טנזורית ($\otimes$)}
+
+כדי לתאר מערכת המורכבת מיותר מקיוביט אחד, אנו משתמשים ב\textbf{מכפלה טנזורית}. לדוגמה, מערכת של 2 קיוביטים מתוארת במרחב בעל 4 ממדים. 
+הבסיס הסטנדרטי של 2 קיוביטים (בסימון מקוצר) הוא:
+$$ \{ |00\rangle, |01\rangle, |10\rangle, |11\rangle \} $$
+כאשר $|01\rangle$ הוא קיצור של $|0\rangle \otimes |1\rangle$.
+
+מצב כללי של שני קיוביטים הוא סופרפוזיציה של ארבעת מצבי הבסיס הללו:
+$$ |\psi\rangle = \alpha_{00}|00\rangle + \alpha_{01}|01\rangle + \alpha_{10}|10\rangle + \alpha_{11}|11\rangle $$
+
+\section*{4. שערים קוונטיים חשובים}
+
+פעולות (אופרציות) על קיוביטים, שאינן מדידה, מתוארות על ידי \textbf{שערים קוונטיים}. מתמטית, כל שער הוא מטריצה אוניטרית. הפעלת שער על קיוביט שקולה לכפל מטריצת השער בוקטור המצב של הקיוביט.
+
+% תיקון: שימוש ב-$...$ (inline math) במקום $$...$$ (display math) בתוך הטבלה
+\begin{table}[h!]
+\centering
+\begin{tabular}{lll}
+\toprule
+\textbf{שם השער} & \textbf{סימון מטריציוני} & \textbf{פעולה עיקרית} \\
+\midrule
+\textbf{X (NOT)} & $ X = \begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix} $ & הופך את מצבי הבסיס: $X|0\rangle = |1\rangle, X|1\rangle = |0\rangle$ \\
+\addlinespace
+\textbf{Z (Phase-Flip)} & $ Z = \begin{pmatrix} 1 & 0 \\ 0 & -1 \end{pmatrix} $ & הופך את הפאזה של $|1\rangle$: $Z|0\rangle = |0\rangle, Z|1\rangle = -|1\rangle$ \\
+\addlinespace
+\textbf{H (Hadamard)} & $ H = \frac{1}{\sqrt{2}}\begin{pmatrix} 1 & 1 \\ 1 & -1 \end{pmatrix} $ & יוצר סופרפוזיציה אחידה: $H|0\rangle = \frac{|0\rangle+|1\rangle}{\sqrt{2}} \equiv |+\rangle$ \\
+\addlinespace
+\textbf{CNOT (CX)} & \small (מטריצת $4 \times 4$) & \small \begin{tabular}[t]{@{}l@{}}שער של 2 קיוביטים (בקרה ומטרה).\\הופך (X) את קיוביט המטרה (השני)\\ \textbf{אם ורק אם} קיוביט הבקרה (הראשון) הוא $|1\rangle$.\end{tabular} \\
+\bottomrule
+\end{tabular}
+\caption{סיכום שערים קוונטיים בסיסיים}
+\end{table}
+
+\section*{5. מצב שזור (Entangled State)}
+
+\textbf{שזירה קוונטית} היא התכונה המרכזית המבדילה חישוב קוונטי מקלאסי.
+
+מצב נקרא \textbf{שזור} אם לא ניתן לתאר אותו כמכפלה טנזורית של קיוביטים בודדים (כלומר, הוא אינו "פריק"). הקיוביטים במצב כזה קשורים זה לזה באופן מיידי, ללא תלות במרחק ביניהם.
+
+הדוגמה המפורסמת ביותר היא \textbf{"מצב בל"} ($|\Phi^+\rangle$), הנוצר מהפעלת שער הדמר על הקיוביט הראשון ולאחר מכן CNOT (כאשר הקיוביט הראשון הוא הבקרה) על המצב $|00\rangle$:
+$$ |\Phi^+\rangle = \frac{|00\rangle + |11\rangle}{\sqrt{2}} $$
+במצב זה, אם נמדוד את הקיוביט הראשון ונקבל '0', אנו יודעים \textbf{בוודאות מיידית} שגם הקיוביט השני (שנמצא אולי בגלקסיה אחרת) יקרוס ל-'0' ברגע שיימדד. זוהי הקורלציה המושלמת שאיינשטיין כינה "פעולה מבעיתה ממרחק".
+
+\end{document}
+
