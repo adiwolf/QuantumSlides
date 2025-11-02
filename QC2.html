@@ -717,12 +717,12 @@
         <div class="slide-content">
             <h2 class="animated anim-1">ההקשר ההיסטורי: ההתנגדות של איינשטיין</h2>
             <!-- שינוי מבנה העמודות -->
-            <div class="flex flex-col md:flex-row gap-6 items-start">
-                <!-- עמודה 1: תמונה (הוקטנה ומוזזה) -->
-                <div class="md:w-1/3 animated anim-2">
+            <div class="flex flex-col md:flex-row gap-6 items-start mt-6">
+                <!-- עמודה 1: תמונה -->
+                <div class="md:w-1/3 flex justify-center animated anim-2">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Einstein_1921_by_F_Schmutzer_-_restoration.jpg/440px-Einstein_1921_by_F_Schmutzer_-_restoration.jpg" 
                          onerror="this.onerror=null;this.src='https://placehold.co/150x150/0c0a1f/e0e0e0?text=Einstein';" 
-                         alt="אלברט איינשטיין" class="scientist-img w-32 h-32 float-none mx-auto"> <!-- שינוי: הקטנת גודל, ביטול float ומרכוז -->
+                         alt="אלברט איינשטיין" class="scientist-img w-48 h-48 float-none mx-auto">
                 </div>
                 <!-- עמודה 2: תיבת ציטוט + טקסט שהועבר -->
                 <div class="md:w-2/3 animated anim-3"> <!-- שינוי: רוחב עמודה -->
@@ -744,17 +744,15 @@
             <h2 class="animated anim-1">עיקרון אי-הוודאות של הייזנברג</h2>
             
             <!-- Row 1: Image and Joke -->
-            <div class="flex flex-col md:flex-row gap-6 items-start">
-                
-                <!-- Col 1: Image (Shrunk & Centered) -->
-                <div class="md:w-1/3 animated anim-2 flex justify-center">
+            <div class="flex flex-col md:flex-row gap-6 items-center justify-center mt-6">
+                <!-- עמודה 1: תמונה -->
+                <div class="md:w-1/3 flex justify-center animated anim-2">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f8/Bundesarchiv_Bild183-R57262%2C_Werner_Heisenberg.jpg/440px-Bundesarchiv_Bild183-R57262%2C_Werner_Heisenberg.jpg" 
                          onerror="this.onerror=null;this.src='https://placehold.co/150x150/0c0a1f/e0e0e0?text=Heisenberg';" 
-                         alt="ורנר הייזנברג" class="scientist-img w-32 h-32 float-none mx-auto"> <!-- שינוי: הקטנה ומרכוז -->
+                         alt="ורנר הייזנברג" class="scientist-img w-48 h-48 float-none mx-auto">
                 </div>
-                
-                <!-- Col 2: Joke -->
-                <div class="md:w-2/3 animated anim-3 flex flex-col items-center w-full">
+                <!-- עמודה 2: תיבת ציטוט -->
+                <div class="md:w-1/3 animated anim-3">
                     <div class="quote-box w-full">
                         <p>שוטר עוצר את הייזנברג בכביש המהיר וצועק עליו “תגיד לי, יש לך מושג באיזו מהירות אתה נוסע?!”. עונה לו הייזנברג המחייך “לא, אבל אני יודע בדיוק איפה אני נמצא!”</p>
                         <footer>- בדיחת פיזיקאים</footer>
@@ -836,6 +834,263 @@
                     <p class="font-bold text-violet-300 text-2xl animated anim-4">הניסויים בוצעו (ע"י אלן אספה ואחרים) והתוצאה הייתה חד-משמעית: אי-השוויון של בל הופר. תורת הקוונטים צדקה.</p>
                     <p class="font-bold text-xl animated anim-5">המסקנה: אין משתנים חבויים לוקאליים, השזירה היא תופעה אמיתית ולא-מקומית.</p>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- שקף 19: הקדמה פיזיקלית -->
+    <div class="slide">
+        <div class="slide-content">
+            <h2 class="animated anim-1">טעימה מהעקרונות הפיזיקליים שמאחורי המודל (בקירוב, לא מדויק)</h2>
+            
+            <!-- שינוי: עטיפת שני המודלים ברשת של מלבנים -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                
+                <!-- מלבן 1: המודל הקלאסי -->
+                <div class="animated anim-2 p-6 gate-box">
+                    <h3 class="text-2xl font-bold text-violet-300 mb-4">המודל הקלאסי</h3>
+                    <ul class="list-disc mr-8">
+                        <li>מתאר את העולם הגדול (נסיעה במכונית, שטף גשם).</li>
+                        <li>מבוסס על תורת היחסות, דטרמיניסטי (ניתן לחיזוי), ואינטואיטיבי לנו.</li>
+                        <li>לא מצליח להסביר תופעות ברמת האטום.</li>
+                    </ul>
+                </div>
+
+                <!-- מלבן 2: המודל הקוונטי -->
+                <div class="animated anim-3 p-6 gate-box">
+                    <h3 class="text-2xl font-bold text-violet-300 mb-4">המודל הקוונטי</h3>
+                    <ul class="list-disc mr-8">
+                        <li>מתאר את עולם החלקיקים הקטנים (אטומים, אלקטרונים).</li>
+                        <li>המודל אינו דטרמיניסטי אלא <b>הסתברותי</b>.</li>
+                        <li>מנבא תופעות מוזרות המנוגדות לאינטואיציה (כמו סופרפוזיציה).</li>
+                        <li>לא מצליח להסביר תופעות בעולם הגדול (כמו כבידה).</li>
+                    </ul>
+                </div>
+
+            </div> <!-- סגירת הרשת -->
+            <!-- שינוי: העברת השאלה הפתוחה אל מתחת לרשת -->
+            <p class="animated anim-4 text-lg text-violet-300 mt-6">שאלה פתוחה בפיסיקה: מציאת תאוריה מאחדת (תאוריה של הכל), כלומר יצירת מסגרת תיאורטית אחת שתאחד את כל הכוחות היסודיים של הטבע תחת הסבר אחד.</p>
+        </div>
+    </div>
+
+    <!-- שקף 20: ניסוי שני החריצים - סופרפוזיציה -->
+    <div class="slide">
+        <div class="slide-content">
+            <h2 class="animated anim-1">ניסוי שני החריצים: "התאבכות" (סופרפוזיציה)</h2>
+            <p class="animated anim-2">כאשר יורים אלקטרון (חלקיק מימן למשל) לעבר קיר עם <b>שני חריצים</b> פתוחים, הוא לא ״מתנהג כמו כדור״, אלא יוצר על המסך תבנית "התאבכות" - כאילו עבר <b>בו-זמנית דרך שני החריצים</b>.</p>
+            <div class="flex flex-col md:flex-row gap-4 items-center animated anim-3">
+                <div class="flex-1">
+                    <h3>העיקרון: סופרפוזיציה</h3>
+                    <ul class="list-disc mr-8">
+                        <li><b>לפני המדידה:</b> האלקטרון נמצא ב"סופרפוזיציה" - הוא גם עבר בחריץ 1 וגם עבר בחריץ 2.</li>
+                    </ul>
+                </div>
+                <div class="flex-1">
+                    <!-- איור: ניסוי שני החריצים - התאבכות -->
+                    <svg width="400" height="280" viewBox="0 0 400 280" class="physics-svg">
+                        <text x="40" y="20" class="text" text-anchor="start">מקור חלקיקים</text>
+                        <circle cx="50" cy="140" r="15" fill="#fde047" opacity="0.5" />
+                        <path d="M 65 130 L 150 130" class="beam" />
+                        <path d="M 65 140 L 150 140" class="beam" />
+                        <path d="M 65 150 L 150 150" class="beam" />
+                        
+                        <text x="210" y="20" class="text">קיר עם 2 חריצים</text>
+                        <!-- קיר עם שני חריצים (3 חלקים) -->
+                        <rect x="248" y="40" width="4" height="60" class="filter-wall" /> <!-- חלק עליון -->
+                        <rect x="248" y="110" width="4" height="60" class="filter-wall" /> <!-- חלק אמצעי -->
+                        <rect x="248" y="180" width="4" height="60" class="filter-wall" /> <!-- חלק תחתון -->
+                        <text x="350" y="20" class="text">מסך (גלאי)</text>
+                        <rect x="350" y="30" width="10" height="220" class="detector" />
+                        
+                        <!-- שינוי: תבנית התאבכות מעודכנת -->
+                        <!-- Central peak -->
+                        <path d="M 350 110 C 375 125, 375 155, 350 170" fill="none" stroke="#fde047" stroke-width="3" opacity="1" />
+                        <!-- Side peaks -->
+                        <path d="M 350 80 C 365 85, 365 95, 350 100" fill="none" stroke="#fde047" stroke-width="2.5" opacity="0.7" />
+                        <path d="M 350 180 C 365 185, 365 195, 350 200" fill="none" stroke="#fde047" stroke-width="2.5" opacity="0.7" />
+                        <!-- Outer peaks -->
+                        <path d="M 350 55 C 360 60, 360 70, 350 75" fill="none" stroke="#fde047" stroke-width="2" opacity="0.5" />
+                        <path d="M 350 205 C 360 210, 360 220, 350 225" fill="none" stroke="#fde047" stroke-width="2" opacity="0.5" />
+                        
+                        <text x="375" y="140" class="text" fill="#fde047">תבנית התאבכות</text>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- שקף 21: ניסוי שני החריצים - קריסה ) -->
+    <div class="slide">
+        <div class="slide-content">
+            <h2 class="animated anim-1">ניסוי שני החריצים: "קריסת המצב" (מדידה)</h2>
+            <p class="animated anim-2">מה קורה אם אנחנו "מציצים" ובודקים באיזה חריץ האלקטרון עבר *לפני* שהוא פגע במסך?</p>
+            <div class="flex flex-col md:flex-row gap-4 items-center animated anim-3">
+                <div class="flex-1">
+                    <h3>העיקרון: מדידה משפיעה</h3>
+                    <ul class="list-disc mr-8">
+                        <li><b>ביצוע מדידה (ה"פנס"):</b> עצם הבדיקה "מכריחה" את האלקטרון "להחליט" אם הוא עבר בחריץ 1 או בחריץ 2.</li>
+                        <li><b>קריסת פונקציית הגל:</b> הסופרפוזיציה נהרסת. פונקציית הגל קורסת לאחר ממצבי הבסיס ותבנית ההתאבכות הופכת ל2 ערכים בדידים.</li>            
+                    </ul>
+                </div>
+                <div class="flex-1">
+                    <!-- איור: ניסוי שני החריצים - קריסה -->
+                    <svg width="400" height="280" viewBox="0 0 400 280" class="physics-svg">
+                        <text x="40" y="20" class="text" text-anchor="start">מקור חלקיקים</text>
+                        <circle cx="50" cy="140" r="15" fill="#fde047" opacity="0.5" />
+                        <path d="M 65 140 L 248 140" class="beam" />
+                        
+                        <text x="210" y="20" class="text">קיר עם 2 חריצים</text>
+                        <!-- קיר עם שני חריצים (3 חלקים) -->
+                        <rect x="248" y="40" width="4" height="60" class="filter-wall" /> <!-- חלק עליון -->
+                        <rect x="248" y="110" width="4" height="60" class="filter-wall" /> <!-- חלק אמצעי -->
+                        <rect x="248" y="180" width="4" height="60" class="filter-wall" /> <!-- חלק תחתון -->
+                        <!-- "פנס" - מדידה -->
+                        <text x="280" y="140" class="text" fill="#fde047">🔦</text>
+                        <text x="280" y="160" class="text">מדידה!</text>
+
+                        <text x="350" y="20" class="text">מסך (גלאי)</text>
+                        <rect x="350" y="30" width="10" height="220" class="detector" />
+                        
+                        <!-- תבנית קלאסית (שתי ערימות) -->
+                        <path d="M 350 70 C 370 80, 370 100, 350 110"
+                              fill="none" stroke="#fde047" stroke-width="2.5" opacity="0.8" />
+                        <path d="M 350 170 C 370 180, 370 200, 350 210"
+                              fill="none" stroke="#fde047" stroke-width="2.5" opacity="0.8" />
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- שקף 22: איור שטרן-גרלאך (חדש) -->
+    <div class="slide">
+        <div class="slide-content">
+            <h2 class="animated anim-1">ניסוי שטרן-גרלאך (1922)</h2>
+            <!-- איור שטרן-גרלאך בסיסי -->
+            <svg width="500" height="300" viewBox="0 0 500 300" class="physics-svg mx-auto">
+                <defs>
+                    <linearGradient id="beamGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" style="stop-color:#fde047; stop-opacity:0" />
+                        <stop offset="100%" style="stop-color:#fde047; stop-opacity:1" />
+                    </linearGradient>
+                </defs>
+                
+                <!-- מקור -->
+                <text x="50" y="150" class="text" font-size="20">אטומים</text>
+                <circle cx="90" cy="150" r="3" fill="#818cf8" />
+                <circle cx="100" cy="140" r="3" fill="#818cf8" />
+                <circle cx="100" cy="160" r="3" fill="#818cf8" />
+                <circle cx="110" cy="150" r="3" fill="#818cf8" />
+
+                <!-- קרן נכנסת -->
+                <path d="M 120 150 L 180 150" class="beam" stroke-width="5" />
+
+                <!-- מגנט לא אחיד (שטרן-גרלאך) -->
+                <text x="210" y="40" class="text" font-size="16">שדה מגנטי לא אחיד</text>
+                <path d="M 180 50 L 240 50 L 240 120 L 210 150 L 180 120 Z" class="filter" />
+                <path d="M 180 250 L 240 250 L 240 180 L 180 180 Z" class="filter" />
+                <text x="210" y="100" class="text" font-size="20">B</text>
+
+                <!-- קרניים מפוצלות -->
+                <path d="M 240 150 C 280 140, 300 100, 380 90" class="beam" />
+                <path d="M 240 150 C 280 160, 300 200, 380 210" class="beam" />
+
+                <!-- גלאי -->
+                <text x="410" y="40" class="text" font-size="16">מסך גלאי</text>
+                <rect x="400" y="50" width="10" height="200" class="detector" />
+                
+                <!-- תוצאה בדידה -->
+                <path d="M 400 80 C 415 85, 415 95, 400 100" fill="#fde047" />
+                <path d="M 400 200 C 415 205, 415 215, 400 220" fill="#fde047" />
+                <text x="430" y="90" class="text" fill="#fde047">תוצאה 1</text>
+                <text x="430" y="210" class="text" fill="#fde047">תוצאה 2</text>
+            </svg>
+        </div>
+    </div>
+    <!-- שקף 23: ניסוי שטרן-גרלאך (טקסט) -->
+    <div class="slide">
+        <div class="slide-content">
+            <h2 class="animated anim-1">ניסוי שטרן-גרלאך (1922)</h2>
+            <p class="animated anim-2">ניסוי זה הראה כי תכונה פנימית של חלקיקים (ספין) אינה רציפה, אלא מקבלת ערכים בדידים (קוונטיים).</p>
+            <div class="flex flex-col md:flex-row gap-4 items-start animated anim-3">
+                <div class="flex-1">
+                    <h3>מהלך הניסוי</h3>
+                    <ul class="list-disc mr-8">
+                        <li><b>יצירת אלומה:</b> יצרו אלומת אטומי כסף .</li>
+                        <li><b>שדה מגנטי לא אחיד:</b> העבירו את האלומה דרך שדה מגנטי לא אחיד.</li>
+                        <li><b>איסוף בגלאי:</b> מדדו היכן האטומים פוגעים במסך גלאי.</li>
+                    </ul>
+                </div>
+                <div class="flex-1">
+                    <h3>תוצאות ומשמעות</h3>
+                    <ul class="list-disc mr-8">
+                        <li><b>הניבוי הקלאסי:</b> התפלגות רציפה (כתם מרוח) על הגלאי.</li>
+                        <li><b>התוצאה בפועל:</b> האלומה התפצלה לשתי אלומות בדידות בלבד ("למעלה" ו"למטה").</li>
+                        <li><b>מסקנה:</b> התנע הזוויתי (הספין) הוא קוונטי - הוא יכול לקבל רק ערכים בדידים, לא ערך רציף. זוהי הוכחה לקיום ה"ספין".</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- שקף 24: ניסוי שטרן-גרלאך (איור) -->
+    <div class="slide">
+        <div class="slide-content">
+            <h2 class="animated anim-1">שטרן-גרלאך: המשך</h2>
+            
+            <!-- 1. איור למעלה -->
+            <div class="animated anim-2">
+                <!-- איור: ניסוי שטרן-גרלאך משורשר -->
+                <svg width="500" height="200" viewBox="0 0 500 200" class="physics-svg mx-auto"> <!-- mx-auto for centering -->
+                    <!-- Source -->
+                    <text x="30" y="20" class="text" text-anchor="start">מקור</text>
+                    <rect x="20" y="65" width="60" height="40" class="filter" rx="5" />
+                    <text x="50" y="90" class="text">Source</text>
+                    <path d="M 80 85 L 100 85" class="beam" />
+                    
+                    <!-- Filter 1 (X) -->
+                    <rect x="100" y="45" width="60" height="80" class="filter" rx="5" />
+                    <text x="130" y="145" class="text">X-Filter</text>
+                    <path d="M 160 75 C 180 75, 190 55, 210 55" class="beam" stroke-dasharray="3 3" opacity="0.5" />
+                    <path d="M 160 75 C 180 75, 190 95, 210 95" class="beam" />
+                    <!-- תיקון: מיקום תווית -->
+                    <text x="165" y="120" class="text">בחירת X "מטה"</text>
+
+                    <!-- Filter 2 (Y) -->
+                    <rect x="210" y="65" width="80" height="60" class="filter" rx="5" />
+                    <text x="250" y="145" class="text">Y-Filter</text>
+                    <path d="M 290 95 C 310 95, 320 75, 340 75" class="beam" />
+                    <path d="M 290 95 C 310 95, 320 115, 340 115" class="beam" stroke-dasharray="3 3" opacity="0.5" />
+                    <!-- תיקון: מיקום תווית -->
+                    <text x="295" y="60" class="text">בחירת Y "שמאל"</text>
+
+                    <!-- Filter 3 (X) -->
+                    <rect x="340" y="45" width="80" height="60" class="filter" rx="5" />
+                    <text x="380" y="125" class="text">X-Filter</text>
+                    <path d="M 420 75 C 440 75, 450 55, 470 55" class="beam" />
+                    <path d="M 420 75 C 440 75, 450 95, 470 95" class="beam" />
+                    
+                    <!-- Detector -->
+                    <rect x="470" y="30" width="10" height="90" class="detector" />
+                    <text x="485" y="60" class="text">50%</text>
+                    <text x="485" y="100" class="text">50%</text>
+                </svg>
+            </div>
+
+            <!-- 2. כל המלל מתחת -->
+            <div class="animated anim-3">
+                <p>כמו שמדידות מיקום ותנע קוונטי ״מקלקלות״ זו את זו, כך גם מדידת ספין בצירים שונים (כמו X ו-Y).</p>
+                <h3>הסבר האיור</h3>
+                <ul class="list-disc mr-8">
+                    <li><b>שלב 1 (X-Filter):</b> סיננו רק אטומים עם ספין X "מטה". (100% ודאות).</li>
+                    <li><b>שלב 2 (Y-Filter):</b> מדדנו את הספין בציר Y. זה "קילקל" את הוודאות בציר X. סיננו רק אטומים עם ספין Y "שמאל".</li>
+                    <li><b>שלב 3 (X-Filter):</b> כשמדדנו שוב בציר X, גילינו שהאטומים "שכחו" שהם היו "X מטה". הם שוב התפצלו 50/50.</li>
+                    <li><b>מסקנה:</b> מדידה היא פעולה אקטיבית שמשנה את המערכת.</li>
+                </ul>
+                <p class="mt-4">
+                    ב-1927 הפעילו פיפס וטיילור מערך ניסוי הדומה לזה של שטרן וגרלך, על אלומת אטומי מימן. גם בניסוי זה התפלג התנע הזוויתי סביב שני ערכים בדידים.
+                </p>
             </div>
         </div>
     </div>
