@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>מצגת: מבוא לחישוב קוונטי</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" xintegrity="sha384-n8MVd4RsNIU0KOVEMVIgtRsBOpGkmJPARnBuf7CwiLUPCACAUdebugLGc5pRTqDJDR" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" xintegrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" xintegrity="sha384-+VBxd3r6XgURPl3keyCpgkrPCiJqgwjxwAnxMVB44oUvJ3NdGWbtn+ORu276vLfx" crossorigin="anonymous"></script>
+    <style>
+        body {
+            font-family: 'Rubik', sans-serif;
+            background-color: #0c0a1f;
+            color: #e0e0e0;
+            overflow: hidden;
+        }
+        .slide {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem 4rem;
+            transition: opacity 0.7s ease-in-out, transform 0.7s ease-in-out;
+            opacity: 0;
+            transform: scale(0.95);
+            pointer-events: none;
+        }
+        .slide.active {
+            opacity: 1;
+            transform: scale(1);
+            pointer-events: auto;
+        }
+        .slide-content {
+            max-width: 1100px;
+        }
+        h1 { font-size: 3.5rem; font-weight: 700; color: #a78bfa; text-shadow: 0 0 15px #a78bfa; }
+        h2 { font-size: 2.5rem; font-weight: 500; color: #818cf8; margin-bottom: 1.5rem; }
+        p, li { font-size: 1.25rem; line-height: 1.8; }
+        ul { list-style-position: inside; }
+        .katex-display { margin: 1em 0; font-size: 1.5em !important; }
+        .katex { font-size: 1.2em !important; direction: ltr; display: inline-block; vertical-align: middle; }
+
+        .active .animated { opacity: 0; }
+        .active .anim-1 { animation: fadeIn 0.5s 0.3s forwards; }
+        .active .anim-2 { animation: fadeIn 0.5s 0.6s forwards; }
+        .active .anim-3 { animation: fadeIn 0.5s 0.9s forwards; }
+        .active .anim-4 { animation: fadeIn 0.5s 1.2s forwards; }
+        .active .anim-5 { animation: fadeIn 0.5s 1.5s forwards; }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        .nav-btn {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(167, 139, 250, 0.3);
+            color: white;
+            border: 2px solid #a78bfa;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 2rem;
+            cursor: pointer;
+            z-index: 100;
+            transition: all 0.2s ease-in-out;
+            box-shadow: 0 0 10px #a78bfa;
+        }
+        .nav-btn:hover {
+            background-color: rgba(167, 139, 250, 0.6);
+            transform: translateY(-50%) scale(1.1);
+        }
+        #prev-btn { right: 2rem; }
+        #next-btn { left: 2rem; }
+        
+        .slide-counter {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            color: #a78bfa;
+            font-size: 1.2rem;
+            background: rgba(0,0,0,0.3);
+            padding: 5px 15px;
+            border-radius: 15px;
+            z-index: 100;
+        }
+        
+        .pill {
+            background-color: rgba(129, 140, 248, 0.2);
+            border: 1px solid #818cf8;
+            color: #c7d2fe;
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            font-weight: 500;
+        }
+
+    </style>
+</head>
+<body class="overflow-hidden">
+
+    <!-- Slide 1: Title -->
+    <div class="slide active">
+        <div class="slide-content">
+            <div class="animated anim-1">
+                <svg width="150" height="150" viewBox="0 0 200 200" class="mx-auto mb-8">
+                    <defs>
+                        <linearGradient id="atomGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#a78bfa;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#818cf8;stop-opacity:1" />
+                        </linearGradient>
+                    </defs>
+                    <circle cx="100" cy="100" r="20" fill="url(#atomGradient)"/>
+                    <ellipse cx="100" cy="100" rx="90" ry="30" stroke="url(#atomGradient)" stroke-width="5" fill="none" />
+                    <ellipse cx="100" cy="100" rx="90" ry="30" stroke="url(#atomGradient)" stroke-width="5" fill="none" transform="rotate(60 100 100)" />
+                    <ellipse cx="100" cy="100" rx="90" ry="30" stroke="url(#atomGradient)" stroke-width="5" fill="none" transform="rotate(120 100 100)" />
+                </svg>
+            </div>
+            <h1 class="animated anim-2">מבוא לחישוב קוונטי:</h1>
+            <h2 class="animated anim-3 text-3xl mt-4">שימושים של מצב שזור</h2>
+        </div>
+    </div>
+    
+    <!-- New Slide 18: מצבי בל -->
+    <div class="slide">
+        <div class="slide-content">
+            <h2 class="animated anim-1">מצבי בל (Bell States)</h2>
+            <p class="animated anim-2">
+                נתחיל במצב \(|00\rangle\), נפעיל שער הדאמר \(H\) על הקיוביט הראשון,
+                ולאחר מכן שער \(CX\) (הראשון בקרה, השני מטרה):
+            </p>
+            <div class="animated anim-3 mt-4" dir="ltr">
+                $$ H\lvert 0\rangle = \frac{\lvert 0\rangle + \lvert 1\rangle}{\sqrt{2}} $$
+                $$ CX\left(\frac{\lvert 00\rangle + \lvert 10\rangle}{\sqrt{2}}\right)
+                   = \frac{\lvert 00\rangle + \lvert 11\rangle}{\sqrt{2}} $$
+            </div>
+            <p class="animated anim-4 mt-4">
+                זהו אחד ממצבי הבל – מצבים שזורים שאי אפשר לכתוב כמכפלה של שני מצבים נפרדים.
+            </p>
+            <div class="animated anim-5 mt-4" dir="ltr">
+                $$ 
+                \frac{\lvert 00\rangle \pm \lvert 11\rangle}{\sqrt{2}}, \quad
+                \frac{\lvert 01\rangle \pm \lvert 10\rangle}{\sqrt{2}}
+                $$
+            </div>
+        </div>
+    </div>
+
+    <!-- New Slide 19: משמעות השזירה -->
+    <div class="slide">
+        <div class="slide-content">
+            <h2 class="animated anim-1">שזירה: המשמעות הפיזיקלית</h2>
+            <p class="animated anim-2">
+                במצב בל \(\displaystyle \frac{\lvert 00\rangle + \lvert 11\rangle}{\sqrt{2}}\)
+                אין דרך לכתוב את המצב כמכפלה של מצב על הקיוביט הראשון ומצב על הקיוביט השני.
+            </p>
+            <ul class="animated anim-3 mt-4 space-y-2 text-right">
+                <li>מדידת הקיוביט הראשון וקבלת \(0\) מכריחה את המערכת לקרוס ל-\(|00\rangle\).</li>
+                <li>מדידת הקיוביט הראשון וקבלת \(1\) מכריחה את המערכת לקרוס ל-\(|11\rangle\).</li>
+                <li>ערכו של הקיוביט השני נקבע מיידית, גם אם הקיוביטים רחוקים זה מזה.</li>
+            </ul>
+            <p class="animated anim-4 mt-4 text-gray-400 text-lg">
+                תופעה זו עמדה במרכז הדיון במאמר EPR ושימשה בסיס לניסוח אי־שוויוני בל.
+            </p>
+        </div>
+    </div>
+
+    <!-- New Slide 20: צפוף קידוד -->
+    <div class="slide">
+        <div class="slide-content">
+            <h2 class="animated anim-1">צפוף קידוד (Superdense Coding)</h2>
+            <p class="animated anim-2">
+                המטרה: להעביר שני ביטים קלאסיים באמצעות שליחת קיוביט בודד – תוך שימוש בזוג קיוביטים שזור.
+            </p>
+            <ul class="animated anim-3 mt-4 space-y-2 text-right">
+                <li>אליס ובוב חולקים מראש מצב בל \(\frac{\lvert 00\rangle + \lvert 11\rangle}{\sqrt{2}}\).</li>
+                <li>אליס מחזיקה קיוביט אחד, בוב את השני.</li>
+                <li>כדי לשלוח שני ביטים \(b_1 b_2\), אליס מפעילה על הקיוביט שלה אופרטור מתאים.</li>
+            </ul>
+            <div class="animated anim-4 mt-4" dir="ltr">
+                $$ 
+                00 \rightarrow I,\quad
+                01 \rightarrow Z,\quad
+                10 \rightarrow X,\quad
+                11 \rightarrow XZ
+                $$
+            </div>
+            <p class="animated anim-5 mt-4">
+                לאחר מכן אליס שולחת את הקיוביט שלה לבוב. בוב מחזיק בשני הקיוביטים,
+                מודד בבסיס מצבי הבל, ומהתוצאה משחזר את שני הביטים הקלאסיים.
+            </p>
+        </div>
+    </div>
+
+    <!-- New Slide 21: טלפורטציה קוונטית -->
+    <div class="slide">
+        <div class="slide-content">
+            <h2 class="animated anim-1">טלפורטציה קוונטית – הרעיון</h2>
+            <p class="animated anim-2">
+                המטרה: להעביר מצב קוונטי \(\lvert \psi\rangle = \alpha\lvert 0\rangle + \beta\lvert 1\rangle\)
+                מאליס לבוב, בלי לשלוח את הקיוביט עצמו.
+            </p>
+            <ul class="animated anim-3 mt-4 space-y-2 text-right">
+                <li>אליס ובוב חולקים מראש זוג שזור במצב בל.</li>
+                <li>אליס מחזיקה את \(\lvert \psi\rangle\) ועוד אחד מהקיוביטים השזורים.</li>
+                <li>אליס מפעילה שערי \(CX\) ו-\(H\) על הקיוביטים שלה ומודדת אותם.</li>
+                <li>מהמדידה היא מקבלת שני ביטים קלאסיים אותם היא משדרת לבוב.</li>
+                <li>בוב מפעיל על הקיוביט שבידו אחד מהאופרטורים \(I, X, Z, XZ\) בהתאם לשני הביטים, וכך משחזר את \(\lvert \psi\rangle\).</li>
+            </ul>
+            <p class="animated anim-4 mt-4 text-gray-400 text-lg">
+                חשוב: המצב אינו "מועתק". אצל אליס הקיוביט נמדד וקורס, ורק המצב משוחזר אצל בוב.
+            </p>
+        </div>
+    </div>
+
+    <!-- New Slide 22: מודלים קלאסיים לחישוב -->
+    <div class="slide">
+        <div class="slide-content">
+            <h2 class="animated anim-1">מודלים קלאסיים לחישוב</h2>
+            <p class="animated anim-2">
+                לפני שנגדיר חישוב קוונטי, נזכיר שלושה מודלים חשובים בעולם הקלאסי:
+            </p>
+            <ul class="animated anim-3 mt-4 space-y-3 text-right">
+                <li><span class="font-bold text-violet-300">מודל "מחשב אמיתי"</span> –
+                    זיכרון, רגיסטרים ויחידת עיבוד; קרוב להנדסת מחשבים בפועל.</li>
+                <li><span class="font-bold text-violet-300">מכונת טיורינג</span> –
+                    סרט אינסופי וראש קורא/כותב; מודל פשוט אך חזק, נוח להוכחות.</li>
+                <li><span class="font-bold text-violet-300">מודל המעגלים הבוליאניים</span> –
+                    גרף של שערי AND/OR/NOT המקבלים ביטים קלאסיים ומחזירים ביטים קלאסיים.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- New Slide 23: מודל המעגלים הקוונטיים -->
+    <div class="slide">
+        <div class="slide-content">
+            <h2 class="animated anim-1">מודל המעגלים הקוונטיים</h2>
+            <p class="animated anim-2">
+                במודל הקוונטי, החישוב מתואר כמעגל של שערים אוניטריים על קיוביטים.
+            </p>
+            <ul class="animated anim-3 mt-4 space-y-2 text-right">
+                <li>לכל קיוביט יש "קו זמן" משמאל לימין.</li>
+                <li>בתחילת המעגל מאתחלים לרוב את המצב \(|0^n\rangle\).</li>
+                <li>מפעילים רצף של שערים (אוניטריים) על קיוביט אחד, שניים או שלושה.</li>
+                <li>בסיום מודדים חלק מהקיוביטים ומקבלים פלט קלאסי.</li>
+            </ul>
+            <p class="animated anim-4 mt-4 text-gray-400 text-lg">
+                כל השערים בין האתחול למדידה הם הפיכים – זה הבדל מהותי מהחישוב הקלאסי היומיומי.
+            </p>
+        </div>
+    </div>
+
+    <!-- New Slide 24: שערי פאולי וחבורת פאולי -->
+    <div class="slide">
+        <div class="slide-content">
+            <h2 class="animated anim-1">שערי פאולי וחבורת פאולי</h2>
+            <div class="animated anim-2 mt-2" dir="ltr">
+                $$ 
+                X = \begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix},\quad
+                Y = \begin{pmatrix} 0 & -i \\ i & 0 \end{pmatrix},\quad
+                Z = \begin{pmatrix} 1 & 0 \\ 0 & -1 \end{pmatrix}
+                $$
+            </div>
+            <ul class="animated anim-3 mt-4 space-y-2 text-right">
+                <li>\(X\) הוא האנלוג הקוונטי של NOT קלאסי.</li>
+                <li>\(Y\) משלב "היפוך" ו"הזזת פאזה" מרוכבת.</li>
+                <li>\(Z\) הופך את הפאזה של \(|1\rangle\) ומשאיר את \(|0\rangle\) כפי שהוא.</li>
+            </ul>
+            <div class="animated anim-4 mt-4" dir="ltr">
+                $$ XY = iZ,\quad YZ = iX,\quad ZX = iY,\quad XYZ = iI $$
+            </div>
+            <p class="animated anim-5 mt-4 text-gray-400 text-lg">
+                האיברים \(\{\pm I, \pm iI, \pm X, \pm iX, \pm Y, \pm iY, \pm Z, \pm iZ\}\)
+                יוצרים את חבורת פאולי, מרכזית במיוחד בתורת השגיאות הקוונטית.
+            </p>
+        </div>
+    </div>
+
+    <!-- New Slide 25: H, S ו-Toffoli -->
+    <div class="slide">
+        <div class="slide-content">
+            <h2 class="animated anim-1">שערי \(H\), \(S\) ו-Toffoli (CCX)</h2>
+            <div class="animated anim-2 mt-2" dir="ltr">
+                $$
+                H = \frac{1}{\sqrt{2}}
+                \begin{pmatrix} 1 & 1 \\ 1 & -1 \end{pmatrix},\quad
+                S = \begin{pmatrix} 1 & 0 \\ 0 & i \end{pmatrix}
+                $$
+            </div>
+            <ul class="animated anim-3 mt-4 space-y-2 text-right">
+                <li>\(H\) יוצר סופרפוזיציה: \(H\lvert 0\rangle = \frac{\lvert 0\rangle + \lvert 1\rangle}{\sqrt{2}}\).</li>
+                <li>\(S\) מוסיף פאזה \(i\) למצב \(|1\rangle\), ו-\(S^2 = Z\).</li>
+                <li>שער Toffoli (\(CCX\)) פועל על שלושה קיוביטים: הופך את הקיוביט השלישי אם שני הראשונים הם \(1\).</li>
+            </ul>
+            <p class="animated anim-4 mt-4 text-gray-400 text-lg">
+                בשילוב שערי פאולי, \(H\), \(S\) ו-Toffoli ניתן לממש בתוך מעגל קוונטי גם חישובים קלאסיים וגם קוונטיים מורכבים.
+            </p>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <button id="prev-btn" class="nav-btn">&rarr;</button>
+    <button id="next-btn" class="nav-btn">&larr;</button>
+    <div id="slide-counter" class="slide-counter"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            renderMathInElement(document.body, {
+                delimiters: [
+                    {left: '$$', right: '$$', display: true}, {left: '\\[', right: '\\]', display: true},
+                    {left: '$', right: '$', display: false}, {left: '\\(', right: '\\)', display: false}
+                ]
+            });
+
+            const slides = document.querySelectorAll('.slide');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const slideCounter = document.getElementById('slide-counter');
+            let currentSlide = 0;
+            const totalSlides = slides.length;
+
+            function showSlide(index) {
+                slides.forEach((slide, i) => {
+                    slide.classList.toggle('active', i === index);
+                });
+                slideCounter.textContent = `${index + 1} / ${totalSlides}`;
+                updateNavButtons();
+            }
+            
+            function updateNavButtons() {
+                prevBtn.disabled = currentSlide === totalSlides - 1;
+                nextBtn.disabled = currentSlide === 0;
+                prevBtn.style.opacity = prevBtn.disabled ? '0.3' : '1';
+                nextBtn.style.opacity = nextBtn.disabled ? '0.3' : '1';
+            }
+
+            nextBtn.addEventListener('click', () => {
+                if (currentSlide > 0) {
+                    currentSlide--;
+                    showSlide(currentSlide);
+                }
+            });
+
+            prevBtn.addEventListener('click', () => {
+                if (currentSlide < totalSlides - 1) {
+                    currentSlide++;
+                    showSlide(currentSlide);
+                }
+            });
+            
+            document.addEventListener('keydown', (e) => {
+                if(e.key === 'ArrowRight') prevBtn.click();
+                else if (e.key === 'ArrowLeft') nextBtn.click();
+            });
+            
+            showSlide(currentSlide);
+        });
+    </script>
+</body>
+</html>
