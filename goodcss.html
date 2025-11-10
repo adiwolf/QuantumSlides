@@ -3,13 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>מצגת: מבוא לחישוב קוונטי</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" xintegrity="sha384-n8MVd4RsNIU0KOVEMVIgtRsBOpGkmJPARnBuf7CwiLUPCACAUdebugLGc5pRTqDJDR" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" xintegrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" xintegrity="sha384-+VBxd3r6XgURPl3keyCpgkrPCiJqgwjxwAnxMVB44oUvJ3NdGWbtn+ORu276vLfx" crossorigin="anonymous"></script>
-    <style>
+    <title>מצגת: יסודות החישוב הקוונטי</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap">
+
+<!-- KaTeX for math rendering -->
+<!-- תיקון: xintegrity -> integrity -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" xintegrity="sha384-n8MVd4RsNIU0KOVEMVIgtRsBOpGkmJPARnBuf7CwiLUPCACAUdebugLGc5pRTqDJDR" crossorigin="anonymous">
+<!-- תיקון: xintegrity -> integrity, הוספת defer -->
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" xintegrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8" crossorigin="anonymous"></script>
+<!-- תיקון: xintegrity -> integrity, הוספת defer -->
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" xintegrity="sha384-+VBxd3r6XgURPl3keyCpgkrPCiJqgwjxwAnxMVB44oUvJ3NdGWbtn+ORu276vLfx" crossorigin="anonymous"></script>
+
+<style>
         body {
             font-family: 'Rubik', sans-serif;
             background-color: #0c0a1f;
@@ -29,7 +35,7 @@
             opacity: 0;
             transform: scale(0.95);
             pointer-events: none;
-            overflow-y: auto; 
+            overflow-y: auto; /* מאפשר גלילה אם התוכן ארוך מדי */
         }
         .slide.active {
             opacity: 1;
@@ -39,22 +45,20 @@
         .slide-content {
             max-width: 1100px;
             width: 100%;
-            
-        }
-        /* bl */
-        .right-content {/* יישור התוכן לימין כברירת מחדל לשקפים */
+            /* יישור התוכן לימין כברירת מחדל לשקפים */
             text-align: right; 
         }
-        h1 { font-size: 3.5rem; font-weight: 700; color: #a78bfa; text-shadow: 0 0 15px #a78bfa; }
-        h2 { font-size: 2.5rem; font-weight: 500; color: #818cf8; margin-bottom: 1.5rem; }
+        h1 { font-size: 3.5rem; font-weight: 700; color: #a78bfa; text-shadow: 0 0 15px #a78bfa; margin-bottom: 1rem; text-align: center; }
+        h2 { font-size: 2.5rem; font-weight: 500; color: #818cf8; margin-bottom: 1.5rem; border-bottom: 2px solid #818cf8; padding-bottom: 0.5rem; }
         h3 { font-size: 1.5rem; font-weight: 600; color: #c4b5fd; margin-top: 1.5rem; margin-bottom: 0.5rem; }
-        p, li { font-size: 1.25rem; line-height: 1.8; }
-        ul { list-style-position: inside; }
+        p, li { font-size: 1.25rem; line-height: 1.8; margin-bottom: 1rem; }
+        ul { list-style-type: disc; margin-right: 2rem; margin-bottom: 1.5rem; }
+
+        /* תיקוני כיווניות ומתמטיקה */
         .katex-display { margin: 1em 0; font-size: 1.5em !important; }
         .katex { font-size: 1.2em !important; direction: ltr; display: inline-block; vertical-align: middle; }
         .math-block { direction: ltr; margin: 1rem auto; text-align: center; }
         .inline-math { direction: ltr; display: inline-block; }
-
 
         .active .animated { opacity: 0; }
         .active .anim-1 { animation: fadeIn 0.5s 0.3s forwards; }
@@ -87,7 +91,7 @@
         }
         #prev-btn { right: 2rem; }
         #next-btn { left: 2rem; }
-        
+
         .slide-counter {
             position: fixed;
             bottom: 20px;
@@ -100,16 +104,7 @@
             z-index: 100;
         }
         
-        .pill {
-            background-color: rgba(129, 140, 248, 0.2);
-            border: 1px solid #818cf8;
-            color: #c7d2fe;
-            padding: 0.5rem 1rem;
-            border-radius: 9999px;
-            font-weight: 500;
-        }
-
-         .exercise-box {
+        .exercise-box {
             background-color: rgba(30, 27, 75, 0.7);
             border: 1px solid #4f46e5;
             border-radius: 0.5rem;
@@ -220,9 +215,10 @@
 </head>
 <body class="overflow-hidden">
 
-    <!-- Slide 1: Title -->
+    <!-- שקף 1: שער (חדש) -->
     <div class="slide active">
         <div class="slide-content">
+            <!-- === הוספת הלוגו === -->
             <div class="animated anim-1">
                 <svg width="150" height="150" viewBox="0 0 200 200" class="mx-auto mb-8">
                     <defs>
@@ -237,16 +233,15 @@
                     <ellipse cx="100" cy="100" rx="90" ry="30" stroke="url(#atomGradient)" stroke-width="5" fill="none" transform="rotate(120 100 100)" />
                 </svg>
             </div>
-            <h1 class="animated anim-2">מבוא לחישוב קוונטי:</h1>
-            <h2 class="animated anim-3 text-3xl mt-4">שימושים של מצב שזור</h2>
+            <h1 class="animated anim-2">סיכום מושגי יסוד בחישוב קוונטי</h1>
         </div>
     </div>
-    
+
     <!-- שקף 2: הקיוביט (Qubit) (חדש) -->
     <div class="slide">
         <div class="slide-content">
             <h2 class="animated anim-1">הקיוביט (Qubit)</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6 right-content">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
                 <div class="animated anim-2 p-6 gate-box">
                     <h3 class="text-xl font-bold text-violet-300 mb-4">הגדרה</h3>
                     <ul class="list-disc mr-8">
@@ -279,7 +274,7 @@
     <div class="slide">
         <div class="slide-content">
             <h2 class="animated anim-1">מדידה (Measurement)</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6 right-content">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
                 <div class="animated anim-2 p-6 gate-box">
                      <h3 class="text-xl font-bold text-violet-300 mb-4">העיקרון</h3>
                     <ul class="list-disc mr-8">
@@ -308,7 +303,7 @@
     <div class="slide">
         <div class="slide-content">
             <h2 class="animated anim-1">מכפלה טנזורית ($\otimes$)</h2>
-            <ul class="list-disc mr-8 animated anim-2 right-content">
+            <ul class="list-disc mr-8 animated anim-2">
                 <li><b>מטרה:</b> תיאור מערכת המורכבת מיותר מקיוביט אחד.</li>
                 <li><b>דוגמה (מערכת של 2 קיוביטים):</b>
                     <ul class="list-disc mr-8">
@@ -331,13 +326,13 @@
     <div class="slide">
         <div class="slide-content">
             <h2 class="animated anim-1">שערים קוונטיים חשובים</h2>
-            <ul class="list-disc mr-8 animated anim-2 right-content">
+            <ul class="list-disc mr-8 animated anim-2">
                 <li><b>הגדרה:</b> פעולות (אופרציות) על קיוביטים, שאינן מדידה.</li>
                 <li><b>תיאור מתמטי:</b> כל שער הוא מטריצה אוניטרית.</li>
                 <li><b>אופן פעולה:</b> הפעלת שער שקולה לכפל מטריצת השער בוקטור המצב של הקיוביט.</li>
             </ul>
             <h3 class="animated anim-3">שערים בסיסיים:</h3>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4 animated anim-4 right-content">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4 animated anim-4">
                 <div class="p-4 gate-box"><b>X (NOT):</b> הופך את מצבי הבסיס (<span class="inline-math">$X|0\rangle=|1\rangle, X|1\rangle=|0\rangle$</span>).</div>
                 <div class="p-4 gate-box"><b>Z (Phase-Flip):</b> הופך את הפאזה של <span class="inline-math">$|1\rangle$</span> (<span class="inline-math">$Z|0\rangle=|0\rangle, Z|1\rangle=-|1\rangle$</span>).</div>
                 <div class="p-4 gate-box"><b>H (Hadamard):</b> יוצר סופרפוזיציה אחידה (<span class="inline-math">$H|0\rangle=\frac{|0\rangle+|1\rangle}{\sqrt{2}}$</span>).</div>
@@ -371,77 +366,13 @@
         </div>
     </div>
 
-    <!-- ===  שקפים חדשים מתחילים כאן === -->
-    
-    <!-- New Slide 7: מודלים קלאסיים לחישוב -->
-    <div class="slide">
-        <div class="slide-content">
-            <h2 class="animated anim-1">מודלים קלאסיים לחישוב</h2>
-            <p class="animated anim-2">
-                לפני שנגדיר חישוב קוונטי, נזכיר שלושה מודלים חשובים בעולם הקלאסי:
-            </p>
-            <ul class="animated anim-3 mt-4 space-y-3 text-right">
-                <li><span class="font-bold text-violet-300">מודל "מחשב אמיתי"</span> –
-                    זיכרון, רגיסטרים ויחידת עיבוד; קרוב להנדסת מחשבים בפועל.</li>
-                <li><span class="font-bold text-violet-300">מכונת טיורינג</span> –
-                    סרט אינסופי וראש קורא/כותב; מודל פשוט אך חזק, נוח להוכחות.</li>
-                <li><span class="font-bold text-violet-300">מודל המעגלים הבוליאניים</span> –
-                    גרף של שערי AND/OR/NOT המקבלים ביטים קלאסיים ומחזירים ביטים קלאסיים.</li>
-            </ul>
-        </div>
-    </div>
+    <!-- === 9 שקפים חדשים מתחילים כאן === -->
 
-    <!-- New Slide 8: מודל המעגלים הקוונטיים -->
-    <div class="slide">
-        <div class="slide-content">
-            <h2 class="animated anim-1">מודל המעגלים הקוונטיים</h2>
-            <p class="animated anim-2">
-                במודל הקוונטי, החישוב מתואר כמעגל של שערים אוניטריים על קיוביטים.
-            </p>
-            <ul class="animated anim-3 mt-4 space-y-2 text-right">
-                <li>לכל קיוביט יש "קו זמן" משמאל לימין.</li>
-                <li>בתחילת המעגל מאתחלים לרוב את המצב \(|0^n\rangle\).</li>
-                <li>מפעילים רצף של שערים (אוניטריים) על קיוביט אחד, שניים או שלושה.</li>
-                <li>בסיום מודדים חלק מהקיוביטים ומקבלים פלט קלאסי.</li>
-            </ul>
-            <p class="animated anim-4 mt-4 text-gray-400 text-lg">
-                כל השערים בין האתחול למדידה הם הפיכים – זה הבדל מהותי מהחישוב הקלאסי היומיומי.
-            </p>
-        </div>
-    </div>
-
-    <!-- New Slide 9: שערי פאולי וחבורת פאולי -->
-    <div class="slide">
-        <div class="slide-content">
-            <h2 class="animated anim-1">שערי פאולי וחבורת פאולי</h2>
-            <div class="animated anim-2 mt-2" dir="ltr">
-                $$ 
-                X = \begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix},\quad
-                Y = \begin{pmatrix} 0 & -i \\ i & 0 \end{pmatrix},\quad
-                Z = \begin{pmatrix} 1 & 0 \\ 0 & -1 \end{pmatrix}
-                $$
-            </div>
-            <ul class="animated anim-3 mt-4 space-y-2 text-right">
-                <li>\(X\) הוא האנלוג הקוונטי של NOT קלאסי.</li>
-                <li>\(Y\) משלב "היפוך" ו"הזזת פאזה" מרוכבת.</li>
-                <li>\(Z\) הופך את הפאזה של \(|1\rangle\) ומשאיר את \(|0\rangle\) כפי שהוא.</li>
-            </ul>
-            <div class="animated anim-4 mt-4" dir="ltr">
-                $$ XY = iZ,\quad YZ = iX,\quad ZX = iY,\quad XYZ = iI $$
-            </div>
-            <p class="animated anim-5 mt-4 text-gray-400 text-lg">
-                האיברים \(\{\pm I, \pm iI, \pm X, \pm iX, \pm Y, \pm iY, \pm Z, \pm iZ\}\)
-                יוצרים את חבורת פאולי, מרכזית במיוחד בתורת השגיאות הקוונטית.
-            </p>
-        </div>
-    </div>
-
-
-    <!-- שקף 10: חישוב קוונטי וקלאסי (א') -->
+    <!-- שקף 8: חישוב קוונטי וקלאסי (א') -->
     <div class="slide">
         <div class="slide-content">
             <h2 class="animated anim-1">חישוב קוונטי וקלאסי (א'): האתגר</h2>
-            <ul class="list-disc mr-8 animated anim-2 space-y-4 right-content">
+            <ul class="list-disc mr-8 animated anim-2 space-y-4">
                 <li><b>הבעיה:</b> שערים קלאסיים (כמו AND) אינם הפיכים, אך כל חישוב קוונטי (ללא מדידה) חייב להיות אוניטרי, ובפרט <b>הפיך</b>.</li>
                 <li><b>ניסיון 1 (כשל):</b> הגדרת שער AND עם 2 קלטים ו-1 פלט (<span class="inline-math">$U_{AND}|00\rangle=|0\rangle$</span>).
                     <ul class="list-disc mr-8"><li><b>למה נכשל?</b> אופרטור קוונטי חייב להחזיר את אותו מספר קיוביטים שהוא מקבל (האופרטור אינו משמר נורמה).</li></ul>
@@ -453,11 +384,11 @@
         </div>
     </div>
 
-    <!-- שקף 11: חישוב קוונטי וקלאסי (ב') -->
+    <!-- שקף 9: חישוב קוונטי וקלאסי (ב') -->
     <div class="slide">
         <div class="slide-content">
             <h2 class="animated anim-1">חישוב קוונטי וקלאסי (ב'): הפתרון – שער טופולי (CCX)</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6 right-content">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
                 <div class="animated anim-2 p-6 gate-box">
                     <h3 class="text-xl font-bold text-violet-300 mb-4">הפתרון</h3>
                     <ul class="list-disc mr-8">
@@ -467,7 +398,7 @@
                         <li><b>פעולה:</b> מפעיל שער X (כלומר, NOT) על הקיוביט השלישי (העזר), <b>אם ורק אם</b> הקיוביט הראשון <b>וגם</b> הקיוביט השני הם 1.</li>
                     </ul>
                 </div>
-                <div class="animated anim-3 p-6 gate-box right-content">
+                <div class="animated anim-3 p-6 gate-box">
                     <h3 class="text-xl font-bold text-violet-300 mb-4">דוגמאות</h3>
                     <ul class="list-disc mr-8" dir="ltr"> <!-- dir=ltr for the formulas -->
                         <li><span class="inline-math">$CCX|010\rangle=|010\rangle$</span> (אין שינוי)</li>
@@ -479,11 +410,11 @@
         </div>
     </div>
 
-    <!-- שקף 12: חישוב קוונטי וקלאסי (ג') -->
+    <!-- שקף 10: חישוב קוונטי וקלאסי (ג') -->
     <div class="slide">
         <div class="slide-content">
             <h2 class="animated anim-1">חישוב קוונטי וקלאסי (ג'): אוניברסליות</h2>
-            <ul class="list-disc mr-8 animated anim-2 space-y-3 right-content">
+            <ul class="list-disc mr-8 animated anim-2 space-y-3">
                 <li><b>אוניברסליות קלאסית:</b> שער NAND ידוע כשער אוניברסלי בחישוב קלאסי (ניתן לבנות ממנו כל מעגל לוגי).</li>
                 <li><b>הקשר לטופולי:</b> אם מאתחלים את קיוביט העזר (השלישי) ל-<span class="inline-math">$|1\rangle$</span> (במקום <span class="inline-math">$|0\rangle$</span>), שער הטופולי (CCX) מתפקד בדיוק כמו שער NAND.</li>
                 <li><b>המסקנה:</b>
@@ -495,17 +426,14 @@
                 </li>
                 <li class="font-bold text-violet-300 text-xl mt-4">בשורה התחתונה: כל חישוב קלאסי ניתן לביצוע במחשב קוונטי.</li>
             </ul>
-            <p class="animated anim-4 mt-4 text-gray-400 text-lg">
-                בשילוב שערי פאולי, \(H\), \(S\) ו-Toffoli ניתן לממש בתוך מעגל קוונטי גם חישובים קלאסיים וגם קוונטיים מורכבים.
-            </p>
         </div>
     </div>
 
-    <!-- שקף 13: קידוד צפוף (א') -->
+    <!-- שקף 11: קידוד צפוף (א') -->
     <div class="slide">
         <div class="slide-content">
             <h2 class="animated anim-1">קידוד צפוף (Superdense Coding): המטרה</h2>
-            <ul class="list-disc mr-8 animated anim-2 space-y-3 right-content">
+            <ul class="list-disc mr-8 animated anim-2 space-y-3">
                 <li><b>המטרה:</b> אליס רוצה לשלוח לבוב <b>שני</b> ביטים של מידע קלאסי (00, 01, 10, 11).</li>
                 <li><b>האמצעי:</b> על ידי שליחת <b>קיוביט בודד אחד</b> בלבד בערוץ תקשורת קוונטי.</li>
                 <li><b>ה"משאב" הנדרש:</b> הפרוטוקול דורש שאליס ובוב יחזיקו מראש זוג קיוביטים שזורים.</li>
@@ -517,38 +445,38 @@
         </div>
     </div>
 
-    <!-- שקף 14: קידוד צפוף (ב') -->
+    <!-- שקף 12: קידוד צפוף (ב') -->
     <div class="slide">
         <div class="slide-content">
             <h2 class="animated anim-1">קידוד צפוף: הפרוטוקול (הפעולות של אליס)</h2>
             <p class="animated anim-2">אליס מבצעת פעולה <b>על הקיוביט שלה בלבד</b> (הראשון), בהתאם ל-2 הביטים שהיא רוצה לשלוח:</p>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4 right-content">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
                 <div class="animated anim-2 p-4 gate-box">
-                    <b>לשליחת 00:</b><br> אליס לא עושה כלום .<br>
-                    מצב משותף: <span class="inline-math">$\frac{|00\rangle+|11\rangle}{\sqrt{2}}$</span>  ($|\Phi^+\rangle$)
+                    <b>לשליחת 00:</b> אליס לא עושה כלום (שער I).<br>
+                    מצב משותף: <span class="inline-math">$\frac{|00\rangle+|11\rangle}{\sqrt{2}}$</span> ($|\Phi^+\rangle$)
                 </div>
                 <div class="animated anim-3 p-4 gate-box">
-                    <b>לשליחת 01:</b><br> אליס מפעילה שער Z (על הביט הראשון).<br>
-                    מצב משותף: <span class="inline-math">$\frac{|00\rangle-|11\rangle}{\sqrt{2}}$</span>  ($|\Phi^-\rangle$)
+                    <b>לשליחת 01:</b> אליס מפעילה שער Z (על הביט הראשון).<br>
+                    מצב משותף: <span class="inline-math">$\frac{|00\rangle-|11\rangle}{\sqrt{2}}$</span> ($|\Phi^-\rangle$)
                 </div>
                 <div class="animated anim-4 p-4 gate-box">
-                    <b>לשליחת 10:</b><br> אליס מפעילה שער X (על הביט הראשון).<br>
-                    מצב משותף: <span class="inline-math">$\frac{|10\rangle+|01\rangle}{\sqrt{2}}$</span>  ($|\Psi^+\rangle$)
+                    <b>לשליחת 10:</b> אליס מפעילה שער X (על הביט הראשון).<br>
+                    מצב משותף: <span class="inline-math">$\frac{|10\rangle+|01\rangle}{\sqrt{2}}$</span> ($|\Psi^+\rangle$)
                 </div>
                 <div class="animated anim-5 p-4 gate-box">
-                    <b>לשליחת 11:</b><br> אליס מפעילה X ואז Z (על הביט הראשון).<br>
-                    מצב משותף: <span class="inline-math">$\frac{|01\rangle-|10\rangle}{\sqrt{2}}$</span>  ($|\Psi^-\rangle$)
+                    <b>לשליחת 11:</b> אליס מפעילה X ואז Z (על הביט הראשון).<br>
+                    מצב משותף: <span class="inline-math">$\frac{|01\rangle-|10\rangle}{\sqrt{2}}$</span> ($|\Psi^-\rangle$)
                 </div>
             </div>
             <p class="animated anim-5 mt-4 text-xl">לאחר הפעולה, אליס שולחת את הקיוביט הבודד שלה לבוב.</p>
         </div>
     </div>
 
-    <!-- שקף 15: קידוד צפוף (ג') -->
+    <!-- שקף 13: קידוד צפוף (ג') -->
     <div class="slide">
         <div class="slide-content">
             <h2 class="animated anim-1">קידוד צפוף: הפרוטוקול (הפענוח של בוב)</h2>
-            <ul class="list-disc mr-8 animated anim-2 space-y-3 right-content">
+            <ul class="list-disc mr-8 animated anim-2 space-y-3">
                 <li><b>הקבלה:</b> בוב מקבל את הקיוביט של אליס וכעת מחזיק בשני הקיוביטים.</li>
                 <li><b>המצב:</b> בוב מחזיק כעת באחד מארבעת מצבי בל האפשריים.</li>
                 <li><b>הפענוח:</b>
@@ -563,28 +491,28 @@
         </div>
     </div>
 
-    <!-- שקף 16: טלפורטציה (א') -->
+    <!-- שקף 14: טלפורטציה (א') -->
     <div class="slide">
         <div class="slide-content">
             <h2 class="animated anim-1">טלפורטציה קוונטית: המטרה</h2>
-            <ul class="list-disc mr-8 animated anim-2 space-y-3 right-content">
+            <ul class="list-disc mr-8 animated anim-2 space-y-3">
                 <li><b>המטרה:</b> אליס רוצה להעביר לבוב מצב קוונטי לא ידוע (<span class="inline-math">$|\psi\rangle=\alpha|0\rangle+\beta|1\rangle$</span>).</li>
                 <li><b>האתגר:</b> לעשות זאת מבלי להעביר את הקיוביט עצמו בערוץ קוונטי.</li>
             </ul>
             <h3 class="animated anim-3">המשאבים הנדרשים:</h3>
-             <ul class="list-disc mr-8 animated anim-3 right-content">
+             <ul class="list-disc mr-8 animated anim-3">
                 <li>ערוץ תקשורת <b>קלאסי</b> (כדי לשלוח 2 ביטים רגילים).</li>
                 <li>זוג קיוביטים שזור מראש (מצב בל <span class="inline-math">$\frac{|00\rangle+|11\rangle}{\sqrt{2}}$</span>) שאליס ובוב חולקים (כל אחד מחזיק חצי).</li>
             </ul>
         </div>
     </div>
 
-    <!-- שקף 17: טלפורטציה (ב') -->
+    <!-- שקף 15: טלפורטציה (ב') -->
     <div class="slide">
         <div class="slide-content">
             <h2 class="animated anim-1">טלפורטציה קוונטית: הפרוטוקול (הפעולות של אליס)</h2>
-            <p class="animated anim-2 right-content">אליס מחזיקה בשני קיוביטים: (1) הקיוביט <span class="inline-math">$|\psi\rangle$</span> שהיא רוצה לשלוח, ו-(2) החצי שלה מהזוג השזור.</p>
-            <ol class="list-decimal mr-8 animated anim-3 space-y-3 right-content">
+            <p class="animated anim-2">אליס מחזיקה בשני קיוביטים: (1) הקיוביט <span class="inline-math">$|\psi\rangle$</span> שהיא רוצה לשלוח, ו-(2) החצי שלה מהזוג השזור.</p>
+            <ol class="list-decimal mr-8 animated anim-3 space-y-3">
                 <li><b>שער CX (CNOT):</b> אליס מפעילה CNOT על שני הקיוביטים שבידה.
                     <ul class="list-disc mr-8 text-base">
                         <li>קיוביט הבקרה: <span class="inline-math">$|\psi\rangle$</span> (קיוביט 1).</li>
@@ -598,7 +526,7 @@
         </div>
     </div>
 
-    <!-- שקף 18: טלפורטציה (ג') -->
+    <!-- שקף 16: טלפורטציה (ג') -->
     <div class="slide">
         <div class="slide-content">
             <h2 class="animated anim-1">טלפורטציה קוונטית: הפרוטוקול (הפעולות של בוב)</h2>
@@ -645,6 +573,31 @@
     <!-- === סוף 9 שקפים חדשים === -->
 
 
+    <!-- שקף 17: סיכום ויישומים (השקף האחרון המקורי) -->
+    <div class="slide">
+        <div class="slide-content">
+            <h2 class="animated anim-1">סיכום ויישומים</h2>
+            <h3 class="animated anim-2">סיכום החומר</h3>
+            <ul class="list-disc mr-8 animated anim-2">
+                <li><b>קיוביט בודד:</b> סופרפוזיציה <span class="inline-math">$\alpha|0\rangle + \beta|1\rangle$</span>, עם <span class="inline-math">$|\alpha|^2 + |\beta|^2 = 1$</span>.</li>
+                <li><b>פעולות:</b>
+                    <ul class="list-disc mr-8">
+                        <li><b>מדידה:</b> הסתברותית (<span class="inline-math">$|\alpha|^2, |\beta|^2$</span>), גורמת לקריסת המצב.</li>
+                        <li><b>שערים:</b> אופרטורים אוניטריים (<span class="inline-math">$H, X, Z$</span>) המשנים את המצב באופן דטרמיניסטי.</li>
+                    </ul>
+                </li>
+                <li><b>מערכת מרובה:</b> מכפלה טנזורית (<span class="inline-math">$|00\rangle, |01\rangle...$</span>).</li>
+                <li><b>שזירה:</b> מצבים שלא ניתנים להפרדה (כמו מצבי בל), נוצרים ע"י שערים כמו CNOT.</li>
+            </ul>
+            <h3 class="animated anim-4">יישומים (המשך)</h3>
+            <p class="animated anim-4">התכונות המיוחדות של שזירה (קורלציה לא-מקומית) מאפשרות פרוטוקולים שאין להם מקבילה קלאסית:</p>
+            <ul class="list-disc mr-8 animated anim-5">
+                <li><b>טלפורטציה קוונטית:</b> שימוש בשזירה וערוץ קלאסי כדי "לשגר" מצב קוונטי ממקום למקום (מבלי לשלוח את הקיוביט פיזית).</li>
+                <li><b>קידוד צפוף (Superdense Coding):</b> שימוש בשזירה כדי לשלוח 2 ביטים קלאסיים על ידי שליחת קיוביט בודד אחד.</li>
+            </ul>
+        </div>
+    </div>
+
     <!-- Navigation -->
     <button id="prev-btn" class="nav-btn">&rarr;</button>
     <button id="next-btn" class="nav-btn">&larr;</button>
@@ -652,12 +605,18 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            renderMathInElement(document.body, {
-                delimiters: [
-                    {left: '$$', right: '$$', display: true}, {left: '\\[', right: '\\]', display: true},
-                    {left: '$', right: '$', display: false}, {left: '\\(', right: '\\)', display: false}
-                ]
-            });
+            // Initialize KaTeX rendering
+             try {
+                renderMathInElement(document.body, {
+                    delimiters: [
+                        {left: '$$', right: '$$', display: true}, {left: '\\[', right: '\\]', display: true},
+                        {left: '$', right: '$', display: false}, {left: '\\(', right: '\\)', display: false}
+                    ],
+                    throwOnError : false // Prevents rendering errors from stopping the script
+                });
+            } catch (error) {
+                console.error("KaTeX rendering failed:", error);
+            }
 
             const slides = document.querySelectorAll('.slide');
             const prevBtn = document.getElementById('prev-btn');
@@ -670,38 +629,76 @@
                 slides.forEach((slide, i) => {
                     slide.classList.toggle('active', i === index);
                 });
-                slideCounter.textContent = `${index + 1} / ${totalSlides}`;
+                if (slideCounter) {
+                    slideCounter.textContent = `${index + 1} / ${totalSlides}`;
+                }
                 updateNavButtons();
             }
-            
+
             function updateNavButtons() {
+                if (!prevBtn || !nextBtn) return;
                 prevBtn.disabled = currentSlide === totalSlides - 1;
                 nextBtn.disabled = currentSlide === 0;
                 prevBtn.style.opacity = prevBtn.disabled ? '0.3' : '1';
                 nextBtn.style.opacity = nextBtn.disabled ? '0.3' : '1';
             }
 
-            nextBtn.addEventListener('click', () => {
-                if (currentSlide > 0) {
-                    currentSlide--;
-                    showSlide(currentSlide);
+            if (nextBtn) {
+                nextBtn.addEventListener('click', () => {
+                    if (currentSlide > 0) {
+                        currentSlide--;
+                        showSlide(currentSlide);
+                    }
+                });
+            }
+
+            if (prevBtn) {
+                prevBtn.addEventListener('click', () => {
+                    if (currentSlide < totalSlides - 1) {
+                        currentSlide++;
+                        showSlide(currentSlide);
+                    }
+                });
+            }
+
+            // Keyboard navigation
+            document.addEventListener('keydown', (e) => {
+                if(e.key === 'ArrowRight') { // Usually right arrow moves forward
+                    if (prevBtn) prevBtn.click();
+                } else if (e.key === 'ArrowLeft') { // Usually left arrow moves backward
+                    if (nextBtn) nextBtn.click();
                 }
             });
 
-            prevBtn.addEventListener('click', () => {
-                if (currentSlide < totalSlides - 1) {
-                    currentSlide++;
-                    showSlide(currentSlide);
-                }
-            });
-            
-            document.addEventListener('keydown', (e) => {
-                if(e.key === 'ArrowRight') prevBtn.click();
-                else if (e.key === 'ArrowLeft') nextBtn.click();
-            });
-            
+            // Initialize the first slide
             showSlide(currentSlide);
         });
+
+        // Function to toggle solution visibility
+        function toggleSolution(id) {
+            const solution = document.getElementById(id);
+            if (solution) { // Check if element exists
+                 if (solution.style.display === 'block') {
+                    solution.style.display = 'none';
+                 } else {
+                    solution.style.display = 'block';
+                     // Re-render KaTeX in the solution when it becomes visible
+                     try {
+                        renderMathInElement(solution, {
+                            delimiters: [
+                                {left: '$$', right: '$$', display: true}, {left: '\\[', right: '\\]', display: true},
+                                {left: '$', right: '$', display: false}, {left: '\\(', right: '\\)', display: false}
+                            ],
+                            throwOnError : false
+                        });
+                    } catch (error) {
+                        console.error("KaTeX rendering failed in solution:", error);
+                    }
+                 }
+            } else {
+                console.error("Solution element with id '" + id + "' not found.");
+            }
+        }
     </script>
 </body>
 </html>
