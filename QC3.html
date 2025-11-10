@@ -124,98 +124,137 @@
         </div>
     </div>
     
-    <!-- New Slide 18: מצבי בל -->
+    <!-- שקף 2: הקיוביט (Qubit) (חדש) -->
     <div class="slide">
         <div class="slide-content">
-            <h2 class="animated anim-1">מצבי בל (Bell States)</h2>
-            <p class="animated anim-2">
-                נתחיל במצב \(|00\rangle\), נפעיל שער הדאמר \(H\) על הקיוביט הראשון,
-                ולאחר מכן שער \(CX\) (הראשון בקרה, השני מטרה):
-            </p>
-            <div class="animated anim-3 mt-4" dir="ltr">
-                $$ H\lvert 0\rangle = \frac{\lvert 0\rangle + \lvert 1\rangle}{\sqrt{2}} $$
-                $$ CX\left(\frac{\lvert 00\rangle + \lvert 10\rangle}{\sqrt{2}}\right)
-                   = \frac{\lvert 00\rangle + \lvert 11\rangle}{\sqrt{2}} $$
+            <h2 class="animated anim-1">הקיוביט (Qubit)</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                <div class="animated anim-2 p-6 gate-box">
+                    <h3 class="text-xl font-bold text-violet-300 mb-4">הגדרה</h3>
+                    <ul class="list-disc mr-8">
+                        <li>יחידת המידע הקוונטית הבסיסית.</li>
+                        <li><b>ביט קלאסי:</b> 0 או 1.</li>
+                        <li><b>קיוביט:</b> יכול להימצא בסופרפוזיציה לינארית של שני מצבי הבסיס.</li>
+                    </ul>
+                    <h3 class="text-xl font-bold text-violet-300 mb-4 mt-4">תיאור (סימון דיראק)</h3>
+                    <div class="math-block">$$|\psi\rangle=\alpha|0\rangle+\beta|1\rangle$$</div>
+                </div>
+                <div class="animated anim-3 p-6 gate-box">
+                    <h3 class="text-xl font-bold text-violet-300 mb-4">תכונות</h3>
+                     <ul class="list-disc mr-8">
+                        <li><b>אמפליטודות ($\alpha, \beta$):</b> מספרים מרוכבים המייצגים את ה"משקל" של כל מצב בסיס.</li>
+                        <li><b>תנאי הנרמול:</b> <span class="inline-math">$|\alpha|^{2}+|\beta|^{2}=1$</span>.</li>
+                    </ul>
+                    <h3 class="text-xl font-bold text-violet-300 mb-4 mt-4">ייצוג וקטורי</h3>
+                     <div class="math-block">
+                        $$|0\rangle=\begin{pmatrix}1\\ 0\end{pmatrix} \quad |1\rangle=\begin{pmatrix}0\\ 1\end{pmatrix}$$
+                     </div>
+                     <div class="math-block">
+                        $$|\psi\rangle=\begin{pmatrix}\alpha\\ \beta\end{pmatrix}$$
+                     </div>
+                </div>
             </div>
-            <p class="animated anim-4 mt-4">
-                זהו אחד ממצבי הבל – מצבים שזורים שאי אפשר לכתוב כמכפלה של שני מצבים נפרדים.
-            </p>
-            <div class="animated anim-5 mt-4" dir="ltr">
-                $$ 
-                \frac{\lvert 00\rangle \pm \lvert 11\rangle}{\sqrt{2}}, \quad
-                \frac{\lvert 01\rangle \pm \lvert 10\rangle}{\sqrt{2}}
-                $$
+        </div>
+    </div>
+
+    <!-- שקף 3: מדידה (Measurement) (חדש) -->
+    <div class="slide">
+        <div class="slide-content">
+            <h2 class="animated anim-1">מדידה (Measurement)</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                <div class="animated anim-2 p-6 gate-box">
+                     <h3 class="text-xl font-bold text-violet-300 mb-4">העיקרון</h3>
+                    <ul class="list-disc mr-8">
+                        <li>לא ניתן "לראות" או "לקרוא" את האמפליטודות ($\alpha, \beta$) ישירות.</li>
+                        <li>כאשר מודדים קיוביט, מקבלים תוצאה קלאסית (0 או 1).</li>
+                        <li>התוצאה היא הסתברותית.</li>
+                    </ul>
+                    <h3 class="text-xl font-bold text-violet-300 mb-4 mt-4">הסתברויות</h3>
+                    <ul class="list-disc mr-8">
+                        <li>ההסתברות למדוד '0': <span class="inline-math">$P(0)=|\alpha|^{2}$</span></li>
+                        <li>ההסתברות למדוד '1': <span class="inline-math">$P(1)=|\beta|^{2}$</span></li>
+                    </ul>
+                </div>
+                <div class="animated anim-3 p-6 gate-box">
+                    <h3 class="text-xl font-bold text-violet-300 mb-4">"קריסת פונקציית הגל"</h3>
+                    <ul class="list-disc mr-8">
+                        <li>פעולת המדידה הורסת את הסופרפוזיציה.</li>
+                        <li>המצב החדש של הקיוביט הוא התוצאה הקלאסית שנמדדה (כלומר, $|0\rangle$ או $|1\rangle$).</li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- New Slide 19: משמעות השזירה -->
+    <!-- שקף 4: מכפלה טנזורית (חדש) -->
     <div class="slide">
         <div class="slide-content">
-            <h2 class="animated anim-1">שזירה: המשמעות הפיזיקלית</h2>
-            <p class="animated anim-2">
-                במצב בל \(\displaystyle \frac{\lvert 00\rangle + \lvert 11\rangle}{\sqrt{2}}\)
-                אין דרך לכתוב את המצב כמכפלה של מצב על הקיוביט הראשון ומצב על הקיוביט השני.
-            </p>
-            <ul class="animated anim-3 mt-4 space-y-2 text-right">
-                <li>מדידת הקיוביט הראשון וקבלת \(0\) מכריחה את המערכת לקרוס ל-\(|00\rangle\).</li>
-                <li>מדידת הקיוביט הראשון וקבלת \(1\) מכריחה את המערכת לקרוס ל-\(|11\rangle\).</li>
-                <li>ערכו של הקיוביט השני נקבע מיידית, גם אם הקיוביטים רחוקים זה מזה.</li>
+            <h2 class="animated anim-1">מכפלה טנזורית ($\otimes$)</h2>
+            <ul class="list-disc mr-8 animated anim-2">
+                <li><b>מטרה:</b> תיאור מערכת המורכבת מיותר מקיוביט אחד.</li>
+                <li><b>דוגמה (מערכת של 2 קיוביטים):</b>
+                    <ul class="list-disc mr-8">
+                        <li>מתוארת במרחב בעל 4 ממדים.</li>
+                        <li>הבסיס הסטנדרטי: <span class="inline-math">$\{|00\rangle,|01\rangle,|10\rangle,|11\rangle\}$</span>.</li>
+                        <li>חשוב: <span class="inline-math">$|01\rangle$</span> הוא קיצור של <span class="inline-math">$|0\rangle\otimes|1\rangle$</span>.</li>
+                    </ul>
+                </li>
+                <li><b>מצב כללי של שני קיוביטים:</b>
+                    <ul class="list-disc mr-8">
+                        <li>סופרפוזיציה של ארבעת מצבי הבסיס:</li>
+                        <div class="math-block">$$|\psi\rangle=\alpha_{00}|00\rangle+\alpha_{01}|01\rangle+\alpha_{10}|10\rangle+\alpha_{11}|11\rangle$$</div>
+                    </ul>
+                </li>
             </ul>
-            <p class="animated anim-4 mt-4 text-gray-400 text-lg">
-                תופעה זו עמדה במרכז הדיון במאמר EPR ושימשה בסיס לניסוח אי־שוויוני בל.
-            </p>
         </div>
     </div>
 
-    <!-- New Slide 20: צפוף קידוד -->
+    <!-- שקף 5: שערים קוונטיים חשובים (חדש) -->
     <div class="slide">
         <div class="slide-content">
-            <h2 class="animated anim-1">צפוף קידוד (Superdense Coding)</h2>
-            <p class="animated anim-2">
-                המטרה: להעביר שני ביטים קלאסיים באמצעות שליחת קיוביט בודד – תוך שימוש בזוג קיוביטים שזור.
-            </p>
-            <ul class="animated anim-3 mt-4 space-y-2 text-right">
-                <li>אליס ובוב חולקים מראש מצב בל \(\frac{\lvert 00\rangle + \lvert 11\rangle}{\sqrt{2}}\).</li>
-                <li>אליס מחזיקה קיוביט אחד, בוב את השני.</li>
-                <li>כדי לשלוח שני ביטים \(b_1 b_2\), אליס מפעילה על הקיוביט שלה אופרטור מתאים.</li>
+            <h2 class="animated anim-1">שערים קוונטיים חשובים</h2>
+            <ul class="list-disc mr-8 animated anim-2">
+                <li><b>הגדרה:</b> פעולות (אופרציות) על קיוביטים, שאינן מדידה.</li>
+                <li><b>תיאור מתמטי:</b> כל שער הוא מטריצה אוניטרית.</li>
+                <li><b>אופן פעולה:</b> הפעלת שער שקולה לכפל מטריצת השער בוקטור המצב של הקיוביט.</li>
             </ul>
-            <div class="animated anim-4 mt-4" dir="ltr">
-                $$ 
-                00 \rightarrow I,\quad
-                01 \rightarrow Z,\quad
-                10 \rightarrow X,\quad
-                11 \rightarrow XZ
-                $$
+            <h3 class="animated anim-3">שערים בסיסיים:</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4 animated anim-4">
+                <div class="p-4 gate-box"><b>X (NOT):</b> הופך את מצבי הבסיס (<span class="inline-math">$X|0\rangle=|1\rangle, X|1\rangle=|0\rangle$</span>).</div>
+                <div class="p-4 gate-box"><b>Z (Phase-Flip):</b> הופך את הפאזה של <span class="inline-math">$|1\rangle$</span> (<span class="inline-math">$Z|0\rangle=|0\rangle, Z|1\rangle=-|1\rangle$</span>).</div>
+                <div class="p-4 gate-box"><b>H (Hadamard):</b> יוצר סופרפוזיציה אחידה (<span class="inline-math">$H|0\rangle=\frac{|0\rangle+|1\rangle}{\sqrt{2}}$</span>).</div>
+                <div class="p-4 gate-box"><b>CNOT (CX):</b> שער של 2 קיוביטים (בקרה ומטרה). הופך (X) את קיוביט המטרה רק אם קיוביט הבקרה הוא 1.</div>
             </div>
-            <p class="animated anim-5 mt-4">
-                לאחר מכן אליס שולחת את הקיוביט שלה לבוב. בוב מחזיק בשני הקיוביטים,
-                מודד בבסיס מצבי הבל, ומהתוצאה משחזר את שני הביטים הקלאסיים.
-            </p>
         </div>
     </div>
 
-    <!-- New Slide 21: טלפורטציה קוונטית -->
+    <!-- שקף 6: מצב שזור (Entangled State) (חדש) -->
     <div class="slide">
         <div class="slide-content">
-            <h2 class="animated anim-1">טלפורטציה קוונטית – הרעיון</h2>
-            <p class="animated anim-2">
-                המטרה: להעביר מצב קוונטי \(\lvert \psi\rangle = \alpha\lvert 0\rangle + \beta\lvert 1\rangle\)
-                מאליס לבוב, בלי לשלוח את הקיוביט עצמו.
-            </p>
-            <ul class="animated anim-3 mt-4 space-y-2 text-right">
-                <li>אליס ובוב חולקים מראש זוג שזור במצב בל.</li>
-                <li>אליס מחזיקה את \(\lvert \psi\rangle\) ועוד אחד מהקיוביטים השזורים.</li>
-                <li>אליס מפעילה שערי \(CX\) ו-\(H\) על הקיוביטים שלה ומודדת אותם.</li>
-                <li>מהמדידה היא מקבלת שני ביטים קלאסיים אותם היא משדרת לבוב.</li>
-                <li>בוב מפעיל על הקיוביט שבידו אחד מהאופרטורים \(I, X, Z, XZ\) בהתאם לשני הביטים, וכך משחזר את \(\lvert \psi\rangle\).</li>
-            </ul>
-            <p class="animated anim-4 mt-4 text-gray-400 text-lg">
-                חשוב: המצב אינו "מועתק". אצל אליס הקיוביט נמדד וקורס, ורק המצב משוחזר אצל בוב.
-            </p>
+            <h2 class="animated anim-1">מצב שזור (Entangled State)</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                <div class="animated anim-2 p-6 gate-box">
+                    <h3 class="text-xl font-bold text-violet-300 mb-4">הגדרה וחשיבות</h3>
+                    <ul class="list-disc mr-8">
+                        <li>התכונה המרכזית המבדילה חישוב קוונטי מקלאסי.</li>
+                        <li>מצב שלא ניתן לתארו כמכפלה טנזורית של קיוביטים בודדים (אינו "פריק").</li>
+                        <li>הקיוביטים קשורים זה לזה באופן מיידי, ללא תלות במרחק ביניהם.</li>
+                    </ul>
+                </div>
+                <div class="animated anim-3 p-6 gate-box">
+                     <h3 class="text-xl font-bold text-violet-300 mb-4">הדוגמה המפורסמת (מצב בל)</h3>
+                     <div class="math-block">$$|\Phi^{+}\rangle=\frac{|00\rangle+|11\rangle}{\sqrt{2}}$$</div>
+                     <ul class="list-disc mr-8">
+                        <li><b>אופן יצירה:</b> הפעלת שער הדמר ו-CNOT על המצב <span class="inline-math">$|00\rangle$</span>.</li>
+                        <li><b>"פעולה מבעיתה ממרחק":</b> אם מודדים קיוביט 1 ומקבלים '0', יודעים מיידית שגם קיוביט 2 יקרוס ל-'0'.</li>
+                     </ul>
+                </div>
+            </div>
         </div>
     </div>
 
+    <!-- === 9 שקפים חדשים מתחילים כאן === -->
+    
     <!-- New Slide 22: מודלים קלאסיים לחישוב -->
     <div class="slide">
         <div class="slide-content">
@@ -279,27 +318,214 @@
         </div>
     </div>
 
-    <!-- New Slide 25: H, S ו-Toffoli -->
+
+    <!-- שקף 8: חישוב קוונטי וקלאסי (א') -->
     <div class="slide">
         <div class="slide-content">
-            <h2 class="animated anim-1">שערי \(H\), \(S\) ו-Toffoli (CCX)</h2>
-            <div class="animated anim-2 mt-2" dir="ltr">
-                $$
-                H = \frac{1}{\sqrt{2}}
-                \begin{pmatrix} 1 & 1 \\ 1 & -1 \end{pmatrix},\quad
-                S = \begin{pmatrix} 1 & 0 \\ 0 & i \end{pmatrix}
-                $$
+            <h2 class="animated anim-1">חישוב קוונטי וקלאסי (א'): האתגר</h2>
+            <ul class="list-disc mr-8 animated anim-2 space-y-4">
+                <li><b>הבעיה:</b> שערים קלאסיים (כמו AND) אינם הפיכים, אך כל חישוב קוונטי (ללא מדידה) חייב להיות אוניטרי, ובפרט <b>הפיך</b>.</li>
+                <li><b>ניסיון 1 (כשל):</b> הגדרת שער AND עם 2 קלטים ו-1 פלט (<span class="inline-math">$U_{AND}|00\rangle=|0\rangle$</span>).
+                    <ul class="list-disc mr-8"><li><b>למה נכשל?</b> אופרטור קוונטי חייב להחזיר את אותו מספר קיוביטים שהוא מקבל (האופרטור אינו משמר נורמה).</li></ul>
+                </li>
+                <li><b>ניסיון 2 (כשל):</b> הגדרת שער AND שמחזיר 2 קלטים ו-2 פלטים (למשל <span class="inline-math">$U_{AND}|00\rangle=|00\rangle$</span> ו-<span class="inline-math">$U_{AND}|01\rangle=|00\rangle$</span>).
+                    <ul class="list-disc mr-8"><li><b>למה נכשל?</b> האופרטור אינו הפיך (קלטים שונים מובילים לאותו פלט), ולכן אינו אוניטרי.</li></ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- שקף 9: חישוב קוונטי וקלאסי (ב') -->
+    <div class="slide">
+        <div class="slide-content">
+            <h2 class="animated anim-1">חישוב קוונטי וקלאסי (ב'): הפתרון – שער טופולי (CCX)</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                <div class="animated anim-2 p-6 gate-box">
+                    <h3 class="text-xl font-bold text-violet-300 mb-4">הפתרון</h3>
+                    <ul class="list-disc mr-8">
+                        <li>כדי לממש פעולות קלאסיות, יש להשתמש ב"קיוביט עזר" (Ancilla).</li>
+                        <li><b>שער טופולי (CCX):</b> זהו שער על 3 קיוביטים.</li>
+                        <li><b>כינוי:</b> "Controlled-Controlled-X".</li>
+                        <li><b>פעולה:</b> מפעיל שער X (כלומר, NOT) על הקיוביט השלישי (העזר), <b>אם ורק אם</b> הקיוביט הראשון <b>וגם</b> הקיוביט השני הם 1.</li>
+                    </ul>
+                </div>
+                <div class="animated anim-3 p-6 gate-box">
+                    <h3 class="text-xl font-bold text-violet-300 mb-4">דוגמאות</h3>
+                    <ul class="list-disc mr-8" dir="ltr"> <!-- dir=ltr for the formulas -->
+                        <li><span class="inline-math">$CCX|010\rangle=|010\rangle$</span> (אין שינוי)</li>
+                        <li><span class="inline-math">$CCX|110\rangle=|111\rangle$</span> (היפוך 0 ל-1)</li>
+                        <li><span class="inline-math">$CCX|111\rangle=|110\rangle$</span> (היפוך 1 ל-0)</li>
+                    </ul>
+                </div>
             </div>
-            <ul class="animated anim-3 mt-4 space-y-2 text-right">
-                <li>\(H\) יוצר סופרפוזיציה: \(H\lvert 0\rangle = \frac{\lvert 0\rangle + \lvert 1\rangle}{\sqrt{2}}\).</li>
-                <li>\(S\) מוסיף פאזה \(i\) למצב \(|1\rangle\), ו-\(S^2 = Z\).</li>
-                <li>שער Toffoli (\(CCX\)) פועל על שלושה קיוביטים: הופך את הקיוביט השלישי אם שני הראשונים הם \(1\).</li>
+        </div>
+    </div>
+
+    <!-- שקף 10: חישוב קוונטי וקלאסי (ג') -->
+    <div class="slide">
+        <div class="slide-content">
+            <h2 class="animated anim-1">חישוב קוונטי וקלאסי (ג'): אוניברסליות</h2>
+            <ul class="list-disc mr-8 animated anim-2 space-y-3">
+                <li><b>אוניברסליות קלאסית:</b> שער NAND ידוע כשער אוניברסלי בחישוב קלאסי (ניתן לבנות ממנו כל מעגל לוגי).</li>
+                <li><b>הקשר לטופולי:</b> אם מאתחלים את קיוביט העזר (השלישי) ל-<span class="inline-math">$|1\rangle$</span> (במקום <span class="inline-math">$|0\rangle$</span>), שער הטופולי (CCX) מתפקד בדיוק כמו שער NAND.</li>
+                <li><b>המסקנה:</b>
+                    <ol class="list-decimal mr-8">
+                        <li>ניתן לקחת כל חישוב קלאסי ולתרגם אותו למעגל של שערי NAND.</li>
+                        <li>ניתן להוסיף קיוביט עזר מאותחל ל-<span class="inline-math">$|1\rangle$</span> עבור כל שער NAND.</li>
+                        <li>ניתן להחליף כל שער NAND בשער CCX קוונטי.</li>
+                    </ol>
+                </li>
+                <li class="font-bold text-violet-300 text-xl mt-4">בשורה התחתונה: כל חישוב קלאסי ניתן לביצוע במחשב קוונטי.</li>
             </ul>
             <p class="animated anim-4 mt-4 text-gray-400 text-lg">
                 בשילוב שערי פאולי, \(H\), \(S\) ו-Toffoli ניתן לממש בתוך מעגל קוונטי גם חישובים קלאסיים וגם קוונטיים מורכבים.
             </p>
         </div>
     </div>
+
+    <!-- שקף 11: קידוד צפוף (א') -->
+    <div class="slide">
+        <div class="slide-content">
+            <h2 class="animated anim-1">קידוד צפוף (Superdense Coding): המטרה</h2>
+            <ul class="list-disc mr-8 animated anim-2 space-y-3">
+                <li><b>המטרה:</b> אליס רוצה לשלוח לבוב <b>שני</b> ביטים של מידע קלאסי (00, 01, 10, 11).</li>
+                <li><b>האמצעי:</b> על ידי שליחת <b>קיוביט בודד אחד</b> בלבד בערוץ תקשורת קוונטי.</li>
+                <li><b>ה"משאב" הנדרש:</b> הפרוטוקול דורש שאליס ובוב יחזיקו מראש זוג קיוביטים שזורים.</li>
+                <li><b>מצב התחלתי (מצב בל):</b>
+                    <div class="math-block">$$\frac{|00\rangle+|11\rangle}{\sqrt{2}}$$</div>
+                    (אליס מחזיקה בקיוביט הראשון, בוב מחזיק בשני).
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- שקף 12: קידוד צפוף (ב') -->
+    <div class="slide">
+        <div class="slide-content">
+            <h2 class="animated anim-1">קידוד צפוף: הפרוטוקול (הפעולות של אליס)</h2>
+            <p class="animated anim-2">אליס מבצעת פעולה <b>על הקיוביט שלה בלבד</b> (הראשון), בהתאם ל-2 הביטים שהיא רוצה לשלוח:</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                <div class="animated anim-2 p-4 gate-box">
+                    <b>לשליחת 00:</b> אליס לא עושה כלום (שער I).<br>
+                    מצב משותף: <span class="inline-math">$\frac{|00\rangle+|11\rangle}{\sqrt{2}}$</span> ($|\Phi^+\rangle$)
+                </div>
+                <div class="animated anim-3 p-4 gate-box">
+                    <b>לשליחת 01:</b> אליס מפעילה שער Z (על הביט הראשון).<br>
+                    מצב משותף: <span class="inline-math">$\frac{|00\rangle-|11\rangle}{\sqrt{2}}$</span> ($|\Phi^-\rangle$)
+                </div>
+                <div class="animated anim-4 p-4 gate-box">
+                    <b>לשליחת 10:</b> אליס מפעילה שער X (על הביט הראשון).<br>
+                    מצב משותף: <span class="inline-math">$\frac{|10\rangle+|01\rangle}{\sqrt{2}}$</span> ($|\Psi^+\rangle$)
+                </div>
+                <div class="animated anim-5 p-4 gate-box">
+                    <b>לשליחת 11:</b> אליס מפעילה X ואז Z (על הביט הראשון).<br>
+                    מצב משותף: <span class="inline-math">$\frac{|01\rangle-|10\rangle}{\sqrt{2}}$</span> ($|\Psi^-\rangle$)
+                </div>
+            </div>
+            <p class="animated anim-5 mt-4 text-xl">לאחר הפעולה, אליס שולחת את הקיוביט הבודד שלה לבוב.</p>
+        </div>
+    </div>
+
+    <!-- שקף 13: קידוד צפוף (ג') -->
+    <div class="slide">
+        <div class="slide-content">
+            <h2 class="animated anim-1">קידוד צפוף: הפרוטוקול (הפענוח של בוב)</h2>
+            <ul class="list-disc mr-8 animated anim-2 space-y-3">
+                <li><b>הקבלה:</b> בוב מקבל את הקיוביט של אליס וכעת מחזיק בשני הקיוביטים.</li>
+                <li><b>המצב:</b> בוב מחזיק כעת באחד מארבעת מצבי בל האפשריים.</li>
+                <li><b>הפענוח:</b>
+                    <ul class="list-disc mr-8">
+                        <li>ארבעת מצבי בל מהווים בסיס אורתונורמלי.</li>
+                        <li>בוב יכול לבצע "מדידה בבסיס בל" (ע"י הפעלת CNOT הפוך ואז H, ומדידה).</li>
+                        <li>המדידה תזהה בוודאות (הסתברות 1) איזה מארבעת המצבים נמצא בידיו.</li>
+                    </ul>
+                </li>
+                <li class="font-bold text-violet-300 text-xl mt-4">כל מצב מתאים בדיוק לזוג הביטים שאליס התכוונה לשלוח, וכך בוב מקבל את המידע.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- שקף 14: טלפורטציה (א') -->
+    <div class="slide">
+        <div class="slide-content">
+            <h2 class="animated anim-1">טלפורטציה קוונטית: המטרה</h2>
+            <ul class="list-disc mr-8 animated anim-2 space-y-3">
+                <li><b>המטרה:</b> אליס רוצה להעביר לבוב מצב קוונטי לא ידוע (<span class="inline-math">$|\psi\rangle=\alpha|0\rangle+\beta|1\rangle$</span>).</li>
+                <li><b>האתגר:</b> לעשות זאת מבלי להעביר את הקיוביט עצמו בערוץ קוונטי.</li>
+            </ul>
+            <h3 class="animated anim-3">המשאבים הנדרשים:</h3>
+             <ul class="list-disc mr-8 animated anim-3">
+                <li>ערוץ תקשורת <b>קלאסי</b> (כדי לשלוח 2 ביטים רגילים).</li>
+                <li>זוג קיוביטים שזור מראש (מצב בל <span class="inline-math">$\frac{|00\rangle+|11\rangle}{\sqrt{2}}$</span>) שאליס ובוב חולקים (כל אחד מחזיק חצי).</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- שקף 15: טלפורטציה (ב') -->
+    <div class="slide">
+        <div class="slide-content">
+            <h2 class="animated anim-1">טלפורטציה קוונטית: הפרוטוקול (הפעולות של אליס)</h2>
+            <p class="animated anim-2">אליס מחזיקה בשני קיוביטים: (1) הקיוביט <span class="inline-math">$|\psi\rangle$</span> שהיא רוצה לשלוח, ו-(2) החצי שלה מהזוג השזור.</p>
+            <ol class="list-decimal mr-8 animated anim-3 space-y-3">
+                <li><b>שער CX (CNOT):</b> אליס מפעילה CNOT על שני הקיוביטים שבידה.
+                    <ul class="list-disc mr-8 text-base">
+                        <li>קיוביט הבקרה: <span class="inline-math">$|\psi\rangle$</span> (קיוביט 1).</li>
+                        <li>קיוביט המטרה: החצי שלה מהזוג השזור (קיוביט 2).</li>
+                    </ul>
+                </li>
+                <li><b>שער H (הדמר):</b> אליס מפעילה שער הדמר על הקיוביט הראשון (<span class="inline-math">$|\psi\rangle$</span>).</li>
+                <li><b>מדידה:</b> אליס מודדת את שני הקיוביטים שבידה (קיוביטים 1 ו-2).</li>
+                <li><b>שידור:</b> אליס מקבלת תוצאה של שני ביטים קלאסיים (00, 01, 10, או 11) ושולחת אותם לבוב בערוץ הקלאסי.</li>
+            </ol>
+        </div>
+    </div>
+
+    <!-- שקף 16: טלפורטציה (ג') -->
+    <div class="slide">
+        <div class="slide-content">
+            <h2 class="animated anim-1">טלפורטציה קוונטית: הפרוטוקול (הפעולות של בוב)</h2>
+            <ul class="list-disc mr-8 animated anim-2">
+                <li><b>קריסת המערכת:</b> המדידה של אליס גורמת לקריסת המערכת. הקיוביט של בוב (קיוביט 3) משתנה לאחד מארבעה מצבים אפשריים.</li>
+                <li><b>הקבלה:</b> בוב מקבל את שני הביטים הקלאסיים מאליס.</li>
+                <li><b>תיקון:</b> בוב יודע כעת כיצד לתקן את הקיוביט שבידו כדי לשחזר את <span class="inline-math">$|\psi\rangle$</span>.</li>
+            </ul>
+            
+            <!-- Table for fixes -->
+            <div class="animated anim-3 mt-4" dir="ltr">
+                <div class="grid grid-cols-3 gap-2 text-center text-sm sm:text-base p-2 rounded-lg bg-gray-800">
+                    <div class="p-2 text-violet-300 font-bold">אם אליס מדדה:</div>
+                    <div class="p-2 text-violet-300 font-bold">המצב אצל בוב:</div>
+                    <div class="p-2 text-violet-300 font-bold">התיקון שבוב מבצע:</div>
+                    
+                    <!-- Row 1 -->
+                    <div class="p-2 bg-gray-700 rounded">00</div>
+                    <div class="p-2 bg-gray-700 rounded"><span class="inline-math">$\alpha|0\rangle+\beta|1\rangle$</span></div>
+                    <div class="p-2 bg-gray-700 rounded">כלום (I)</div>
+                    
+                    <!-- Row 2 -->
+                    <div class="p-2 bg-gray-700 rounded">01</div>
+                    <div class="p-2 bg-gray-700 rounded"><span class="inline-math">$\alpha|1\rangle+\beta|0\rangle$</span></div>
+                    <div class="p-2 bg-gray-700 rounded">שער X</div>
+
+                    <!-- Row 3 -->
+                    <div class="p-2 bg-gray-700 rounded">10</div>
+                    <div class="p-2 bg-gray-700 rounded"><span class="inline-math">$\alpha|0\rangle-\beta|1\rangle$</span></div>
+                    <div class="p-2 bg-gray-700 rounded">שער Z</div>
+
+                    <!-- Row 4 -->
+                    <div class="p-2 bg-gray-700 rounded">11</div>
+                    <div class="p-2 bg-gray-700 rounded"><span class="inline-math">$\alpha|1\rangle-\beta|0\rangle$</span></div>
+                    <div class="p-2 bg-gray-700 rounded">שער ZX</div>
+                </div>
+            </div>
+            
+            <p class="animated anim-4 mt-4"><b>התוצאה הסופית:</b> לאחר התיקון, בוב מחזיק בעותק מושלם של המצב <span class="inline-math">$|\psi\rangle$</span>.</p>
+            <p class="animated anim-5 text-base text-gray-400"><b>הערה חשובה:</b> המצב המקורי של אליס נהרס בתהליך המדידה. מידע קוונטי לא שוכפל (No-Cloning).</p>
+        </div>
+    </div>
+
+    <!-- === סוף 9 שקפים חדשים === -->
+
 
     <!-- Navigation -->
     <button id="prev-btn" class="nav-btn">&rarr;</button>
