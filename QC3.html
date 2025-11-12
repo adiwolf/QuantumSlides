@@ -41,7 +41,7 @@
             width: 100%;
             
         }
-        /* bl */
+        
         .right-content {/* יישור התוכן לימין כברירת מחדל לשקפים */
             text-align: right; 
         }
@@ -732,6 +732,28 @@
             
             showSlide(currentSlide);
         });
+
+        // Function to toggle solution visibility
+        function toggleSolution(id) {
+            const solution = document.getElementById(id);
+            if (solution) { // Check if element exists
+                 if (solution.style.display === 'block') {
+                    solution.style.display = 'none';
+                } else {
+                    solution.style.display = 'block';
+                     // Re-render KaTeX in the solution when it becomes visible
+                     renderMathInElement(solution, {
+                         delimiters: [
+                             {left: '$$', right: '$$', display: true}, {left: '\\[', right: '\\]', display: true},
+                             {left: '$', right: '$', display: false}, {left: '\\(', right: '\\)', display: false}
+                         ],
+                         throwOnError : false
+                     });
+                }
+            } else {
+                console.error("Solution element with id '" + id + "' not found.");
+            }
+        }
     </script>
 </body>
 </html>
