@@ -372,6 +372,86 @@
     </div>
 
     <!-- ===  שקפים חדשים מתחילים כאן === -->
+    <!-- שקף פתיחה: מטרות -->
+<div class="slide">
+  <div class="slide-content relative overflow-hidden">
+
+
+    <div class="relative z-10">
+      <h2 class="animated anim-1 text-4xl md:text-5xl font-bold text-white mb-6">
+        מטרות
+      </h2>
+
+      <div class="grid md:grid-cols-3 gap-6 items-start animated anim-2">
+        <!-- טור טקסט -->
+        <div class="md:col-span-2">
+          <ul class="list-disc mr-8 space-y-4 text-slate-200 leading-relaxed">
+            <li>
+              להבין למה חישוב קוונטי הוא <b>“חזק כמו”</b> חישוב קלאסי מבחינת יכולת חישוב.
+            </li>
+            <li>
+              להכיר יישומים של מצב שזור (Bell):
+              <ul class="list-disc mr-8 mt-2 space-y-2">
+                <li><b>קידוד צפוף</b> — שיגור ביטי-מידע קלאסיים באמצעות קיוביט אחד + שזירה.</li>
+                <li><b>טלפורטציה קוונטית</b> — העברת מצב קוונטי בעזרת שזירה + תקשורת קלאסית.</li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+
+        <!-- טור איורים קטנים דקורטיביים -->
+        <div class="flex md:block gap-4 md:gap-6 justify-center md:justify-start">
+          <!-- אייקון: קידוד צפוף / שזירה -->
+          <figure class="bg-slate-900/50 border border-slate-700/60 rounded-xl p-4 shadow-xl w-40">
+            <svg viewBox="0 0 200 120" class="w-full h-auto" role="img" aria-label="איור שזירה לקידוד צפוף">
+              <defs>
+                <linearGradient id="grad1" x1="0" x2="1" y1="0" y2="0">
+                  <stop offset="0%" stop-color="#60a5fa"/>
+                  <stop offset="100%" stop-color="#a78bfa"/>
+                </linearGradient>
+              </defs>
+              <!-- שני כדורים (קיוביטים) -->
+              <circle cx="50" cy="60" r="26" fill="none" stroke="url(#grad1)" stroke-width="3"/>
+              <circle cx="150" cy="60" r="26" fill="none" stroke="url(#grad1)" stroke-width="3"/>
+              <!-- גל שזור ביניהם -->
+              <path d="M 24 60 C 55 20, 95 100, 126 60 S 176 20, 196 60"
+                    fill="none" stroke="url(#grad1)" stroke-width="3"/>
+              <!-- תוויות קטנות -->
+              <text x="50" y="64" text-anchor="middle" font-size="14" fill="#93c5fd" font-weight="700">A</text>
+              <text x="150" y="64" text-anchor="middle" font-size="14" fill="#c4b5fd" font-weight="700">B</text>
+            </svg>
+            <figcaption class="text-center text-xs text-slate-300 mt-2">קידוד צפוף</figcaption>
+          </figure>
+
+          <!-- אייקון: טלפורטציה (גל בין כדור הארץ לירח) -->
+          <figure class="bg-slate-900/50 border border-slate-700/60 rounded-xl p-4 shadow-xl w-40">
+            <svg viewBox="0 0 200 120" class="w-full h-auto" role="img" aria-label="איור טלפורטציה קוונטית">
+              <defs>
+                <linearGradient id="grad2" x1="0" x2="1" y1="0" y2="0">
+                  <stop offset="0%" stop-color="#22d3ee"/>
+                  <stop offset="100%" stop-color="#a78bfa"/>
+                </linearGradient>
+              </defs>
+              <!-- כדור הארץ -->
+              <circle cx="42" cy="78" r="22" fill="none" stroke="#38bdf8" stroke-width="3"/>
+              <path d="M22 78a20 20 0 0 0 40 0" fill="none" stroke="#38bdf8" stroke-width="2" opacity=".7"/>
+              <!-- הירח -->
+              <circle cx="162" cy="42" r="14" fill="none" stroke="#a78bfa" stroke-width="3"/>
+              <circle cx="162" cy="42" r="4" fill="#a78bfa" opacity=".5"/>
+              <!-- גל טלפורטציה -->
+              <path d="M 64 68 C 90 30, 120 90, 146 52"
+                    fill="none" stroke="url(#grad2)" stroke-width="3"/>
+            </svg>
+            <figcaption class="text-center text-xs text-slate-300 mt-2">טלפורטציה קוונטית</figcaption>
+          </figure>
+        </div>
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
     
     <!-- New Slide 7: מודלים קלאסיים לחישוב -->
     <div class="slide">
