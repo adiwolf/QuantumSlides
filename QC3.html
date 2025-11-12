@@ -544,15 +544,15 @@
                     מצב משותף: <span class="inline-math">$\frac{|00\rangle+|11\rangle}{\sqrt{2}}$</span>  ($|\Phi^+\rangle$)
                 </div>
                 <div class="animated anim-3 p-4 gate-box">
-                    <b>לשליחת 01:</b><br> אליס מפעילה שער Z (על הביט הראשון).<br>
+                    <b>לשליחת 01:</b><br> אליס מפעילה שער Z (על הקיוביט הראשון).<br>
                     מצב משותף: <span class="inline-math">$\frac{|00\rangle-|11\rangle}{\sqrt{2}}$</span>  ($|\Phi^-\rangle$)
                 </div>
                 <div class="animated anim-4 p-4 gate-box">
-                    <b>לשליחת 10:</b><br> אליס מפעילה שער X (על הביט הראשון).<br>
+                    <b>לשליחת 10:</b><br> אליס מפעילה שער X (על הקיוביט הראשון).<br>
                     מצב משותף: <span class="inline-math">$\frac{|10\rangle+|01\rangle}{\sqrt{2}}$</span>  ($|\Psi^+\rangle$)
                 </div>
                 <div class="animated anim-5 p-4 gate-box">
-                    <b>לשליחת 11:</b><br> אליס מפעילה X ואז Z (על הביט הראשון).<br>
+                    <b>לשליחת 11:</b><br> אליס מפעילה X ואז Z (על הקיוביט הראשון).<br>
                     מצב משותף: <span class="inline-math">$\frac{|01\rangle-|10\rangle}{\sqrt{2}}$</span>  ($|\Psi^-\rangle$)
                 </div>
             </div>
@@ -604,7 +604,7 @@
             <h3 class="animated anim-3">המשאבים הנדרשים:</h3>
              <ul class="list-disc mr-8 animated anim-3 right-content">
                 <li>ערוץ תקשורת <b>קלאסי</b> (כדי לשלוח 2 ביטים רגילים).</li>
-                <li>זוג קיוביטים שזור מראש (מצב בל <span class="inline-math">$\frac{|00\rangle+|11\rangle}{\sqrt{2}}$</span>) שאליס ובוב חולקים (כל אחד מחזיק חצי).</li>
+                <li>זוג קיוביטים שזור מראש (מצב בל <span class="inline-math">$\frac{|00\rangle+|11\rangle}{\sqrt{2}}$</span>) שאליס ובוב חולקים (אליס מחזיקה את הקיוביט הראשון, בוב את השני).</li>
             </ul>
         </div>
     </div>
@@ -613,16 +613,16 @@
     <div class="slide">
         <div class="slide-content">
             <h2 class="animated anim-1">טלפורטציה קוונטית: הפרוטוקול (הפעולות של אליס)</h2>
-            <p class="animated anim-2 right-content">אליס מחזיקה בשני קיוביטים: (1) הקיוביט <span class="inline-math">$|\psi\rangle$</span> שהיא רוצה לשלוח, ו-(2) החצי שלה מהזוג השזור.</p>
+            <p class="animated anim-2 right-content">אליס מחזיקה בשני קיוביטים: (I) הקיוביט <span class="inline-math">$|\psi\rangle$</span> שהיא רוצה לשלוח, ו-(II) הקיוביט הראשון מהזוג השזור.</p>
             <ol class="list-decimal mr-8 animated anim-3 space-y-3 right-content">
                 <li><b>שער CX (CNOT):</b> אליס מפעילה CNOT על שני הקיוביטים שבידה.
                     <ul class="list-disc mr-8 text-base">
-                        <li>קיוביט הבקרה: <span class="inline-math">$|\psi\rangle$</span> (קיוביט 1).</li>
-                        <li>קיוביט המטרה: החצי שלה מהזוג השזור (קיוביט 2).</li>
+                        <li>קיוביט הבקרה: <span class="inline-math">$|\psi\rangle$</span> (קיוביט I).</li>
+                        <li>קיוביט המטרה: הקיוביט הראשון מהזוג השזור (קיוביט II).</li>
                     </ul>
                 </li>
-                <li><b>שער H (הדמר):</b> אליס מפעילה שער הדמר על הקיוביט הראשון (<span class="inline-math">$|\psi\rangle$</span>).</li>
-                <li><b>מדידה:</b> אליס מודדת את שני הקיוביטים שבידה (קיוביטים 1 ו-2).</li>
+                <li><b>שער H (הדמר):</b> אליס מפעילה שער הדמר על הקיוביט (I) (<span class="inline-math">$|\psi\rangle$</span>).</li>
+                <li><b>מדידה:</b> אליס מודדת את שני הקיוביטים שבידה (קיוביטים I ו-II).</li>
                 <li><b>שידור:</b> אליס מקבלת תוצאה של שני ביטים קלאסיים (00, 01, 10, או 11) ושולחת אותם לבוב בערוץ הקלאסי.</li>
             </ol>
         </div>
@@ -633,7 +633,7 @@
         <div class="slide-content">
             <h2 class="animated anim-1">טלפורטציה קוונטית: הפרוטוקול (הפעולות של בוב)</h2>
             <ul class="list-disc mr-8 animated anim-2">
-                <li><b>קריסת המערכת:</b> המדידה של אליס גורמת לקריסת המערכת. הקיוביט של בוב (קיוביט 3) משתנה לאחד מארבעה מצבים אפשריים.</li>
+                <li><b>קריסת המערכת:</b> המדידה של אליס גורמת לקריסת המערכת. הקיוביט של בוב (קיוביט III) משתנה לאחד מארבעה מצבים אפשריים.</li>
                 <li><b>הקבלה:</b> בוב מקבל את שני הביטים הקלאסיים מאליס.</li>
                 <li><b>תיקון:</b> בוב יודע כעת כיצד לתקן את הקיוביט שבידו כדי לשחזר את <span class="inline-math">$|\psi\rangle$</span>.</li>
             </ul>
