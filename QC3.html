@@ -378,7 +378,7 @@
         <div class="slide-content">
             <h2 class="animated anim-1">מודלים קלאסיים לחישוב</h2>
             <p class="animated anim-2">
-                לפני שנגדיר חישוב קוונטי, נזכיר שלושה מודלים חשובים בעולם הקלאסי:
+                לפני שנחזור לחישוב קוונטי, נזכיר שלושה מודלים חשובים בעולם הקלאסי:
             </p>
             <ul class="animated anim-3 mt-4 space-y-3 text-right">
                 <li><span class="font-bold text-violet-300">מודל "מחשב אמיתי"</span> –
@@ -443,12 +443,14 @@
             <h2 class="animated anim-1">חישוב קוונטי וקלאסי (א'): האתגר</h2>
             <ul class="list-disc mr-8 animated anim-2 space-y-4 right-content">
                 <li><b>הבעיה:</b> שערים קלאסיים (כמו AND) אינם הפיכים, אך כל חישוב קוונטי (ללא מדידה) חייב להיות אוניטרי, ובפרט <b>הפיך</b>.</li>
-                <li><b>ניסיון 1 (כשל):</b> הגדרת שער AND עם 2 קלטים ו-1 פלט (<span class="inline-math">$U_{AND}|00\rangle=|0\rangle$</span>).
+                <li><div class="solution-toggle" onclick="toggleSolution('sol1')">הצג ניסיון</div>
+                        <div id="sol1" class="solution"><b>ניסיון 1 (כשל):</b> הגדרת שער AND עם 2 קלטים ו-1 פלט (<span class="inline-math">$U_{AND}|00\rangle=|0\rangle$</span>).
                     <ul class="list-disc mr-8"><li><b>למה נכשל?</b> אופרטור קוונטי חייב להחזיר את אותו מספר קיוביטים שהוא מקבל (האופרטור אינו משמר נורמה).</li></ul>
-                </li>
-                <li><b>ניסיון 2 (כשל):</b> הגדרת שער AND שמחזיר 2 קלטים ו-2 פלטים (למשל <span class="inline-math">$U_{AND}|00\rangle=|00\rangle$</span> ו-<span class="inline-math">$U_{AND}|01\rangle=|00\rangle$</span>).
+                        </div></li>
+                <li><div class="solution-toggle" onclick="toggleSolution('sol2')">הצג ניסיון</div>
+                        <div id="sol2" class="solution"><b>ניסיון 2 (כשל):</b> הגדרת שער AND שמחזיר 2 קלטים ו-2 פלטים (למשל <span class="inline-math">$U_{AND}|00\rangle=|00\rangle$</span> ו-<span class="inline-math">$U_{AND}|01\rangle=|00\rangle$</span>).
                     <ul class="list-disc mr-8"><li><b>למה נכשל?</b> האופרטור אינו הפיך (קלטים שונים מובילים לאותו פלט), ולכן אינו אוניטרי.</li></ul>
-                </li>
+                        </div></li>
             </ul>
         </div>
     </div>
