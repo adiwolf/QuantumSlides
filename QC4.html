@@ -451,9 +451,9 @@
         document.getElementById('click-counter').innerText = state.classicalGame.clicks;
         const feedback = document.getElementById('game-feedback');
         if (state.classicalGame.isBalanced) {
-            if (state.classicalGame.clicks > 4) feedback.innerText = "כבר בדקת יותר מחצי! במקרה הגרוע היית צריך את זה כדי להיות בטוח.";
+            if (state.classicalGame.clicks > 4) feedback.innerText = "כבר בדקת יותר מחצי! בשלב הזה ניתן להסיק שהפונקציה היא... מאוזנת!.";
         } else {
-            if (state.classicalGame.clicks > 4) feedback.innerText = "ראיתם 5 זהים. זה כנראה קבוע, אבל אי אפשר להיות בטוחים ב-100% בלי לבדוק עוד!";
+            if (state.classicalGame.clicks > 4) feedback.innerText = "ראיתם 5 זהים. ניתן להסיק שהפונקציה היא... קבועה!";
         }
     }
     function updateOracleType(value) { state.quantumSim.oracleType = value; renderSimulation(); }
