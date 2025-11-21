@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>אלגוריתם דויטש-גוזה: מסע קוונטי</title>
+<title>אלגוריתם דויטש-גוזה</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;700&amp;display=swap" rel="stylesheet"/>
@@ -46,9 +46,9 @@
 <header class="bg-indigo-900 text-white p-4 shadow-lg flex justify-between items-center z-10 shrink-0">
 <div class="flex items-center gap-2">
 <span class="material-symbols-outlined text-3xl">quantum_problem</span>
-<h1 class="text-xl font-bold">אלגוריתם דויטש-גוזה</h1>
+<h1 class="text-xl font-bold">אלגוריתם דויטש-ג׳וזה</h1>
 </div>
-<div class="text-sm opacity-80 hidden md:block">מצגת אינטראקטיבית למורים לפיזיקה</div>
+<div class="text-sm opacity-80 hidden md:block">|0..0> -> H..H -> Uf -> H..H -> מדידה</div>
 </header>
 <main class="flex-grow relative overflow-y-auto p-4 md:p-8 flex justify-center items-start" id="main-container">
 </main>
@@ -246,7 +246,7 @@
                                 <div class="flex items-start gap-4">
                                     <div class="bg-indigo-100 text-indigo-700 font-bold rounded px-2 py-1 text-sm shrink-0 mt-1">שלב 2</div>
                                     <div>
-                                        <p class="font-bold text-gray-700 text-base">האורקל ($U_f$):</p>
+                                        <p class="font-bold text-gray-700 text-base">האורקל ($U_f\left|x\right\rangle =\left(-1\right)^{f\left(x\right)}\left|x\right\rangle$):</p>
                                         <p class="text-sm text-gray-600 mb-2">מכיוון ש-$f(x)=1$ לכל $x$, כולם מקבלים פאזה שלילית $(-1)^1 = -1$.</p>
                                         $$ |\\psi_2\\rangle = \\frac{1}{2}(-|00\\rangle - |01\\rangle - |10\\rangle - |11\\rangle) = -|+\\rangle|+\\rangle $$
                                     </div>
@@ -272,7 +272,7 @@
                                 <div class="flex items-start gap-4">
                                     <div class="bg-indigo-100 text-indigo-700 font-bold rounded px-2 py-1 text-sm shrink-0 mt-1">שלב 2</div>
                                     <div>
-                                        <p class="font-bold text-gray-700 text-base">האורקל (עבור $f(x) = x_{\\text{left}}$):</p>
+                                        <p class="font-bold text-gray-700 text-base">האורקל ($U_f\left|x\right\rangle =\left(-1\right)^{f\left(x\right)}\left|x\right\rangle$):</p>
                                         <p class="text-sm text-gray-600 mb-2">הפונקציה מחזירה 1 כאשר הביט השמאלי הוא 1 (כלומר עבור 10 ו-11). שם הפאזה תתהפך.</p>
                                         $$ |\\psi_2\\rangle = \\frac{1}{2}(|00\\rangle + |01\\rangle \\mathbf{- |10\\rangle - |11\\rangle}) $$
                                         <p class="text-sm text-gray-600 mt-2">ניתן לפרק זאת למכפלה טנזורית:</p>
